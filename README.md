@@ -6,6 +6,7 @@
 *// If you're not running it on repl.it, remove `keep_alive.js`* <br>
 *// If you are running it on repl.it, setup UptimeRobot* <br>
 **4)** Run `node index.js` or double-click `start.bat`<br>
+(*you can `shift + right-click` in the folder and launch Windows Shell to run these*)
 
 **Ta-dah, you -hopefully- have a working bot.**
 
