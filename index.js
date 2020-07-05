@@ -6,6 +6,7 @@ require('dotenv').config();
 const cliente = require('nekos.life');
 const neko = new cliente();
 const fetch = require('node-fetch')
+const color = 16769572
 /*
  DISCORD.JS VERSION 12 CODE
 */
@@ -84,19 +85,16 @@ client.on("message", async message => {
   }
   
   if(command === "hug") {
-   async function test() {
-      console.log(await neko.sfw.hug());
-   } 
 	if (args[0]) {
 		const user = getUserFromMention(args[0]);
 		if (!user) {
-			return message.reply('Please use a proper mention if you want to see someone else\'s avatar.');
+			return message.reply('Please use a proper mention.');
 		}
 
 		const body = await fetch('https://nekos.life/api/v2/img/hug').then(res => res.json())
 	    const embed = {
             "description": `<@${message.author.id}> hugged <@${user.id}>`,
-            "color": 4686544,
+            "color": color,
             "image": {
                "url": body.url //this is where the neko.sfw.hug url should go
             },
@@ -107,7 +105,7 @@ client.on("message", async message => {
 	const body = await fetch('https://nekos.life/api/v2/img/hug').then(res => res.json())
 	const embed = {
         "description": `<@${message.author.id}> hugged themselves.`,
-        "color": 4686544,
+        "color": color,
         "image": {
            "url": body.url //this is where the neko.sfw.hug url should go
         },
@@ -116,19 +114,16 @@ client.on("message", async message => {
   }
 
   if(command === "kiss") {
-   async function test() {
-      console.log(await neko.sfw.hug());
-   } 
 	if (args[0]) {
 		const user = getUserFromMention(args[0]);
 		if (!user) {
-			return message.reply('Please use a proper mention if you want to see someone else\'s avatar.');
+			return message.reply('Please use a proper mention.');
 		}
 
 		const body = await fetch('https://nekos.life/api/v2/img/kiss').then(res => res.json())
 	    const embed = {
             "description": `<@${message.author.id}> kissed <@${user.id}>`,
-            "color": 4686544,
+            "color": color,
             "image": {
                "url": body.url //this is where the neko.sfw.hug url should go
             },
@@ -139,7 +134,7 @@ client.on("message", async message => {
 	const body = await fetch('https://nekos.life/api/v2/img/kiss').then(res => res.json())
 	const embed = {
         "description": `<@${message.author.id}> kissed themselves.`,
-        "color": 4686544,
+        "color": color,
         "image": {
            "url": body.url //this is where the neko.sfw.hug url should go
         },
@@ -148,19 +143,16 @@ client.on("message", async message => {
   }
 
   if(command === "slap") {
-   async function test() {
-      console.log(await neko.sfw.hug());
-   } 
 	if (args[0]) {
 		const user = getUserFromMention(args[0]);
 		if (!user) {
-			return message.reply('Please use a proper mention if you want to see someone else\'s avatar.');
+			return message.reply('Please use a proper mention.');
 		}
 
 		const body = await fetch('https://nekos.life/api/v2/img/slap').then(res => res.json())
 	    const embed = {
             "description": `<@${message.author.id}> slapped <@${user.id}>`,
-            "color": 4686544,
+            "color": color,
             "image": {
                "url": body.url 
             },
@@ -171,7 +163,7 @@ client.on("message", async message => {
 	const body = await fetch('https://nekos.life/api/v2/img/slap').then(res => res.json())
 	const embed = {
         "description": `<@${message.author.id}> slapped themselves.`,
-        "color": 4686544,
+        "color": color,
         "image": {
            "url": body.url 
         },
@@ -180,19 +172,16 @@ client.on("message", async message => {
   }
   
   if(command === "pat") {
-   async function test() {
-      console.log(await neko.sfw.hug());
-   } 
 	if (args[0]) {
 		const user = getUserFromMention(args[0]);
 		if (!user) {
-			return message.reply('Please use a proper mention if you want to see someone else\'s avatar.');
+			return message.reply('Please use a proper mention.');
 		}
 
 		const body = await fetch('https://nekos.life/api/v2/img/pat').then(res => res.json())
 	    const embed = {
             "description": `<@${message.author.id}> gave <@${user.id}> a pat.`,
-            "color": 4686544,
+            "color": color,
             "image": {
                "url": body.url 
             },
@@ -203,7 +192,7 @@ client.on("message", async message => {
 	const body = await fetch('https://nekos.life/api/v2/img/pat').then(res => res.json())
 	const embed = {
         "description": `<@${message.author.id}> gave themselves a pat.`,
-        "color": 4686544,
+        "color": color,
         "image": {
            "url": body.url 
         },
@@ -212,19 +201,16 @@ client.on("message", async message => {
   }
   
   if(command === "cuddle") {
-   async function test() {
-      console.log(await neko.sfw.hug());
-   } 
 	if (args[0]) {
 		const user = getUserFromMention(args[0]);
 		if (!user) {
-			return message.reply('Please use a proper mention if you want to see someone else\'s avatar.');
+			return message.reply('Please use a proper mention.');
 		}
 
 		const body = await fetch('https://nekos.life/api/v2/img/cuddle').then(res => res.json())
 	    const embed = {
             "description": `<@${message.author.id}> cuddled with <@${user.id}>`,
-            "color": 4686544,
+            "color": color,
             "image": {
                "url": body.url 
             },
@@ -235,7 +221,7 @@ client.on("message", async message => {
 	const body = await fetch('https://nekos.life/api/v2/img/cuddle').then(res => res.json())
 	const embed = {
         "description": `<@${message.author.id}> cuddled with themselves`,
-        "color": 4686544,
+        "color": color,
         "image": {
            "url": body.url 
         },
@@ -244,19 +230,16 @@ client.on("message", async message => {
   }
   
   if(command === "cry") {
-   async function test() {
-      console.log(await neko.sfw.hug());
-   } 
 	if (args[0]) {
 		const user = getUserFromMention(args[0]);
 		if (!user) {
-			return message.reply('Please use a proper mention if you want to see someone else\'s avatar.');
+			return message.reply('Please use a proper mention.');
 		}
 
 		const body = await fetch('https://waifu.pics/api/cry').then(res => res.json())
 	    const embed = {
             "description": `<@${message.author.id}> cries with <@${user.id}>`,
-            "color": 4686544,
+            "color": color,
             "image": {
                "url": body.url 
             },
@@ -267,7 +250,7 @@ client.on("message", async message => {
 	const body = await fetch('https://waifu.pics/api/cry').then(res => res.json())
 	const embed = {
         "description": `<@${message.author.id}> is crying`,
-        "color": 4686544,
+        "color": color,
         "image": {
            "url": body.url 
         },
@@ -276,19 +259,16 @@ client.on("message", async message => {
   }  
   
   if(command === "lick") {
-   async function test() {
-      console.log(await neko.sfw.hug());
-   } 
 	if (args[0]) {
 		const user = getUserFromMention(args[0]);
 		if (!user) {
-			return message.reply('Please use a proper mention if you want to see someone else\'s avatar.');
+			return message.reply('Please use a proper mention.');
 		}
 
 		const body = await fetch('https://waifu.pics/api/lick').then(res => res.json())
 	    const embed = {
             "description": `<@${message.author.id}> licked <@${user.id}>`,
-            "color": 4686544,
+            "color": color,
             "image": {
                "url": body.url 
             },
@@ -299,7 +279,7 @@ client.on("message", async message => {
 	const body = await fetch('https://waifu.pics/api/lick').then(res => res.json())
 	const embed = {
         "description": `<@${message.author.id}> licked themselves`,
-        "color": 4686544,
+        "color": color,
         "image": {
            "url": body.url 
         },
@@ -308,19 +288,16 @@ client.on("message", async message => {
   }  
   
   if(command === "smug") {
-   async function test() {
-      console.log(await neko.sfw.hug());
-   } 
 	if (args[0]) {
 		const user = getUserFromMention(args[0]);
 		if (!user) {
-			return message.reply('Please use a proper mention if you want to see someone else\'s avatar.');
+			return message.reply('Please use a proper mention.');
 		}
 
 		const body = await fetch('https://nekos.life/api/v2/img/smug').then(res => res.json())
 	    const embed = {
             "description": `<@${message.author.id}> smugs at <@${user.id}>`,
-            "color": 4686544,
+            "color": color,
             "image": {
                "url": body.url 
             },
@@ -331,7 +308,7 @@ client.on("message", async message => {
 	const body = await fetch('https://nekos.life/api/v2/img/smug').then(res => res.json())
 	const embed = {
         "description": `<@${message.author.id}> is feeling smug`,
-        "color": 4686544,
+        "color": color,
         "image": {
            "url": body.url 
         },
@@ -340,19 +317,16 @@ client.on("message", async message => {
   }
   
   if(command === "tickle") {
-   async function test() {
-      console.log(await neko.sfw.hug());
-   } 
 	if (args[0]) {
 		const user = getUserFromMention(args[0]);
 		if (!user) {
-			return message.reply('Please use a proper mention if you want to see someone else\'s avatar.');
+			return message.reply('Please use a proper mention.');
 		}
 
 		const body = await fetch('https://nekos.life/api/v2/img/tickle').then(res => res.json())
 	    const embed = {
             "description": `<@${message.author.id}> tickled <@${user.id}>`,
-            "color": 4686544,
+            "color": color,
             "image": {
                "url": body.url 
             },
@@ -363,7 +337,7 @@ client.on("message", async message => {
 	const body = await fetch('https://nekos.life/api/v2/img/tickle').then(res => res.json())
 	const embed = {
         "description": `<@${message.author.id}> tickled themselves`,
-        "color": 4686544,
+        "color": color,
         "image": {
            "url": body.url 
         },
@@ -372,19 +346,16 @@ client.on("message", async message => {
   }
   
   if(command === "baka") {
-   async function test() {
-      console.log(await neko.sfw.hug());
-   } 
 	if (args[0]) {
 		const user = getUserFromMention(args[0]);
 		if (!user) {
-			return message.reply('Please use a proper mention if you want to see someone else\'s avatar.');
+			return message.reply('Please use a proper mention.');
 		}
 
 		const body = await fetch('https://nekos.life/api/v2/img/baka').then(res => res.json())
 	    const embed = {
             "description": `<@${message.author.id}> called <@${user.id}> a dummy`,
-            "color": 4686544,
+            "color": color,
             "image": {
                "url": body.url 
             },
@@ -394,7 +365,7 @@ client.on("message", async message => {
 
 	const body = await fetch('https://nekos.life/api/v2/img/baka').then(res => res.json())
 	const embed = {
-        "color": 4686544,
+        "color": color,
         "image": {
            "url": body.url 
         },
@@ -403,19 +374,16 @@ client.on("message", async message => {
   }
   
   if(command === "poke") {
-   async function test() {
-      console.log(await neko.sfw.hug());
-   } 
 	if (args[0]) {
 		const user = getUserFromMention(args[0]);
 		if (!user) {
-			return message.reply('Please use a proper mention if you want to see someone else\'s avatar.');
+			return message.reply('Please use a proper mention.');
 		}
 
 		const body = await fetch('https://nekos.life/api/v2/img/poke').then(res => res.json())
 	    const embed = {
             "description": `<@${message.author.id}> poked <@${user.id}>`,
-            "color": 4686544,
+            "color": color,
             "image": {
                "url": body.url 
             },
@@ -426,7 +394,7 @@ client.on("message", async message => {
 	const body = await fetch('https://nekos.life/api/v2/img/poke').then(res => res.json())
 	const embed = {
         "description": `<@${message.author.id}> poked themselves`,
-        "color": 4686544,
+        "color": color,
         "image": {
            "url": body.url 
         },
@@ -435,19 +403,16 @@ client.on("message", async message => {
   }
   
   if(command === "blush") {
-   async function test() {
-      console.log(await neko.sfw.hug());
-   } 
 	if (args[0]) {
 		const user = getUserFromMention(args[0]);
 		if (!user) {
-			return message.reply('Please use a proper mention if you want to see someone else\'s avatar.');
+			return message.reply('Please use a proper mention.');
 		}
 
 		const body = await fetch('https://waifu.pics/api/blush').then(res => res.json())
 	    const embed = {
             "description": `<@${message.author.id}> blushes at <@${user.id}>`,
-            "color": 4686544,
+            "color": color,
             "image": {
                "url": body.url 
             },
@@ -458,7 +423,7 @@ client.on("message", async message => {
 	const body = await fetch('https://waifu.pics/api/blush').then(res => res.json())
 	const embed = {
         "description": `<@${message.author.id}> blushed`,
-        "color": 4686544,
+        "color": color,
         "image": {
            "url": body.url 
         },
@@ -467,19 +432,16 @@ client.on("message", async message => {
   } 
   
   if(command === "wink") {
-   async function test() {
-      console.log(await neko.sfw.hug());
-   } 
 	if (args[0]) {
 		const user = getUserFromMention(args[0]);
 		if (!user) {
-			return message.reply('Please use a proper mention if you want to see someone else\'s avatar.');
+			return message.reply('Please use a proper mention.');
 		}
 
 		const body = await fetch('https://waifu.pics/api/wink').then(res => res.json())
 	    const embed = {
             "description": `<@${message.author.id}> winked at <@${user.id}>`,
-            "color": 4686544,
+            "color": color,
             "image": {
                "url": body.url 
             },
@@ -490,7 +452,7 @@ client.on("message", async message => {
 	const body = await fetch('https://waifu.pics/api/wink').then(res => res.json())
 	const embed = {
         "description": `<@${message.author.id}> winks mysteriously`,
-        "color": 4686544,
+        "color": color,
         "image": {
            "url": body.url 
         },
@@ -499,19 +461,16 @@ client.on("message", async message => {
   }
   
   if(command === "nom") {
-   async function test() {
-      console.log(await neko.sfw.hug());
-   } 
 	if (args[0]) {
 		const user = getUserFromMention(args[0]);
 		if (!user) {
-			return message.reply('Please use a proper mention if you want to see someone else\'s avatar.');
+			return message.reply('Please use a proper mention.');
 		}
 
 		const body = await fetch('https://waifu.pics/api/nom').then(res => res.json())
 	    const embed = {
             "description": `<@${message.author.id}> nommed <@${user.id}>`,
-            "color": 4686544,
+            "color": color,
             "image": {
                "url": body.url 
             },
@@ -521,7 +480,7 @@ client.on("message", async message => {
 
 	const body = await fetch('https://waifu.pics/api/nom').then(res => res.json())
 	const embed = {
-        "color": 4686544,
+        "color": color,
         "image": {
            "url": body.url 
         },
@@ -529,20 +488,17 @@ client.on("message", async message => {
     return message.channel.send({ embed });
   }
   
-  if(command === "highfive") {
-   async function test() {
-      console.log(await neko.sfw.hug());
-   } 
+  if(command === "highfive") { 
 	if (args[0]) {
 		const user = getUserFromMention(args[0]);
 		if (!user) {
-			return message.reply('Please use a proper mention if you want to see someone else\'s avatar.');
+			return message.reply('Please use a proper mention.');
 		}
 
 		const body = await fetch('https://waifu.pics/api/highfive').then(res => res.json())
 	    const embed = {
             "description": `<@${message.author.id}> highfived <@${user.id}>`,
-            "color": 4686544,
+            "color": color,
             "image": {
                "url": body.url 
             },
@@ -553,7 +509,7 @@ client.on("message", async message => {
 	const body = await fetch('https://waifu.pics/api/highfive').then(res => res.json())
 	const embed = {
         "description": `<@${message.author.id}> highfived themselves`,
-        "color": 4686544,
+        "color": color,
         "image": {
            "url": body.url 
         },
@@ -562,19 +518,16 @@ client.on("message", async message => {
   }
   
   if(command === "bite") {
-   async function test() {
-      console.log(await neko.sfw.hug());
-   } 
 	if (args[0]) {
 		const user = getUserFromMention(args[0]);
 		if (!user) {
-			return message.reply('Please use a proper mention if you want to see someone else\'s avatar.');
+			return message.reply('Please use a proper mention.');
 		}
 
 		const body = await fetch('https://waifu.pics/api/bite').then(res => res.json())
 	    const embed = {
             "description": `<@${message.author.id}> bit <@${user.id}>`,
-            "color": 4686544,
+            "color": color,
             "image": {
                "url": body.url 
             },
@@ -585,7 +538,7 @@ client.on("message", async message => {
 	const body = await fetch('https://waifu.pics/api/bite').then(res => res.json())
 	const embed = {
         "description": `<@${message.author.id}> bit themselves`,
-        "color": 4686544,
+        "color": color,
         "image": {
            "url": body.url 
         },
@@ -594,19 +547,16 @@ client.on("message", async message => {
   }
   
   if(command === "dance") {
-   async function test() {
-      console.log(await neko.sfw.hug());
-   } 
 	if (args[0]) {
 		const user = getUserFromMention(args[0]);
 		if (!user) {
-			return message.reply('Please use a proper mention if you want to see someone else\'s avatar.');
+			return message.reply('Please use a proper mention.');
 		}
 
 		const body = await fetch('https://waifu.pics/api/dance').then(res => res.json())
 	    const embed = {
             "description": `<@${message.author.id}> is dancing with <@${user.id}>`,
-            "color": 4686544,
+            "color": color,
             "image": {
                "url": body.url 
             },
@@ -617,7 +567,7 @@ client.on("message", async message => {
 	const body = await fetch('https://waifu.pics/api/dance').then(res => res.json())
 	const embed = {
         "description": `<@${message.author.id}> is dancing alone`,
-        "color": 4686544,
+        "color": color,
         "image": {
            "url": body.url 
         },
@@ -627,9 +577,9 @@ client.on("message", async message => {
   
   if(command === "help") {
 	const embed = {
-		"title": "?? Here's a list of what i can do: ??",
+		"title": "🍩 Here's a list of what i can do: 🍩",
         "description": `**Fun Stuff:** \n \n > hug | kiss | cuddle | bite | cry | nom | blush | dance | lick \n \n > poke | pat | highfive | wink | baka |  smug | tickle \n \n **Utility:** \n \n > ping | help`,
-        "color": 4686544,
+        "color": color,
     };   
 	return message.channel.send({ embed });
   }

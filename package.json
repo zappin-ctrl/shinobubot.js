@@ -20,7 +20,6 @@
     "express": "^4.17.1",
     "mime-types": "^2.1.27",
     "module": "^1.2.5",
-    "nekos.life": "^2.0.7",
     "node-fetch": "^2.6.0",
     "prism-media": "^1.2.2",
     "setimmediate": "^1.0.5"
