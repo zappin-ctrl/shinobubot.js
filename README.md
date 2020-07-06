@@ -3,7 +3,7 @@
 **1)** Run `npm init -y` <br>
 **2)** Run `npm install` <br>
 **3)** Edit `.env` with your bot token & desired prefix<br>
-*// If you're not running it on repl.it, remove `keep_alive.js`* <br>
+*// If you're not running it on repl.it, remove `keep_alive.js` and its request in `index.js` up top* <br>
 *// If you are running it on repl.it, setup UptimeRobot* <br>
 **4)** Run `node index.js` or double-click `start.bat`<br>
 (*you can `shift + right-click` in the folder and launch Windows Shell to run these*)
@@ -14,7 +14,6 @@ It uses **nekos.life** for most of the commands, though some use **waifu.pics**.
 
 
 **These are its dependencies for now.**
-*Actually it doesn't need the nekos.life wrapper at all and i need to remove and fix some stuff anyway so shhhh fuck you.*
 
 ```
     "async": "^3.2.0",
