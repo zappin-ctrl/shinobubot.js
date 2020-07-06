@@ -1,4 +1,4 @@
-# A bot i made that ill keep adding shit to.
+# A bot i made that ill keep adding shit to. <a href="https://deepscan.io/dashboard#view=project&tid=10050&pid=12733&bid=200760"><img src="https://deepscan.io/api/teams/10050/projects/12733/branches/200760/badge/grade.svg?token=a1fa0980263b30233c0ddf1e9c3ed778290db2ee" alt="DeepScan grade"></a>
 **How to install it:**<br>
 **1)** Run `npm init -y` <br>
 **2)** Run `npm install` <br>
