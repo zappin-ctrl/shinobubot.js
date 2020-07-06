@@ -3,8 +3,6 @@
 const keep_alive = require('./keep_alive.js')
 const Discord = require("discord.js");
 require('dotenv').config();
-const cliente = require('nekos.life');
-const neko = new cliente();
 const fetch = require('node-fetch')
 const color = 16769572
 /*
