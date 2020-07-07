@@ -1,7 +1,7 @@
 {
   "name": "ShinobuBot",
   "version": "1.0.0",
-  "description": "",
+  "description": "**How to install it:**<br>\r **1)** Run `npm init -y` <br>\r **2)** Run `npm install` <br>\r **3)** Edit `.env` with your bot token & desired prefix<br>\r *// If you're not running it on repl.it, remove `keep_alive.js` and its request in `index.js` up top* <br>\r *// If you are running it on repl.it, setup UptimeRobot* <br>\r **4)** Run `node index.js` or double-click `start.bat`<br>\r (*you can `shift + right-click` in the folder and launch Windows Shell to run these*)",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -25,5 +25,13 @@
     "node-fetch": "^2.6.0",
     "prism-media": "^1.2.2",
     "setimmediate": "^1.0.5"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zappin-ctrl/shinobubot.js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/zappin-ctrl/shinobubot.js/issues"
+  },
+  "homepage": "https://github.com/zappin-ctrl/shinobubot.js#readme"
 }
