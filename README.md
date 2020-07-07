@@ -1,4 +1,4 @@
-# A bot i made that ill keep adding shit to. 
+# Anime bot for my server, just a project for fun.
 **How to install it:**<br>
 **1)** Run `npm init -y` <br>
 **2)** Run `npm install` <br>
@@ -33,7 +33,7 @@ It uses **nekos.life** for most of the commands, though some use **waifu.pics**.
     "setimmediate": "^1.0.5"
 ```
 
-**Code stolen from:** <br>
+**Graciously borrowed code from:** <br>
 https://github.com/SwitchbladeBot/switchblade/blob/dev/src/commands/gifs/hug.js <br>
 https://gist.github.com/eslachance/3349734a98d30011bb202f47342601d3 <br>
 https://leovoel.github.io/embed-visualizer/ <br>
