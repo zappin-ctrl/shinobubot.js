@@ -9,6 +9,7 @@
 (*you can `shift + right-click` in the folder and launch Windows Shell to run these*)
 
 **Ta-dah, you -hopefully- have a working bot.**
+**Feel free to bully me on Discord @ `zappin#1312`**
 
 It uses **nekos.life** for most of the commands, though some use **waifu.pics**.
 
