@@ -1,6 +1,5 @@
 exports.run = async (client, message, args) => { 
- const { nobullyP } = require('./actions.json');
- const fetch = require('node-fetch') 
+ const { nobullyP } = require('./actions.json'); 
  var nobully = nobullyP[Math.round(Math.random() * (nobullyP.length - 1))];
  let getUserFromMention = message.mentions.users.first()
 	if (args[0]) {

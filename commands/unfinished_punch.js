@@ -1,4 +1,4 @@
-exports.run = async (client, message, args) => { 
+/*exports.run = async (client, message, args) => { 
  const fetch = require('node-fetch') 
  let getUserFromMention = message.mentions.users.first()
 	if (args[0]) {
@@ -28,3 +28,4 @@ exports.run = async (client, message, args) => {
     };
     return message.channel.send({ embed });
   }
+  */

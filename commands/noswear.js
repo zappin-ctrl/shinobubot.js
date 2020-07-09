@@ -1,6 +1,5 @@
 exports.run = async (client, message, args) => { 
  const { noswearP } = require('./actions.json');
- const fetch = require('node-fetch') 
  var noswear = noswearP[Math.round(Math.random() * (noswearP.length - 1))];
  let getUserFromMention = message.mentions.users.first()
 	if (args[0]) {

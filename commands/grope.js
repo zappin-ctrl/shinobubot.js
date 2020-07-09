@@ -1,6 +1,5 @@
 exports.run = async (client, message, args) => { 
  const { gropeP } = require('./actions.json');
- const fetch = require('node-fetch') 
  var grope = gropeP[Math.round(Math.random() * (gropeP.length - 1))];
  let getUserFromMention = message.mentions.users.first()
 	if (args[0]) {

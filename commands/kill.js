@@ -1,6 +1,5 @@
 exports.run = async (client, message, args) => { 
  const { killP } = require('./actions.json');
- const fetch = require('node-fetch') 
  var kill = killP[Math.round(Math.random() * (killP.length - 1))];
  let getUserFromMention = message.mentions.users.first()
 	if (args[0]) {
