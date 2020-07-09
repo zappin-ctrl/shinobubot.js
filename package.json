@@ -1,7 +1,7 @@
 {
   "name": "ShinobuBot",
   "version": "1.0.0",
-  "description": "<a href=\"https://deepscan.io/dashboard#view=project&tid=10073&pid=12751&bid=201617\"><img src=\"https://deepscan.io/api/teams/10073/projects/12751/branches/201617/badge/grade.svg\" alt=\"DeepScan grade\"></a> <br>\r **How to install it:**<br>\r **1)** Run `npm init -y` <br>\r **2)** Run `npm install` <br>\r **3)** Edit `.env` with your bot token & desired prefix<br>\r *// If you're not running it on repl.it, remove `keep_alive.js` and its request in `index.js` up top* <br>\r *// If you are running it on repl.it, setup UptimeRobot* <br>\r **4)** Run `node index.js` or double-click `start.bat`<br>\r (*you can `shift + right-click` in the folder and launch Windows Shell to run these*)",
+  "description": "<a href=\"https://deepscan.io/dashboard#view=project&tid=10073&pid=12751&bid=201617\"><img src=\"https://deepscan.io/api/teams/10073/projects/12751/branches/201617/badge/grade.svg\" alt=\"DeepScan grade\"></a> [![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0) <br> <br>\r **How to install it:**<br>\r **1)** Run `npm init -y` <br>\r **2)** Run `npm install` <br>\r **3)** Edit `.env` with your bot token & desired prefix<br>\r *// If you're not running it on repl.it, remove `keep_alive.js` and its request in `index.js` up top* <br>\r *// If you are running it on repl.it, setup UptimeRobot* <br>\r **4)** Run `node index.js` or double-click `start.bat`<br>\r (*you can `shift + right-click` in the folder and launch Windows Shell to run these*)",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -13,6 +13,7 @@
     "async": "^3.2.0",
     "asynckit": "^0.4.0",
     "benchmark": "^2.1.4",
+    "canvas": "^2.6.1",
     "combined-stream": "^1.0.8",
     "delayed-stream": "^1.0.0",
     "discord.js": "^12.2.0",
