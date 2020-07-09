@@ -1,5 +1,5 @@
 # Anime bot for my server, just a project for fun.
- <a href="https://deepscan.io/dashboard#view=project&tid=10073&pid=12751&bid=201617"><img src="https://deepscan.io/api/teams/10073/projects/12751/branches/201617/badge/grade.svg" alt="DeepScan grade"></a> <br>
+ <a href="https://deepscan.io/dashboard#view=project&tid=10073&pid=12751&bid=201617"><img src="https://deepscan.io/api/teams/10073/projects/12751/branches/201617/badge/grade.svg" alt="DeepScan grade"></a> [![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0) <br> <br>
 **How to install it:**<br>
 **1)** Run `npm init -y` <br>
 **2)** Run `npm install` <br>
