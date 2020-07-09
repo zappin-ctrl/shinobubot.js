@@ -1,7 +1,7 @@
 {
   "name": "ShinobuBot",
   "version": "1.0.0",
-  "description": "**How to install it:**<br>\r **1)** Run `npm init -y` <br>\r **2)** Run `npm install` <br>\r **3)** Edit `.env` with your bot token & desired prefix<br>\r *// If you're not running it on repl.it, remove `keep_alive.js` and its request in `index.js` up top* <br>\r *// If you are running it on repl.it, setup UptimeRobot* <br>\r **4)** Run `node index.js` or double-click `start.bat`<br>\r (*you can `shift + right-click` in the folder and launch Windows Shell to run these*)",
+  "description": "<a href=\"https://deepscan.io/dashboard#view=project&tid=10073&pid=12751&bid=201617\"><img src=\"https://deepscan.io/api/teams/10073/projects/12751/branches/201617/badge/grade.svg\" alt=\"DeepScan grade\"></a> <br>\r **How to install it:**<br>\r **1)** Run `npm init -y` <br>\r **2)** Run `npm install` <br>\r **3)** Edit `.env` with your bot token & desired prefix<br>\r *// If you're not running it on repl.it, remove `keep_alive.js` and its request in `index.js` up top* <br>\r *// If you are running it on repl.it, setup UptimeRobot* <br>\r **4)** Run `node index.js` or double-click `start.bat`<br>\r (*you can `shift + right-click` in the folder and launch Windows Shell to run these*)",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -18,8 +18,10 @@
     "discord.js": "^12.2.0",
     "dotenv": "^8.2.0",
     "enmap": "^5.3.1",
+    "es6": "0.0.7",
     "event-target-shim": "^5.0.1",
     "express": "^4.17.1",
+    "jquery": "^3.5.1",
     "mime-types": "^2.1.27",
     "module": "^1.2.5",
     "node-fetch": "^2.6.0",

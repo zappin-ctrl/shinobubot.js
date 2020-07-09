@@ -1,5 +1,6 @@
 exports.run = async (client, message, args) => { 
- const fetch = require('node-fetch') 
+ const fetch = require('node-fetch')
+ const body = await fetch('https://rra.ram.moe/i/r?type=cry').then(res => res.json()) 
  let getUserFromMention = message.mentions.users.first()
 	if (args[0]) {
 		const user = getUserFromMention
@@ -7,24 +8,21 @@ exports.run = async (client, message, args) => {
 			return message.reply('Please use a proper mention.');
 		}
 
-		const body = await fetch('https://waifu.pics/api/cry').then(res => res.json())
 	    const embed = {
             "description": `<@${message.author.id}> cries with <@${user.id}>`,
             "color": process.env.COLOUR,
             "image": {
-               "url": body.url 
+               "url": `https://rra.ram.moe${body.path}`
             },
         };
         return message.channel.send({ embed });
       } 
 
-	const body = await fetch('https://waifu.pics/api/cry').then(res => res.json())
 	const embed = {
-        "description": `<@${message.author.id}> is crying`,
         "color": process.env.COLOUR,
         "image": {
-           "url": body.url 
+           "url": `https://rra.ram.moe${body.path}`
         },
     };
     return message.channel.send({ embed });
-  }  
+  }
