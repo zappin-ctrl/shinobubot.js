@@ -8,13 +8,13 @@ if (args[0]) {
 			return message.reply('please use a proper mention.');
     }
   //const pog = require(`./milk.jpg`)
-	const canvas = Canvas.createCanvas(680, 347);
+	const canvas = Canvas.createCanvas(1263, 711);
 	const ctx = canvas.getContext('2d');
 
-	const background = await Canvas.loadImage('./commands/milk.jpg');
+	const background = await Canvas.loadImage('./commands/tuck.jpg');
 	ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
 
-	/* // Pick up the pen
+ /* // Pick up the pen
 	ctx.beginPath();
 	// Start the arc to form a circle
 	ctx.arc(100, 100, 75, 0, Math.PI * 2, true);
@@ -24,14 +24,23 @@ if (args[0]) {
 	ctx.clip(); */
 
 	const avatar = await Canvas.loadImage(message.author.displayAvatarURL({ format: 'jpg' }))
-	ctx.drawImage(avatar, 110, 35, 190, 190);
+  ctx.shadowColor = 'black';
+  ctx.shadowBlur = 25;
+	ctx.drawImage(avatar, 70, 480, 265, 265);
+
 
   const avatara = await Canvas.loadImage(user.displayAvatarURL({ format: 'jpg' }))
-	ctx.drawImage(avatara, 420, 110, 90, 90);
+  ctx.translate(canvas.width/2,canvas.height/2);
+	ctx.rotate(310*Math.PI/180);
+  ctx.shadowColor = 'black';
+  ctx.shadowBlur = 25;
+  ctx.drawImage(avatara, -180, -320, 360, 360);
 
-	const attachment = new Discord.MessageAttachment(canvas.toBuffer(), 'milkies.jpg');
+  
 
-	message.channel.send(`> **${message.author.username}** has milked **${user.username}**`,attachment);
+	const attachment = new Discord.MessageAttachment(canvas.toBuffer(), 'tucked.jpg');
+
+	message.channel.send(`> **${message.author.username}** has tucked **${user.username}** to sleep 💤💤💤`,attachment);
 } else {
     return message.reply('please use a proper mention.');
 }
