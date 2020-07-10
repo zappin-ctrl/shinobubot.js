@@ -21,16 +21,19 @@ It uses **nekos.life** for most of the commands, though some use **waifu.pics**.
 **These are its dependencies for now.**
 
 ```
-    "async": "^3.2.0",
+        "async": "^3.2.0",
     "asynckit": "^0.4.0",
     "benchmark": "^2.1.4",
+    "canvas": "^2.6.1",
     "combined-stream": "^1.0.8",
     "delayed-stream": "^1.0.0",
     "discord.js": "^12.2.0",
     "dotenv": "^8.2.0",
     "enmap": "^5.3.1",
+    "es6": "0.0.7",
     "event-target-shim": "^5.0.1",
     "express": "^4.17.1",
+    "jquery": "^3.5.1",
     "mime-types": "^2.1.27",
     "module": "^1.2.5",
     "node-fetch": "^2.6.0",
