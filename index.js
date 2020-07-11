@@ -3,8 +3,6 @@
 const keep_alive = require('./keep_alive.js')
 const Discord = require("discord.js");
 require('dotenv').config();
-const prefix = process.env.PREFIX
-const token = process.env.DISCORD_TOKEN
 const Enmap = require("enmap");
 const fs = require("fs");
 /*
