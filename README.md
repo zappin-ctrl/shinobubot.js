@@ -49,3 +49,4 @@ https://discordjs.guide/miscellaneous/parsing-mention-arguments.html#implementat
 https://www.codementor.io/@garethdwyer/building-a-discord-bot-with-node-js-and-repl-it-mm46r1u8y <br>
 https://waifu.pics/docs <br>
 https://github.com/Nekos-life/nekos-dot-life
+https://support.glitch.com/t/tutorial-beginner-discord-bot-with-command-handler/9683
