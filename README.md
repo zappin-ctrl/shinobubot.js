@@ -1,5 +1,5 @@
 # Anime bot for my server, just a project for fun.
- <a href="https://deepscan.io/dashboard#view=project&tid=10073&pid=12751&bid=201617"><img src="https://deepscan.io/api/teams/10073/projects/12751/branches/201617/badge/grade.svg" alt="DeepScan grade"></a> [![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0) <br> <br> <br>
+ <a href="https://deepscan.io/dashboard#view=project&tid=10073&pid=12751&bid=201617"><img src="https://deepscan.io/api/teams/10073/projects/12751/branches/201617/badge/grade.svg" alt="DeepScan grade"></a> [![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0) <a href="https://www.codefactor.io/repository/github/zappin-ctrl/shinobubot.js"><img src="https://www.codefactor.io/repository/github/zappin-ctrl/shinobubot.js/badge" alt="CodeFactor" /></a> <br> <br> <br>
 ⚠ **Warning : canvas won't work on Windows (unless you manage to install `npm i windows-build-tools`)** ⚠ <br>
 ⚠ **Consider running the bot on [Repl.it](https://repl.it/) or natively on a Linux distro!** ⚠ <br>
 
