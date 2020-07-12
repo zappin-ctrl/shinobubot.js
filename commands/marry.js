@@ -27,7 +27,7 @@ if (args[0]) {
 	const canvas = Canvas.createCanvas(664, 581);
 	const ctx = canvas.getContext('2d');
 
-	const background = await Canvas.loadImage('./commands/marry.jpg');
+	const background = await Canvas.loadImage('./images/marry.jpg');
 	ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
 
 

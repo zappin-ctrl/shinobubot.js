@@ -11,7 +11,7 @@ if (args[0]) {
 	const canvas = Canvas.createCanvas(1263, 711);
 	const ctx = canvas.getContext('2d');
 
-	const background = await Canvas.loadImage('./commands/tuck.jpg');
+	const background = await Canvas.loadImage('./images/tuck.jpg');
 	ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
 
  /* // Pick up the pen

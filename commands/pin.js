@@ -11,7 +11,7 @@ if (args[0]) {
 	const canvas = Canvas.createCanvas(600, 598);
 	const ctx = canvas.getContext('2d');
 
-	const background = await Canvas.loadImage('./commands/pin.jpg');
+	const background = await Canvas.loadImage('./images/pin.jpg');
 	ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
 
 	/* // Pick up the pen
