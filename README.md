@@ -42,11 +42,4 @@ It uses **nekos.life** for most of the commands, though some use **waifu.pics**.
 ```
 
 **Graciously borrowed code from:** <br>
-https://github.com/SwitchbladeBot/switchblade/blob/dev/src/commands/gifs/hug.js <br>
-https://gist.github.com/eslachance/3349734a98d30011bb202f47342601d3 <br>
-https://leovoel.github.io/embed-visualizer/ <br>
-https://discordjs.guide/miscellaneous/parsing-mention-arguments.html#implementation <br>
-https://www.codementor.io/@garethdwyer/building-a-discord-bot-with-node-js-and-repl-it-mm46r1u8y <br>
-https://waifu.pics/docs <br>
-https://github.com/Nekos-life/nekos-dot-life
-https://support.glitch.com/t/tutorial-beginner-discord-bot-with-command-handler/9683
+https://hastebin.com/zelafajubo.txt
