@@ -27,3 +27,6 @@ const body = await fetch('https://nekos.life/api/v2/img/cuddle').then(res => res
     };
     return message.channel.send({ embed });
   }
+    exports.conf = {
+    aliases: []
+  }

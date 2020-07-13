@@ -3,6 +3,8 @@
 const keep_alive = require('./keep_alive.js')
 const Discord = require("discord.js");
 require('dotenv').config();
+const prefix = process.env.PREFIX
+const token = process.env.DISCORD_TOKEN
 const Enmap = require("enmap");
 const fs = require("fs");
 /*
@@ -14,6 +16,7 @@ const fs = require("fs");
 // this is what we're refering to. Your client.
 const client = new Discord.Client();
 
+
 fs.readdir("./events/", (err, files) => {
   if (err) return console.error(err);
   files.forEach(file => {  
@@ -24,6 +27,7 @@ fs.readdir("./events/", (err, files) => {
 });
 
 client.commands = new Enmap();
+client.aliases = new Enmap();
 
 fs.readdir("./commands/", (err, files) => {
   if (err) return console.error(err);
@@ -34,6 +38,10 @@ fs.readdir("./commands/", (err, files) => {
     let commandName = file.split(".")[0];
     console.log(`Attempting to load command ${commandName}`);
     client.commands.set(commandName, props);
+    props.conf.aliases.forEach(aliases => { 
+    console.log(`Attempting to load alias ${aliases}`);
+    client.aliases.set(aliases, props); 
+    });
   });
 });
 

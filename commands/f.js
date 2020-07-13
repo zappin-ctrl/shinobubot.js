@@ -5,4 +5,7 @@ exports.run = async (client, message, args) => {
     } else {
       return message.channel.send(`**${process.env.DEAD_EMOTE} ${message.author.username}** paid their respects.`)
     }
-};
+}
+  exports.conf = {
+    aliases: ["rip"]
+  }

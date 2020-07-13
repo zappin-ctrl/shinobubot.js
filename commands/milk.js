@@ -35,4 +35,7 @@ if (args[0]) {
 } else {
     return message.reply('please use a proper mention.');
 }
-};
+}
+  exports.conf = {
+    aliases: []
+  }

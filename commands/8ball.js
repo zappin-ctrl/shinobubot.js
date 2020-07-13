@@ -1,6 +1,6 @@
 exports.run = async (client, message, args) => { 
  const fetch = require('node-fetch')
- let question = message.content.replace("+8ball", ""); 
+ let question = message.content.replace("+8ball","").replace("+eightball",""); //.replace("+8ball"|"+eightball", ""); 
 	if (!question) {
     return message.channel.send("Please ask a **yes / no** question.");
   }
@@ -21,3 +21,8 @@ exports.run = async (client, message, args) => {
     };
     return message.channel.send({ embed });
   }
+
+  exports.conf = {
+    aliases: ["eightball"]
+  }
+  

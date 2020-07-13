@@ -23,3 +23,6 @@ exports.run = async (client, message, args) => {
     message.channel.send(`<@${message.author.id}> killed themselves ${process.env.DEAD_EMOTE}`);
 }
 } 
+  exports.conf = {
+    aliases: ["battle","vs"]
+  }

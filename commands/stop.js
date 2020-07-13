@@ -3,3 +3,6 @@ exports.run = (client, message) => {
 		  process.exit()
 	  }
     }
+      exports.conf = {
+    aliases: []
+  }

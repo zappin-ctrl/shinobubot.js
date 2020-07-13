@@ -29,3 +29,6 @@
     return message.channel.send({ embed });
   }
   */
+  exports.conf = {
+    aliases: []
+  }

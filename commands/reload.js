@@ -10,8 +10,16 @@ exports.run = (client, message, args) => {
   delete require.cache[require.resolve(`./${commandName}.js`)];
   // We also need to delete and reload the command from the client.commands Enmap
   client.commands.delete(commandName);
+  client.aliases.delete(commandName);
   const props = require(`./${commandName}.js`);
   client.commands.set(commandName, props);
+  props.conf.aliases.forEach(aliases => { 
+    console.log(`Reloading aliases ${aliases}`);
+    client.aliases.set(aliases, props);  
   message.reply(`The command ${commandName} has been reloaded`);
- }
+ });
 };
+}
+  exports.conf = {
+    aliases: []
+  }
