@@ -1,6 +1,6 @@
 exports.run = async (client, message, args) => { 
- const fetch = require('node-fetch')
- const body = await fetch('https://rra.ram.moe/i/r?type=cry').then(res => res.json()) 
+ const { handP } = require('./actions.json');
+ var hand = handP[Math.round(Math.random() * (handP.length - 1))];
  let getUserFromMention = message.mentions.users.first()
 	if (args[0]) {
 		const user = getUserFromMention
@@ -9,23 +9,24 @@ exports.run = async (client, message, args) => {
 		}
 
 	    const embed = {
-            "description": `<@${message.author.id}> cries with <@${user.id}>`,
+            "description": `<@${message.author.id}> held hands with <@${user.id}>`,
             "color": process.env.COLOUR,
             "image": {
-               "url": `https://rra.ram.moe${body.path}`
+               "url": hand
             },
         };
         return message.channel.send({ embed });
-      }
+      } 
 
 	const embed = {
+        "description": `<@${message.author.id}> held their own hand`,
         "color": process.env.COLOUR,
         "image": {
-           "url": `https://rra.ram.moe${body.path}`
+           "url": hand
         },
     };
     return message.channel.send({ embed });
   }
     exports.conf = {
-    aliases: ["sob"]
+    aliases: []
   }

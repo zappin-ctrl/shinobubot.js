@@ -18,7 +18,7 @@ exports.run = async (client, message, args) => {
       }   
       setTimeout(function(){
         m.edit(doRandHT());
-      }, 2500)
+      }, 2800)
     } else {
     message.channel.send(`<@${message.author.id}> killed themselves ${process.env.DEAD_EMOTE}`);
 }

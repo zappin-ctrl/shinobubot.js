@@ -3,7 +3,7 @@ exports.run = (client, message, args) => {
   if(!args || args.length < 1) return message.reply("Must provide a command name to reload.");
   const commandName = args[0];
   // Check if the command exists and is valid
-  if(!client.commands.has(commandName)) {
+  if(!client.commands.has(commandName) /* && !client.aliases.has(commandName)*/) {
     return message.reply("That command does not exist");
   }
   // the path is relative to the *current folder*, so just ./filename.js
@@ -16,8 +16,9 @@ exports.run = (client, message, args) => {
   props.conf.aliases.forEach(aliases => { 
     console.log(`Reloading aliases ${aliases}`);
     client.aliases.set(aliases, props);  
-  message.reply(`The command ${commandName} has been reloaded`);
  });
+ message.reply(`The command ${commandName} has been reloaded`);
+ console.log(`Reloading command ${commandName}`)
 };
 }
   exports.conf = {
