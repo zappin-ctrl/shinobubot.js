@@ -7,7 +7,7 @@ exports.run = async (client, message, args) => {
      const test = emoji.replace(/\<a:(.*?)\:+/g, '').replace(/>+/g, '')
      filer = `https://cdn.discordapp.com/emojis/${test}.gif`
      	 embed = {
-        "description": `Type: **Animated(.gif)** \n ID: **${test}**`,
+        "description": `Type: **Animated (.gif)** \n ID: **${test}** \n [View GIF](${filer})`,
         "color": process.env.COLOUR,
         "image": {
            "url": filer
@@ -17,7 +17,7 @@ exports.run = async (client, message, args) => {
      const test = emoji.replace(/\<:(.*?)\:+/g, '').replace(/>+/g, '')
      filer = `https://cdn.discordapp.com/emojis/${test}.png`
     	 embed = {
-       "description": `Type: **Image(.png)** \n ID: **${test}**`,
+       "description": `Type: **Image (.png)** \n ID: **${test}** \n [View PNG](${filer})`,
        "color": process.env.COLOUR,
        "image": {
          "url": filer
@@ -25,11 +25,11 @@ exports.run = async (client, message, args) => {
     };
   } else {
         	 embed = {
-       "description": `**Seems to be an invalid emoji. Please try a different one.**`,
+       "description": `**Something isn't right, please try again.**`,
        "color": process.env.COLOUR
     };
   }
-  return message.channel.send({ embed });
+  return message.channel.send({ embed }); 
   }
 
 
