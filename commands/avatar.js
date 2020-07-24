@@ -3,10 +3,10 @@ exports.run = async (client, message, args) => {
   const fileauthor = message.author.displayAvatarURL({ format: 'jpg' , dynamic: true , size: 256})
 	if (args[0]) {
 		const user = getUserFromMention
-    const fileuser = user.displayAvatarURL({ format: 'jpg' , dynamic: true , size: 256})
 		if (!user) {
 			return message.reply('Please use a proper mention.');
 		}
+      const fileuser = user.displayAvatarURL({ format: 'jpg' , dynamic: true , size: 256})
       return message.channel.send({ files: [{
     attachment: fileuser
   }]
