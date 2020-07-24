@@ -1,5 +1,4 @@
 exports.run = async (client, message, args) => { 
- const fetch = require('node-fetch') 
  const fs = require("fs"); 
  if (!args[0]) {
    message.reply(" you need to provide a request/suggestion.")
