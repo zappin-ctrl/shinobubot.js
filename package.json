@@ -18,7 +18,7 @@
     "delayed-stream": "^1.0.0",
     "discord.js": "^12.2.0",
     "dotenv": "^8.2.0",
-    "enmap": "^5.4.0",
+    "enmap": "^5.4.1",
     "es6": "0.0.7",
     "event-target-shim": "^5.0.1",
     "express": "^4.17.1",
