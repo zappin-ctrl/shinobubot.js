@@ -1,5 +1,5 @@
-exports.run = (client, message) => {
-	  if(message.author.id === "148407805882269696") {
+exports.run = (client, message, args) => {
+	  if(message.author.id === process.env.OWNER) {
 		  process.exit()
 	  }
     }

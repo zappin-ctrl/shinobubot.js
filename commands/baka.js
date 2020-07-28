@@ -1,6 +1,6 @@
 exports.run = async (client, message, args) => { 
  const fetch = require('node-fetch') 
- const body = await fetch('https://nekos.life/api/v2/img/cuddle').then(res => res.json())
+ const body = await fetch('https://nekos.life/api/v2/img/baka').then(res => res.json())
  let getUserFromMention = message.mentions.users.first()
 	if (args[0]) {
 		const user = getUserFromMention
