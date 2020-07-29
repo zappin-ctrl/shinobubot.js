@@ -1,6 +1,8 @@
 exports.run = (client, message, args) => {
   function quote(thing) {
-    if (thing >= 0 && thing < 25) {
+    if (thing == 0) {
+      return `You're straight! Congrats!`
+    } else if (thing > 0 && thing < 25) {
       return `Not that gay tbh`
     } else if (thing >= 25 && thing <50) {
       return `Kinda gay i guess`

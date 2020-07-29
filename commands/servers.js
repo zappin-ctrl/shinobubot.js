@@ -2,7 +2,7 @@ exports.run = (client, message, args) => {
 	  if(message.author.id === process.env.OWNER) {
     if (args[0] !== `leave`) { 
       let guilds = client.guilds.cache.map(guild => `**${guild.name}** (${guild.memberCount}) - \`${guild.id}\`\nOwner: ${guild.owner} (\`${guild.ownerID}\`)\n`)
-      let fix = guilds.toString().replace(`,`,`\n`)
+      let fix = guilds.toString().replace(/,/g ,`\n`)
   	    const embed = {
             "description": `${fix} \n **Servers:** ${client.guilds.cache.size} - **Users:** ${client.users.cache.size}`,
             "color": process.env.COLOUR,
