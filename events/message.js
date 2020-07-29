@@ -6,7 +6,9 @@ module.exports = (client, message) => {
   if (message.content.indexOf(process.env.PREFIX) !== 0) return;
 
   // Our standard argument/command name definition.
+  const argsclean = message.cleanContent.slice(process.env.PREFIX.length).trim().split(/ +/g);
   const args = message.content.slice(process.env.PREFIX.length).trim().split(/ +/g);
+  const cleancommand = argsclean.shift().toLowerCase();
   const command = args.shift().toLowerCase();
   // Grab the command data from the client.commands Enmap
 
@@ -15,6 +17,6 @@ module.exports = (client, message) => {
   if (!cmd) return;
 
   // Run the command
-  cmd.run(client, message, args);
+  cmd.run(client, message, args, argsclean);
   
 };
