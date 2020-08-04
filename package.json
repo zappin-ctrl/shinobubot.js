@@ -27,6 +27,7 @@
     "module": "^1.2.5",
     "node-fetch": "^2.6.0",
     "prism-media": "^1.2.2",
+    "seedrandom": "^3.0.5",
     "setimmediate": "^1.0.5"
   },
   "repository": {
