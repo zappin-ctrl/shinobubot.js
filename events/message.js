@@ -10,6 +10,7 @@ module.exports = (client, message) => {
   const args = message.content.slice(process.env.PREFIX.length).trim().split(/ +/g);
   const cleancommand = argsclean.shift().toLowerCase();
   const command = args.shift().toLowerCase();
+  if (cleancommand) {}
   // Grab the command data from the client.commands Enmap
 
   const cmd = client.commands.get(command) || client.aliases.get(command);
