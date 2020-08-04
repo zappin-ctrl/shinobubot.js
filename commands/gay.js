@@ -19,9 +19,8 @@ exports.run = (client, message, args) => {
     }
     
   }
- let getUserFromMention = message.mentions.users.first()
 	if (args[0]) {
-    const user = getUserFromMention
+    const user = getUserFromMention(args[0])
     if (!user) {
       return message.channel.send(`Please use a proper mention.`)
     }

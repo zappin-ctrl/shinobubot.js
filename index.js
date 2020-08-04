@@ -1,5 +1,3 @@
-
-// Load up the discord.js library
 const keep_alive = require('./keep_alive.js')
 const Discord = require("discord.js");
 require('dotenv').config();
@@ -7,13 +5,9 @@ const prefix = process.env.PREFIX
 const token = process.env.DISCORD_TOKEN
 const Enmap = require("enmap");
 const fs = require("fs");
-/*
- DISCORD.JS VERSION 12 CODE
-*/
 
-// This is your client. Some people call it `bot`, some people call it `self`, 
-// some might call it `cootchie`. Either way, when you see `client.something`, or `bot.something`,
-// this is what we're refering to. Your client.
+global.getUserFromMention=function(e){if(e)return e.startsWith("<@")&&e.endsWith(">")?((e=e.slice(2,-1)).startsWith("!")&&(e=e.slice(1)),client.users.cache.get(e)):client.users.cache.get(e)};
+
 const client = new Discord.Client();
 
 
@@ -46,4 +40,4 @@ fs.readdir("./commands/", (err, files) => {
 });
 
 
-client.login(process.env.DISCORD_TOKEN);
+client.login(process.env.DISCORD_TOKEN).catch(console.error);

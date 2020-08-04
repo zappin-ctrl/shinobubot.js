@@ -1,9 +1,8 @@
 exports.run = async (client, message, args, guild) => { 
-let getUserFromMention = message.mentions.users.first()
 const Canvas = require('canvas');
 const Discord = require("discord.js");
 if (args[0]) {
-	const user = getUserFromMention
+	const user = getUserFromMention(args[0])
 		if (!user) {
 			return message.reply('please use a proper mention.');
     }

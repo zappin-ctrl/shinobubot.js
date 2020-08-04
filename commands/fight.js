@@ -1,7 +1,6 @@
 exports.run = async (client, message, args) => {
-   let getUserFromMention = message.mentions.users.first()
 	 if (args[0]) {
-  	const user = getUserFromMention
+  	const user = getUserFromMention(args[0])
 		if (!user) {
 			return message.reply('please use a proper mention.');
     } else if (user.id === message.author.id) {

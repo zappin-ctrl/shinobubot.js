@@ -1,7 +1,7 @@
 {
   "name": "ShinobuBot",
   "version": "1.0.0",
-  "description": "A bot im making for my server - Shinobu & Friends - for the fun of it.",
+  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -18,7 +18,7 @@
     "delayed-stream": "^1.0.0",
     "discord.js": "^12.2.0",
     "dotenv": "^8.2.0",
-    "enmap": "^5.4.1",
+    "enmap": "^5.3.1",
     "es6": "0.0.7",
     "event-target-shim": "^5.0.1",
     "express": "^4.17.1",
@@ -27,14 +27,7 @@
     "module": "^1.2.5",
     "node-fetch": "^2.6.0",
     "prism-media": "^1.2.2",
+    "seedrandom": "^3.0.5",
     "setimmediate": "^1.0.5"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/zappin-ctrl/shinobubot.js.git"
-  },
-  "bugs": {
-    "url": "https://github.com/zappin-ctrl/shinobubot.js/issues"
-  },
-  "homepage": "https://github.com/zappin-ctrl/shinobubot.js#readme"
+  }
 }

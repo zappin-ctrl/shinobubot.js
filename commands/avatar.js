@@ -1,8 +1,7 @@
 exports.run = async (client, message, args) => { 
-  let getUserFromMention = message.mentions.users.first()
   const fileauthor = message.author.displayAvatarURL({ format: 'jpg' , dynamic: true , size: 256})
 	if (args[0]) {
-		const user = getUserFromMention
+		const user = getUserFromMention(args[0])
 		if (!user) {
 			return message.reply('Please use a proper mention.');
 		}

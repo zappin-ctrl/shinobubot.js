@@ -11,7 +11,7 @@ exports.run = async (client, message, args) => {
  const fetch = require('node-fetch') 
  const body = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${question}`).then(res => res.json())
    if (body.title === `No Definitions Found`) {
-    return message.channel.send(body.message)
+    return message.channel.send(`Couldn't find a definition for that.`)
    }
 
 //for the first def

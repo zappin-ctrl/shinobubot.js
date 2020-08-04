@@ -11,5 +11,5 @@ let answer = ar[random]
 	  }
 
       exports.conf = {
-    aliases: []
+    aliases: ["pick"]
   }

@@ -1,9 +1,8 @@
 exports.run = async (client, message, args) => { 
  const { disgustP } = require('./actions.json'); 
  var disgust = disgustP[Math.round(Math.random() * (disgustP.length - 1))];
- let getUserFromMention = message.mentions.users.first()
 	if (args[0]) {
-		const user = getUserFromMention
+		const user = getUserFromMention(args[0])
 		if (!user) {
 			return message.reply('Please use a proper mention.');
 		}

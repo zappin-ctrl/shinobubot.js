@@ -1,5 +1,5 @@
 exports.run = (client, message, args) => {
-  let question = message.content.replace("+rate","");
+  let question = message.cleanContent.replace("+rate","");
   let num = Math.floor(Math.random() * 100)
   let rating = ``
   if (num >= 0 && num <25) {

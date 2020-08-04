@@ -1,9 +1,8 @@
 exports.run = async (client, message, args) => { 
  const { nobullyP } = require('./actions.json'); 
  var nobully = nobullyP[Math.round(Math.random() * (nobullyP.length - 1))];
- let getUserFromMention = message.mentions.users.first()
 	if (args[0]) {
-		const user = getUserFromMention
+		const user = getUserFromMention(args[0])
 		if (!user) {
 			return message.reply('Please use a proper mention.');
 		}
