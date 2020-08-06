@@ -13,9 +13,10 @@
 (*you can `shift + right-click` in the folder and launch Windows Shell to run these*)
 
 **Ta-dah, you -hopefully- have a working bot.**
-**Feel free to bully me on Discord @ `zappin#1312`**
+**Feel free to bully me on Discord @ `zappin#1312` or join my server [Shinobu & Friends](https://discord.gg/shinobu)**
 
 It uses **nekos.life, waifu.pics, rra.ram.moe** for the GIF commands.
+
 
 **Graciously borrowed code from:** <br>
 https://hastebin.com/zelafajubo.txt
