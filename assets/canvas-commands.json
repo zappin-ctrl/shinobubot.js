@@ -1,1 +1,38 @@
-{}
+{
+  "milk": {
+    "image": "./assets/images/milk.jpg",
+    "width": 680,
+    "height": 347,
+    "mention": "> **$1** has milked **$2**"
+  },
+  "pin": {
+    "image": "./assets/images/pin.jpg",
+    "width": 600,
+    "height": 598,
+    "mention": "> **$1** pinned **$2** down \uD83D\uDC98"
+  },
+  "sauce": {
+    "image": "./assets/images/sauce.jpg",
+    "width": 750,
+    "height": 564,
+    "mention": "> Fresh tub of **$2** sauce!"
+  },
+  "tuck": {
+    "image": "./assets/images/tuck.jpg",
+    "width": 1263,
+    "height": 711,
+    "mention": "> **$1** has tucked **$2** to sleep \uD83D\uDCA4\uD83D\uDCA4\uD83D\uDCA4",
+    "aliases": [
+      "sleep"
+    ]
+  },
+  "marry": {
+    "image": "./assets/images/marry.jpg",
+    "width": 664,
+    "height": 581,
+    "mention": "> **$1** has married **$2**",
+    "aliases": [
+      "marriage"
+    ]
+  }
+}

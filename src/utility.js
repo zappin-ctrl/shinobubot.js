@@ -9,6 +9,7 @@ import _ from "lodash";
 import {promisify} from "util";
 import low from 'lowdb';
 import FileSync from 'lowdb/adapters/FileSync';
+import Canvas from "canvas";
 
 export const sleep = promisify(setTimeout);
 
@@ -59,6 +60,36 @@ async function runListReactionCommand(message, args, argsclean, command) {
     await handleLocalImagePost(message, args, info.key, info.mention, info.noMention);
 }
 
+async function runCanvasReactionCommand(message, args, argsclean, command) {
+    const info = commands[command].info;
+    if (_.isUndefined(info)) {
+        logger.warning(`Command ${command} was called but no info was found for it`);
+        return;
+    }
+
+    let user = null;
+    if (!args[0] || !(user = getUserFromMention(args[0]))) {
+        await message.reply("please use a proper mention");
+        return;
+    }
+
+    const canvas = Canvas.createCanvas(info.width, info.height);
+    const ctx = canvas.getContext('2d');
+
+    const canvasFunctions = await import("./canvasLogic");
+
+    ctx.drawImage(await Canvas.loadImage(info.image), 0, 0, canvas.width, canvas.height);
+    canvasFunctions[command](
+        ctx,
+        await Canvas.loadImage(message.author.displayAvatarURL({format: "png"})),
+        await Canvas.loadImage(user.displayAvatarURL({format: "png"})),
+        canvas
+    );
+
+    const attachment = new Discord.MessageAttachment(canvas.toBuffer(), 'image.jpg');
+    await message.channel.send(info.mention.replace('$1', `<@${message.author.id}>`).replace('$2', `<@${user.id}>`), attachment);
+}
+
 export function addCommand(key, data, aliases = []) {
     if (key in commands) {
         logger.error(`Command ${key} is already defined`);
@@ -99,7 +130,7 @@ const commandFiles = [{
     func: runListReactionCommand
 }, {
     file: './assets/canvas-commands.json',
-    func: () => {}
+    func: runCanvasReactionCommand
 }];
 
 export function loadCommandsFromJson() {
