@@ -7,6 +7,8 @@ import {commands, commandAliases} from "./bot";
 import fs from "fs";
 import _ from "lodash";
 import {promisify} from "util";
+import low from 'lowdb';
+import FileSync from 'lowdb/adapters/FileSync';
 
 export const sleep = promisify(setTimeout);
 
@@ -18,6 +20,10 @@ export function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min)) + min;
+}
+
+export const getNewDatabase = (filename) => {
+    return low(new FileSync(filename + ".json"));
 }
 
 export function getUserFromMention(message) {
@@ -202,3 +208,10 @@ export async function handleSimplePost(message, args, url, mentionString, noMent
     embed.setImage(await image());
     await message.channel.send(embed);
 }
+
+const requestDb = getNewDatabase('assets/requests');
+requestDb.defaults({
+    requests: []
+}).write();
+
+export {requestDb};

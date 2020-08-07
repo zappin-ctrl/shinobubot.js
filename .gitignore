@@ -1,6 +1,8 @@
 node_modules
 lib
 
+assets/requests.json
+
 .env
 combined.log
 error.log
