@@ -6,6 +6,9 @@ import logger from "./logger";
 import {commands, commandAliases} from "./bot";
 import fs from "fs";
 import _ from "lodash";
+import {promisify} from "util";
+
+export const sleep = promisify(setTimeout);
 
 export function setActivity(client) {
     client.user.setActivity(process.env.PREFIX + 'help | made by ' + process.env.AUTHOR);
@@ -179,13 +182,13 @@ export async function handleSimplePost(message, args, url, mentionString, noMent
     imageReplaceUrl = applyDefault(imageReplaceUrl, null);
 
     const image = async () => {
-        const body = await axios.get(url);
-        if (imagePath in body.data) {
+        const response = await axios.get(url);
+        if (imagePath in response.data) {
             if (imageReplaceUrl !== null) {
-                return imageReplaceUrl.replace('$1', body.data[imagePath]);
+                return imageReplaceUrl.replace('$1', response.data[imagePath]);
             }
 
-            return body.data[imagePath];
+            return response.data[imagePath];
         }
 
         return '';

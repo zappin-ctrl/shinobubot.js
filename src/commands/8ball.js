@@ -10,11 +10,11 @@ export const run = async (message, args) => {
     }
 
     let feel;
-    const body = await axios.get(`https://8ball.delegator.com/magic/JSON/${question}`);
+    const response = await axios.get(`https://8ball.delegator.com/magic/JSON/${question}`);
 
-    if (body.data.magic.type === `Affirmative`) {
+    if (response.data.magic.type === `Affirmative`) {
         feel = process.env.EMOTE_PLUS
-    } else if (body.data.magic.type === `Contrary`) {
+    } else if (response.data.magic.type === `Contrary`) {
         feel = process.env.EMOTE_MINUS
     } else {
         feel = process.env.EMOTE_NEUTRAL
@@ -22,7 +22,7 @@ export const run = async (message, args) => {
 
     const embed = getEmbed()
         .setThumbnail('https://i.imgur.com/ciZLX5u.png')
-        .setDescription(`<@${message.author.id}> asks: \n > ${question} \n \n **\`Answer:\`** **${body.data.magic.answer} ${feel}**`);
+        .setDescription(`<@${message.author.id}> asks: \n > ${question} \n \n **\`Answer:\`** **${response.data.magic.answer} ${feel}**`);
 
     await message.channel.send(embed);
 };
