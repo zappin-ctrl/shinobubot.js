@@ -91,29 +91,30 @@ export function deleteCommand(key) {
     }
 }
 
+const commandFiles = [{
+    file: './assets/reaction-commands-api.json',
+    func: runReactionCommand
+}, {
+    file: './assets/reaction-commands-local-list.json',
+    func: runListReactionCommand
+}, {
+    file: './assets/canvas-commands.json',
+    func: () => {}
+}];
+
 export function loadCommandsFromJson() {
-    const reactionCommands = JSON.parse(fs.readFileSync('./assets/reaction-commands-api.json', 'utf8'));
-    for (const key in reactionCommands) {
-        deleteCommand(key);
+    for (const file of commandFiles) {
+        const commandsInFile = JSON.parse(fs.readFileSync(file.file, 'utf8'));
+        for (const key in commandsInFile) {
+            deleteCommand(key);
 
-        const command = reactionCommands[key];
-        addCommand(key, {
-            run: runReactionCommand,
-            info: command,
-            command: key
-        }, command.aliases);
-    }
-
-    const listReactionCommands = JSON.parse(fs.readFileSync('./assets/reaction-commands-local-list.json', 'utf8'));
-    for (const key in listReactionCommands) {
-        deleteCommand(key);
-
-        const command = listReactionCommands[key];
-        addCommand(key, {
-            run: runListReactionCommand,
-            info: command,
-            command: key
-        }, command.aliases);
+            const command = commandsInFile[key];
+            addCommand(key, {
+                run: file.func,
+                info: command,
+                command: key
+            }, command.aliases);
+        }
     }
 }
 
