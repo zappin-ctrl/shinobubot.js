@@ -1,7 +1,7 @@
-import {loadCommandsFromJson} from "../utility";
+import {isOwner, loadCommandsFromJson} from "../utility";
 
-export const run = async (message, args) => {
-    if (message.author.id === process.env.OWNER || process.env.OWNER === 'any') {
+export const run = async (message) => {
+    if (isOwner(message)) {
         loadCommandsFromJson();
     }
 };

@@ -126,6 +126,16 @@ export function getEmbed() {
         .setColor(process.env.EMBED_COLOR);
 }
 
+export function removeCommandPart(string) {
+    const message = string.split(" ");
+    message.shift();
+    return message.join(" ");
+}
+
+export function isOwner(message) {
+    return message.author.id === process.env.OWNER || process.env.OWNER === 'any';
+}
+
 async function prepareEmbedForPostHandling(message, args, mentionString, noMentionString = null) {
     let embed = getEmbed();
     if (args[0]) {

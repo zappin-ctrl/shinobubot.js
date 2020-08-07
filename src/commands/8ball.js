@@ -9,7 +9,7 @@ export const run = async (message, args) => {
         return message.channel.send("Please ask a **yes / no** question.");
     }
 
-    let feel = null;
+    let feel;
     const body = await axios.get(`https://8ball.delegator.com/magic/JSON/${question}`);
 
     if (body.data.magic.type === `Affirmative`) {
@@ -25,5 +25,5 @@ export const run = async (message, args) => {
         .setDescription(`<@${message.author.id}> asks: \n > ${question} \n \n **\`Answer:\`** **${body.data.magic.answer} ${feel}**`);
 
     await message.channel.send(embed);
-}
+};
 

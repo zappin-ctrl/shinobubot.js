@@ -22,7 +22,9 @@
     "dotenv": "^8.2.0",
     "lodash": "^4.17.15",
     "lowdb": "^1.0.0",
+    "moment": "^2.27.0",
     "ogparser": "^1.0.0",
+    "seedrandom": "^3.0.5",
     "winston": "^3.2.1"
   },
   "devDependencies": {
