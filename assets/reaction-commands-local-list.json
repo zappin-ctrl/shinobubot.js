@@ -1,0 +1,39 @@
+{
+  "disgust": {
+    "key": "disgustP",
+    "mention": "$1 is disgusted by $2",
+    "aliases": [
+      "gross",
+      "disgusting",
+      "ew"
+    ]
+  },
+  "grope": {
+    "key": "gropeP",
+    "mention": "$1 groped $2",
+    "noMention": "$1 groped themselves? Ok."
+  },
+  "handhold": {
+    "key": "handP",
+    "mention": "$1 held hands with $2",
+    "noMention": "$1 held their own hand"
+  },
+  "kill": {
+    "key": "killP",
+    "mention": "$1 killed $2"
+  },
+  "nobully": {
+    "key": "nobullyP",
+    "mention": "$1 please no bulli $2",
+    "aliases": [
+      "nobulli"
+    ]
+  },
+  "noswear": {
+    "key": "noswearP",
+    "mention": "$1, please no swearing $2",
+    "aliases": [
+      "noswearing"
+    ]
+  }
+}

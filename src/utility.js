@@ -3,6 +3,9 @@ import Discord from "discord.js";
 import axios from "axios";
 import {customImageList} from "./bot";
 import logger from "./logger";
+import {commands, commandAliases} from "./bot";
+import fs from "fs";
+import _ from "lodash";
 
 export function setActivity(client) {
     client.user.setActivity(process.env.PREFIX + 'help | made by ' + process.env.AUTHOR);
@@ -25,6 +28,92 @@ export function getUserFromMention(message) {
     }
 
     return client.users.cache.get(message)
+}
+
+async function runReactionCommand(message, args, argsclean, command) {
+    const info = commands[command].info;
+    if (_.isUndefined(info)) {
+        logger.warning(`Command ${command} was called but no info was found for it`);
+        return;
+    }
+
+    await handleSimplePost(message, args, info.url, info.mention, info.noMention, info.imagePath, info.imageReplaceUrl);
+}
+
+async function runListReactionCommand(message, args, argsclean, command) {
+    const info = commands[command].info;
+    if (_.isUndefined(info)) {
+        logger.warning(`Command ${command} was called but no info was found for it`);
+        return;
+    }
+
+    await handleLocalImagePost(message, args, info.key, info.mention, info.noMention);
+}
+
+export function addCommand(key, data, aliases = []) {
+    if (key in commands) {
+        logger.error(`Command ${key} is already defined`);
+        process.exit(-1);
+    }
+
+    commands[key] = data;
+    if (aliases !== null && !_.isUndefined(aliases)) {
+        if (!_.isArray(aliases)) {
+            aliases = [aliases];
+        }
+
+        for (let alias of aliases) {
+            if (alias in commandAliases) {
+                logger.error(`Cannot reuse alias ${alias}, quitting.`);
+                process.exit(-1);
+            }
+
+            commandAliases[alias] = key;
+        }
+    }
+}
+
+export function deleteCommand(key) {
+    delete commands[key];
+    for (const i in commandAliases) {
+        if (key === commandAliases[i]) {
+            delete commandAliases[i];
+        }
+    }
+}
+
+export function loadCommandsFromJson() {
+    const reactionCommands = JSON.parse(fs.readFileSync('./assets/reaction-commands-api.json', 'utf8'));
+    for (const key in reactionCommands) {
+        deleteCommand(key);
+
+        const command = reactionCommands[key];
+        addCommand(key, {
+            run: runReactionCommand,
+            info: command,
+            command: key
+        }, command.aliases);
+    }
+
+    const listReactionCommands = JSON.parse(fs.readFileSync('./assets/reaction-commands-local-list.json', 'utf8'));
+    for (const key in listReactionCommands) {
+        deleteCommand(key);
+
+        const command = listReactionCommands[key];
+        addCommand(key, {
+            run: runListReactionCommand,
+            info: command,
+            command: key
+        }, command.aliases);
+    }
+}
+
+function applyDefault(variable, value) {
+    if (_.isUndefined(variable)) {
+        return value;
+    }
+
+    return variable;
 }
 
 /**
@@ -57,6 +146,8 @@ async function prepareEmbedForPostHandling(message, args, mentionString, noMenti
 }
 
 export async function handleLocalImagePost(message, args, storage, mentionString, noMentionString = null) {
+    noMentionString = applyDefault(noMentionString, null);
+
     const embed = await prepareEmbedForPostHandling(message, args, mentionString, noMentionString);
     if (embed === null) {
         return;
@@ -72,6 +163,11 @@ export async function handleLocalImagePost(message, args, storage, mentionString
 }
 
 export async function handleSimplePost(message, args, url, mentionString, noMentionString = null, imagePath = 'url', imageReplaceUrl = null) {
+    // so that there's no need to fix up the input from json files
+    noMentionString = applyDefault(noMentionString, null);
+    imagePath = applyDefault(imagePath, 'url');
+    imageReplaceUrl = applyDefault(imageReplaceUrl, null);
+
     const image = async () => {
         const body = await axios.get(url);
         if (imagePath in body.data) {

@@ -1,0 +1,105 @@
+{
+  "baka": {
+    "url": "https://nekos.life/api/v2/img/baka",
+    "mention": "$1 called $2 a dummy",
+    "aliases": [
+      "dummy"
+    ]
+  },
+  "bite": {
+    "url": "https://waifu.pics/api/bite",
+    "mention": "$1 bit $2",
+    "noMention": "$1 bit themselves"
+  },
+  "blush": {
+    "url": "https://waifu.pics/api/blush",
+    "mention": "$1 blushes at $2",
+    "noMention": "$1 blushed"
+  },
+  "cry": {
+    "url": "https://rra.ram.moe/i/r?type=cry",
+    "mention": "$1 cries with $2",
+    "imagePath": "path",
+    "imageReplaceUrl": "https://rra.ram.moe$1"
+  },
+  "cuddle": {
+    "url": "https://nekos.life/api/v2/img/cuddle",
+    "mention": "$1 cuddled with $2",
+    "noMention": "$1 cuddled with themselves"
+  },
+  "dance": {
+    "url": "https://waifu.pics/api/dance",
+    "mention": "$1 is dancing with $2",
+    "noMention": "$1 is dancing alone"
+  },
+  "highfive": {
+    "url": "https://waifu.pics/api/highfive",
+    "mention": "$1 highfived $2",
+    "noMention": "$1 highfived themselves"
+  },
+  "hug": {
+    "url": "https://nekos.life/api/v2/img/hug",
+    "mention": "$1 hugged $2",
+    "noMention": "$1 hugged themselves"
+  },
+  "kiss": {
+    "url": "https://nekos.life/api/v2/img/kiss",
+    "mention": "$1 kissed $2",
+    "noMention": "$1 kissed themselves",
+    "aliases": [
+      "smooch"
+    ]
+  },
+  "lewd": {
+    "url": "https://rra.ram.moe/i/r?type=lewd",
+    "mention": "$1 bonks $2 for being lewd",
+    "imagePath": "path",
+    "imageReplaceUrl": "https://rra.ram.moe$1"
+  },
+  "nom": {
+    "url": "https://waifu.pics/api/nom",
+    "mention": "$1 nommed $2"
+  },
+  "pat": {
+    "url": "https://nekos.life/api/v2/img/pat",
+    "mention": "$1 gave $2 a pat",
+    "noMention": "$1 gave themselves a pat"
+  },
+  "poke": {
+    "url": "https://nekos.life/api/v2/img/poke",
+    "mention": "$1 poked $2",
+    "noMention": "$1 poked themselves"
+  },
+  "pout": {
+    "url": "https://rra.ram.moe/i/r?type=pout",
+    "mention": "$1 pouts at $2",
+    "imagePath": "path",
+    "imageReplaceUrl": "https://rra.ram.moe$1"
+  },
+  "slap": {
+    "url": "https://nekos.life/api/v2/img/slap",
+    "mention": "$1 slapped $2",
+    "noMention": "$1 slapped themselves"
+  },
+  "smug": {
+    "url": "https://nekos.life/api/v2/img/smug",
+    "mention": "$1 smugs at $2",
+    "noMention": "$1 is feeling smug"
+  },
+  "stare": {
+    "url": "https://rra.ram.moe/i/r?type=stare",
+    "mention": "$1 stares at $2",
+    "imagePath": "path",
+    "imageReplaceUrl": "https://rra.ram.moe$1"
+  },
+  "tickle": {
+    "url": "https://nekos.life/api/v2/img/tickle",
+    "mention": "$1 tickled $2",
+    "noMention": "$1 tickled themselves"
+  },
+  "wink": {
+    "url": "https://waifu.pics/api/wink",
+    "mention": "$1 winked at $2",
+    "noMention": "$1 is winking"
+  }
+}

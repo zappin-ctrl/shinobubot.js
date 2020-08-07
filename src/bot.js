@@ -1,13 +1,13 @@
 import Discord from "discord.js";
 import logger from "./logger";
-import {setActivity} from "./utility";
+import {setActivity, loadCommandsFromJson, addCommand} from "./utility";
 import fs from "fs";
 import _ from "lodash";
 
 const client = new Discord.Client();
 
-const commands = {};
-const commandAliases = {};
+export const commands = {};
+export const commandAliases = {};
 
 client.on('guildCreate', (guild) => {
     logger.info(`New guild joined: ${guild.name} (id: ${guild.id}). This guild has ${guild.memberCount} members!`);
@@ -42,7 +42,7 @@ client.on('message', (message) => {
         return;
     }
 
-    cmd(message, args, argsclean);
+    cmd.run(message, args, argsclean, cmd.command);
 });
 
 fs.readdir("./lib/commands", async (err, files) => {
@@ -58,25 +58,13 @@ fs.readdir("./lib/commands", async (err, files) => {
         }
 
         const command = file.substr(0, file.lastIndexOf("."));
-        commands[command] = exports.run;
-
-        if (!_.isUndefined(exports.aliases)) {
-            let aliases = exports.aliases;
-            if (!_.isArray(aliases)) {
-                aliases = [aliases];
-            }
-
-            for (let alias of aliases) {
-                if (alias in commandAliases) {
-                    logger.error(`Cannot reuse alias ${alias}, quitting.`);
-                    process.exit(-1);
-                }
-
-                commandAliases[alias] = command;
-            }
-        }
+        addCommand(command, {
+            run: exports.run,
+            command: command
+        }, exports.aliases);
     }
 });
+loadCommandsFromJson();
 
 export const customImageList = JSON.parse(fs.readFileSync('./assets/image-list.json', 'utf8'));
 export default client;
