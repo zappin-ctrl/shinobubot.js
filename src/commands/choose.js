@@ -1,12 +1,9 @@
 export const aliases = ['pick'];
 
-async function failChoose(message) {
-    await message.channel.send(`Please type your options separated with a comma.\n**Example: \`${process.env.PREFIX}choose option 1,option 2,etc\`**`);
-}
-
+const failMessage = `Please type your options separated with a comma.\n**Example: \`${process.env.PREFIX}choose option 1,option 2,etc\`**`;
 export const run = async (message, args, argsclean) => {
     if (!args[0]) {
-        await failChoose(message);
+        await message.channel.send(failMessage);
         return;
     }
 
@@ -16,7 +13,7 @@ export const run = async (message, args, argsclean) => {
     }
     options = options.filter(val => val);
     if (!options.length) {
-        await failChoose(message);
+        await message.channel.send(failMessage);
         return;
     }
 
