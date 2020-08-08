@@ -1,0 +1,12 @@
+{
+  "fun": {
+    "title": "Fun/Memes"
+  },
+  "gif": {
+    "title": "Gif Stuff",
+    "description": " **gif_name [@someone/ID] (optional)**\n Posts a gif of the requested action (with or without an @)"
+  },
+  "utility": {
+    "title": "Utility"
+  }
+}

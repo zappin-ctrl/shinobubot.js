@@ -1,33 +1,37 @@
 {
-  "name": "ShinobuBot",
-  "version": "1.0.0",
+  "name": "shinobot",
+  "version": "2.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "babel src -d lib",
+    "build_dev": "npm run build && npm run start",
+    "start": "nodejs lib/index.js"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "pkly",
+  "license": "BSD",
   "dependencies": {
-    "async": "^3.2.0",
-    "asynckit": "^0.4.0",
-    "benchmark": "^2.1.4",
+    "@babel/plugin-transform-runtime": "^7.11.0",
+    "@babel/runtime": "^7.11.2",
+    "axios": "^0.19.2",
+    "babel-plugin-lodash": "^3.3.4",
     "canvas": "^2.6.1",
-    "combined-stream": "^1.0.8",
-    "delayed-stream": "^1.0.0",
-    "discord.js": "^12.2.0",
+    "cross-env": "^7.0.2",
+    "discord.js": "^12.0.2",
     "dotenv": "^8.2.0",
-    "enmap": "^5.5.1",
-    "es6": "0.0.7",
-    "event-target-shim": "^5.0.1",
-    "express": "^4.17.1",
-    "jquery": "^3.5.1",
-    "mime-types": "^2.1.27",
-    "module": "^1.2.5",
-    "node-fetch": "^2.6.0",
-    "prism-media": "^1.2.2",
+    "lodash": "^4.17.15",
+    "lowdb": "^1.0.0",
+    "moment": "^2.27.0",
+    "ogparser": "^1.0.0",
     "seedrandom": "^3.0.5",
-    "setimmediate": "^1.0.5"
+    "winston": "^3.2.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.10.5",
+    "@babel/core": "^7.11.1",
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.10.4",
+    "@babel/preset-env": "^7.11.0"
   }
 }
