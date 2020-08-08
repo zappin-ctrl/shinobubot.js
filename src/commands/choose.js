@@ -6,7 +6,12 @@ export const run = async (message, args, argsclean) => {
     }
 
     const options = argsclean.join(" ").split(",");
-    await message.channel.send(options[Math.floor(Math.random() * options.length)]);
+    let optfix = options[Math.floor(Math.random() * options.length)]
+    if (optfix == ""|| optfix == " ") {
+      optfix = "empty"
+    }
+
+    await message.channel.send(optfix);
 };
 
 export const help = "I'll choose one of the options on your behalf";
