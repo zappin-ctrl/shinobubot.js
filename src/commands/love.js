@@ -47,7 +47,7 @@ export const run = async (message, args) => {
     const result = Math.max(Math.min(Math.round(Math.abs(x()) * 100), 100), 0);
 
     const embed = getEmbed()
-        .setDescription(`<@${userA.id}> and <@${userB.id}>'s love is at **${result}**\n\n> Your shipname is **${shipName}**`)
+        .setDescription(`<@${userA.id}> and <@${userB.id}>'s love is at **${result}%**\n\n> Your shipname is **${shipName}**`)
         .setFooter(ranges.getValue(result))
         .setImage(`https://api.alexflipnote.dev/ship?user=${userA.displayAvatarURL()}&user2=${userB.displayAvatarURL()}`);
 
