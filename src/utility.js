@@ -40,6 +40,20 @@ export function getUserFromMention(message) {
     return client.users.cache.get(message)
 }
 
+export function applyMentions(string, userA, userB = null) {
+    string = string
+        .replace('$1', `<@${userA.id}>`)
+        .replace('$!1', userA.username);
+
+    if (null !== userB && !_.isUndefined(userB)) {
+        string = string
+            .replace('$2', `<@${userB.id}>`)
+            .replace('$!2', userB.username);
+    }
+
+    return string;
+}
+
 async function runReactionCommand(message, args, argsclean, command) {
     const info = commands[command].info;
     if (_.isUndefined(info)) {
@@ -87,7 +101,7 @@ async function runCanvasReactionCommand(message, args, argsclean, command) {
     );
 
     const attachment = new Discord.MessageAttachment(canvas.toBuffer(), 'image.jpg');
-    await message.channel.send(info.mention.replace('$1', `<@${message.author.id}>`).replace('$2', `<@${user.id}>`), attachment);
+    await message.channel.send(applyMentions(info.mention, message.author, user), attachment);
 }
 
 export function addCommand(key, data, aliases = []) {
@@ -186,10 +200,10 @@ async function prepareEmbedForPostHandling(message, args, mentionString, noMenti
             return null;
         }
 
-        embed.setDescription(mentionString.replace('$1', `<@${message.author.id}>`).replace('$2', `<@${user.id}>`));
+        embed.setDescription(applyMentions(mentionString, message.author, user));
     } else {
         if (noMentionString !== null) {
-            embed.setDescription(noMentionString.replace('$1', `<@${message.author.id}>`));
+            embed.setDescription(applyMentions(noMentionString, message.author));
         }
     }
 
