@@ -14,7 +14,7 @@ import Canvas from "canvas";
 export const sleep = promisify(setTimeout);
 
 export function setActivity(client) {
-    client.user.setActivity(process.env.PREFIX + 'help | made by ' + process.env.AUTHOR);
+    client.user.setActivity(process.env.PREFIX + 'help | ' + process.env.PREFIX + 'suggest');
 }
 
 export function getRandomInt(min, max) {

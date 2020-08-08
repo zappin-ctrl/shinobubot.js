@@ -58,7 +58,8 @@ export const run = async (message) => {
         counter++;
     }
 
-    embed.setDescription(text.join('\n\n'));
+    embed.setDescription(text.join('\n\n'))
+        .setFooter('Made by zappin#1312 and Ly#3449');
 
     await message.react("✅");
     try {
