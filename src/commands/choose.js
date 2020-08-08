@@ -1,17 +1,26 @@
 export const aliases = ['pick'];
+
+async function failChoose(message) {
+    await message.channel.send(`Please type your options separated with a comma.\n**Example: \`${process.env.PREFIX}choose option 1,option 2,etc\`**`);
+}
+
 export const run = async (message, args, argsclean) => {
     if (!args[0]) {
-        await message.channel.send(`Please type your options separated with a comma.\n**Example: \`${process.env.PREFIX}choose option 1,option 2,etc\`**`);
+        await failChoose(message);
         return;
     }
 
-    const options = argsclean.join(" ").split(",");
-    let optfix = options[Math.floor(Math.random() * options.length)]
-    if (optfix == ""|| optfix == " ") {
-      optfix = "empty"
+    let options = argsclean.join(" ").split(",");
+    for (let index in options) {
+        options[index] = options[index].trim();
+    }
+    options = options.filter(val => val);
+    if (!options.length) {
+        await failChoose(message);
+        return;
     }
 
-    await message.channel.send(optfix);
+    await message.channel.send(options[Math.floor(Math.random() * options.length)]);
 };
 
 export const help = "I'll choose one of the options on your behalf";

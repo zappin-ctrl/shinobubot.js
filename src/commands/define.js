@@ -11,9 +11,11 @@ export const run = async (message, args) => {
         return;
     }
 
+    let response;
     const question = args.join('_');
-    const response = await axios.get(`https://api.dictionaryapi.dev/api/v2/entries/en/${question}`);
-    if (response.data.title === 'No Definitions Found') {
+    try {
+        response = await axios.get(`https://api.dictionaryapi.dev/api/v2/entries/en/${question}`);
+    } catch (e) {
         await message.channel.send("Couldn't find a definition for that.");
         return;
     }
