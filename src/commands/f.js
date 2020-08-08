@@ -3,9 +3,9 @@ import {removeCommandPart, applyMentions} from "../utility";
 export const aliases = ["rip"];
 export const run = async (message, args) => {
     if (args[0]) {
-        await message.channel.send(applyMentions(`**${process.env.DEAD_EMOTE} $1** paid their respects for **${removeCommandPart(message.cleanContent)}**.`, message.author))
+        await message.channel.send(applyMentions(`**${process.env.DEAD_EMOTE} $!1** paid their respects for **${removeCommandPart(message.cleanContent)}**.`, message.author))
     } else {
-        await message.channel.send(applyMentions(`**${process.env.DEAD_EMOTE} $1** paid their respects.`, message.author))
+        await message.channel.send(applyMentions(`**${process.env.DEAD_EMOTE} $!1** paid their respects.`, message.author))
     }
 };
 
