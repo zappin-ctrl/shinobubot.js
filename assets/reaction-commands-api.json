@@ -133,6 +133,13 @@
     "helpGroup": "gif",
     "helpSimpleGroup": 2
   },
+  "lick": {
+    "url": "https://waifu.pics/api/lick",
+    "mention": "$1 licked $2",
+    "noMention": "$1 licked themselves",
+    "helpGroup": "gif",
+    "helpSimpleGroup": 3
+  },
   "wink": {
     "url": "https://waifu.pics/api/wink",
     "mention": "$1 winked at $2",
