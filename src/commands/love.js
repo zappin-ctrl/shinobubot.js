@@ -1,6 +1,6 @@
 import RangeHelper from "../classes/RangeHelper";
 import seedrandom from "seedrandom";
-import {getEmbed, getUserFromMention} from "../utility";
+import {getEmbed, getUserFromMention, applyMentions} from "../utility";
 
 const ranges = new RangeHelper([{
     from: 0,
@@ -47,7 +47,7 @@ export const run = async (message, args) => {
     const result = Math.max(Math.min(Math.round(Math.abs(x()) * 100), 100), 0);
 
     const embed = getEmbed()
-        .setDescription(`<@${userA.id}> and <@${userB.id}>'s love is at **${result}**\n\n> Your shipname is **${shipName}**`)
+        .setDescription(applyMentions(`$1 and $2's love is at **${result}**\n\n> Your shipname is **${shipName}**`, userA, userB))
         .setFooter(ranges.getValue(result))
         .setImage(`https://api.alexflipnote.dev/ship?user=${userA.displayAvatarURL()}&user2=${userB.displayAvatarURL()}`);
 

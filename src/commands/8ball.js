@@ -1,4 +1,4 @@
-import {getEmbed} from "../utility";
+import {getEmbed, applyMentions} from "../utility";
 import axios from "axios";
 
 export const aliases = ['eightball', 'magic8', 'magicball'];
@@ -22,7 +22,7 @@ export const run = async (message, args) => {
 
     const embed = getEmbed()
         .setThumbnail('https://i.imgur.com/ciZLX5u.png')
-        .setDescription(`<@${message.author.id}> asks: \n > ${question} \n \n **\`Answer:\`** **${response.data.magic.answer} ${feel}**`);
+        .setDescription(applyMentions(`$1 asks: \n > ${question} \n \n **\`Answer:\`** **${response.data.magic.answer} ${feel}**`, message.author));
 
     await message.channel.send(embed);
 };

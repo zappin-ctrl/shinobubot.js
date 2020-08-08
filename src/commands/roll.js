@@ -1,3 +1,5 @@
+import {applyMentions} from "../utility";
+
 export const run = async (message, args) => {
     const num = Number(args[0]);
 
@@ -6,7 +8,7 @@ export const run = async (message, args) => {
         return;
     }
 
-    await message.channel.send(`> **${message.author.username}** rolled a `  + `**` + (Math.round(Math.random() * (args[0] - 1) + 1)) + `** / ${args[0]}`)
+    await message.channel.send(applyMentions(`> **$!1** rolled a `  + `**` + (Math.round(Math.random() * (args[0] - 1) + 1)) + `** / ${args[0]}`, message.author))
 };
 
 export const help = "Roll between 1 and your number";

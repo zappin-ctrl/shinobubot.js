@@ -1,5 +1,5 @@
 import RangeHelper from "../classes/RangeHelper";
-import {getEmbed, getUserFromMention} from "../utility";
+import {getEmbed, getUserFromMention, applyMentions} from "../utility";
 
 const ratings = new RangeHelper([{
     from: 0,
@@ -54,7 +54,7 @@ export const run = async (message, args) => {
     if (user.id === message.author.id) {
         embed.setDescription(`You're **${result}%** gay! ${process.env.EMOTE_DANCE}`);
     } else {
-        embed.setDescription(`<@${user.id}> is **${result}%** gay! ${process.env.EMOTE_DANCE}`);
+        embed.setDescription(applyMentions(`$1 is **${result}%** gay! ${process.env.EMOTE_DANCE}`, user));
     }
 
     await message.channel.send(embed);
