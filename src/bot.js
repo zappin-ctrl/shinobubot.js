@@ -60,7 +60,11 @@ fs.readdir("./lib/commands", async (err, files) => {
         const command = file.substr(0, file.lastIndexOf("."));
         addCommand(command, {
             run: exports.run,
-            command: command
+            command: command,
+            help: exports.help,
+            helpGroup: exports.helpGroup,
+            helpArguments: exports.helpArguments,
+            helpSimpleGroup: exports.helpSimpleGroup
         }, exports.aliases);
     }
 });

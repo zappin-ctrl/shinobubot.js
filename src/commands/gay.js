@@ -59,3 +59,7 @@ export const run = async (message, args) => {
 
     await message.channel.send(embed);
 };
+
+export const help = "Find out yours or your friends' gay potential";
+export const helpArguments = '[@someone/ID]';
+export const helpGroup = 'fun';

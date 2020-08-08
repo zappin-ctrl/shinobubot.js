@@ -1,6 +1,6 @@
 import {getEmbed} from "../utility";
 
-export const alises = ["emote", "enlarge", "steal"];
+export const aliases = ["emoji", "enlarge", "steal"];
 export const run = async (message, args) => {
     const emoji = args[0];
     if (!emoji) {
@@ -25,3 +25,7 @@ export const run = async (message, args) => {
 
     await message.channel.send(embed);
 };
+
+export const help = "Enlarge an emote (so you can steal it)";
+export const helpArguments = '[emote]';
+export const helpGroup = 'utility';

@@ -53,3 +53,7 @@ export const run = async (message, args) => {
 
     await message.channel.send(embed);
 };
+
+export const help = "How strong is the love between the two? Find out today";
+export const helpArguments = '[@someone/ID] [@someone2/ID2] (optional)';
+export const helpGroup = 'fun';

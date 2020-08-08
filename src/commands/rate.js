@@ -30,3 +30,7 @@ export const run = async (message) => {
 
     await message.channel.send(`I'd rate **${question}** a solid **${num}/100**, ${ratings.getValue(num)}`);
 };
+
+export const help = "Rates whatever your heart desires";
+export const helpArguments = '[sentence]';
+export const helpGroup = 'fun';

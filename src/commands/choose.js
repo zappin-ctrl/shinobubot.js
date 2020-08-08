@@ -8,3 +8,7 @@ export const run = async (message, args, argsclean) => {
     const options = argsclean.join(" ").split(",");
     await message.channel.send(options[Math.floor(Math.random() * options.length)]);
 };
+
+export const help = "I'll choose one of the options on your behalf";
+export const helpArguments = '[op1,op2,etc]';
+export const helpGroup = 'fun';

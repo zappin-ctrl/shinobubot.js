@@ -118,7 +118,7 @@ export function addCommand(key, data, aliases = []) {
 
         for (let alias of aliases) {
             if (alias in commandAliases) {
-                logger.error(`Cannot reuse alias ${alias}, quitting.`);
+                logger.error(`Cannot reuse alias ${alias} (already used for ${commandAliases[alias]}), quitting.`);
                 process.exit(-1);
             }
 
@@ -157,7 +157,11 @@ export function loadCommandsFromJson() {
             addCommand(key, {
                 run: file.func,
                 info: command,
-                command: key
+                command: key,
+                help: command.help,
+                helpGroup: command.helpGroup,
+                helpArguments: command.helpArguments,
+                helpSimpleGroup: command.helpSimpleGroup
             }, command.aliases);
         }
     }

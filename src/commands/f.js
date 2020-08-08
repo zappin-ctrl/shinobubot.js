@@ -8,3 +8,7 @@ export const run = async (message, args) => {
         await message.channel.send(`**${process.env.DEAD_EMOTE} <@${message.author.id}>** paid their respects.`)
     }
 };
+
+export const help = "Pay respects";
+export const helpArguments = '[something] (optional)';
+export const helpGroup = 'fun';

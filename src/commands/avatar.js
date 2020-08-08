@@ -22,3 +22,7 @@ export const run = async (message, args) => {
         }]
     });
 };
+
+export const help = "Show a user's profile picture";
+export const helpArguments = '[@someone/ID]';
+export const helpGroup = 'utility';

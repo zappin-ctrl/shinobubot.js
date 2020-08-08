@@ -8,3 +8,7 @@ export const run = async (message, args) => {
 
     await message.channel.send(`> **${message.author.username}** rolled a `  + `**` + (Math.round(Math.random() * (args[0] - 1) + 1)) + `** / ${args[0]}`)
 };
+
+export const help = "Roll between 1 and your number";
+export const helpArguments = '[number]';
+export const helpGroup = 'fun';

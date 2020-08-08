@@ -37,3 +37,7 @@ export const run = async (message, args) => {
         await post.edit(result);
     }
 };
+
+export const help = "Fight someone and let fate decide who lives and who dies";
+export const helpArguments = '[@someone/ID]';
+export const helpGroup = 'fun';

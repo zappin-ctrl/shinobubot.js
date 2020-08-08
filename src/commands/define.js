@@ -45,3 +45,7 @@ export const run = async (message, args) => {
             .setDescription(final.join('\n\n\n'))
     );
 };
+
+export const help = "Show the dictionary's proper definition(s) of a word/phrase";
+export const helpArguments = '[word/phrase]';
+export const helpGroup = 'fun';

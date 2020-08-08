@@ -27,3 +27,6 @@ export const run = async (message, args) => {
     await message.channel.send(embed);
 };
 
+export const help = 'Ask a yes/no question and have it answered';
+export const helpArguments = '[question]';
+export const helpGroup = 'fun';
