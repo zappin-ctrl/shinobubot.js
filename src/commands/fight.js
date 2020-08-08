@@ -1,4 +1,4 @@
-import {getUserFromMention, sleep} from "../utility";
+import {getUserFromMention, sleep, applyMentions} from "../utility";
 
 const startQuote = [
     "Getting ready to rumble",
@@ -24,7 +24,7 @@ export const run = async (message, args) => {
             await message.reply('Please use a proper mention.');
             return;
         } else if (user.id === message.author.id) {
-            await message.channel.send(`<@${message.author.id}> killed themselves ${process.env.DEAD_EMOTE}`);
+            await message.channel.send(applyMentions(`$1 killed themselves ${process.env.DEAD_EMOTE}`, message.author));
             return;
         }
 
@@ -34,7 +34,7 @@ export const run = async (message, args) => {
             .replace('$2', `<@${user.id}>`);
 
         await sleep(3000);
-        await post.edit(result);
+        await post.edit(applyMentions(endQuote[Math.floor(Math.random() * endQuote.length)], message.author, user));
     } else {
        await message.channel.send(`<@${message.author.id}> killed themselves ${process.env.DEAD_EMOTE}`);
        return;
