@@ -19,7 +19,7 @@ An example .env file is provided as .env.dist.
 
 
 **Ta-dah, you -hopefully- have a working bot.**
-**Feel free to bully me on Discord @ `zappin#1312` or join my server [Shinobu & Friends](https://discord.gg/shinobu)**
+**Feel free to bully us on Discord @ `zappin#1312` or `Ly#3449` or join zappin's server [Shinobu & Friends](https://discord.gg/shinobu)**
 
 It uses **nekos.life, waifu.pics, rra.ram.moe** for the GIF commands.
 
