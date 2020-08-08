@@ -51,6 +51,12 @@ export const run = async (message, args) => {
         return;
     }
 
+    try {
+        message.delete({
+            timeout: 3000
+        });
+    } catch (e) {}
+
     const say = removeCommandPart(message.cleanContent);
     if (message.channel.id === 652432414135681060) {
         for (const key in roleMap) {
@@ -63,12 +69,6 @@ export const run = async (message, args) => {
     }
 
     await message.channel.send(say)
-
-    try {
-        await message.delete({
-            timeout: 1000
-        });
-    } catch (e) {}
 };
 
 export const help = "Have the bot repeat your message";
