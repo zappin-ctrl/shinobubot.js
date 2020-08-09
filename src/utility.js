@@ -95,8 +95,8 @@ async function runCanvasReactionCommand(message, args, argsclean, command) {
     ctx.drawImage(await Canvas.loadImage(info.image), 0, 0, canvas.width, canvas.height);
     canvasFunctions[command](
         ctx,
-        await Canvas.loadImage(message.author.displayAvatarURL({format: "png"})),
-        await Canvas.loadImage(user.displayAvatarURL({format: "png"})),
+        await Canvas.loadImage(message.author.displayAvatarURL({format: "jpg"})),
+        await Canvas.loadImage(user.displayAvatarURL({format: "jpg"})),
         canvas
     );
 
