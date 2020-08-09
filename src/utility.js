@@ -13,8 +13,18 @@ import Canvas from "canvas";
 
 export const sleep = promisify(setTimeout);
 
+const packageJson = JSON.parse(fs.readFileSync('../package.json', 'utf8'));
+
 export function setActivity(client) {
     client.user.setActivity(process.env.PREFIX + 'help | ' + process.env.PREFIX + 'suggest');
+}
+
+export function version() {
+    return packageJson.version;
+}
+
+export function getUserAgent() {
+    return 'ShinobuBot/' + version();
 }
 
 export function getRandomInt(min, max) {
