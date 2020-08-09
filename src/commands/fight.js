@@ -29,15 +29,11 @@ export const run = async (message, args) => {
         }
 
         const post = await message.channel.send(process.env.LOADING_EMOTE + " " + startQuote[Math.floor(Math.random() * startQuote.length)] + " . . .");
-        const result = endQuote[Math.floor(Math.random() * endQuote.length)]
-            .replace('$1', `<@${message.author.id}>`)
-            .replace('$2', `<@${user.id}>`);
 
         await sleep(3000);
         await post.edit(applyMentions(endQuote[Math.floor(Math.random() * endQuote.length)], message.author, user));
     } else {
        await message.channel.send(`<@${message.author.id}> killed themselves ${process.env.DEAD_EMOTE}`);
-       return;
     }
 };
 

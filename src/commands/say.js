@@ -3,44 +3,44 @@ import {removeCommandPart} from "../utility";
 
 const roleMap = {
     '688536643497623641': { // Yotsugi
-        avatar: 'https://i.imgur.com/TBVj9pH.jpg',
-        name: 'Yotsugi Ononoki'
+        id: '710516700419719280',
+        key: 'a2y5k-L20uSEMhCwhuJdjYrC5uUJgKdEiYy_l6Kc5GTx5k0V1LX4no2T0tVuaqiWKfPr'
     },
     '688536488488861720': { // Senjou
-        avatar: 'https://i.imgur.com/0fixIeo.jpg',
-        name: 'Hitagi Senjougahara'
+        id: '710515855943008337',
+        key: 'oLmkKwAp1XcuuJq-4qS_siMBhqtgJGFrzGyFrE5m3chjJ-iyTOx3MqQpsHl_CErjhgmX'
     },
     '688536542364565522': { // Hanekawa
-        avatar: 'https://i.imgur.com/s1xYpfE.jpg',
-        name: 'Tsubasa Hanekawa'
+        id: '710515997366550610',
+        key: 'tZOEF8UBCGiNBoXXQ4BUsduAXEcq2FHnzGmPTDAd9LcqO72jPWHympiVCYYTTCqlWsvT'
     },
     '688536468112670733': { // Shinobu
-        avatar: 'https://i.imgur.com/0llNMoa.jpg',
-        name: 'Shinobu Oshino'
+        id: '710516076823183436',
+        key: 'BwG8fIdiZi2lZvlQBgsU6Apakoe9AWgQ7jpt18nZxOMu1U9BEPCB4XRStO91jNIBbLZl'
     },
     '688536869939838993': { // Nadeko
-        avatar: 'https://i.imgur.com/z3iryOe.jpg',
-        name: 'Nadeko Sengoku'
+        id: '710516396777275472',
+        key: 'tUMLqgs7aXaMBeWZEhaOUW7b7k5ufNYMbWyTHXcU5fGeizHCviT9qJRkEYasNWbcN7jV'
     },
     '688536582113722464': { // Tsukihi
-        avatar: 'https://i.imgur.com/4z6NpVp.jpg',
-        name: 'Tsukihi Araragi'
+        id: '710516815167750194',
+        key: '60ZfkC77iYsg5viBZpkmXdjWyW22FeeHTv6e-bdcMNRc-pvRhMQJg8YHqP0be-ZrJByi'
     },
     '688536614397411413': { // Karen
-        avatar: 'https://i.imgur.com/GrORkZS.jpg',
-        name: 'Karen Araragi'
+        id: '710516925116973076',
+        key: '5a9laqgc8dKNyOlYqJQ-DRv1bkhrdGyk0ONaU2biqN0MUok2RqWifweQxB23YUFiRXoL'
     },
     '688536685725745161': { // Ougi
-        avatar: 'https://i.imgur.com/hZaGJQa.jpg',
-        name: 'Ougi Oshino'
+        id: '710517073545265193',
+        key: 'jq3EpVuTSIy7ZE5aWBny9v772UUfb7MO8SI562J9e-qdVmi1mDd6Ns0kFZrfLZ49Vyyy'
     },
     '688536413175808012': { // Hachi
-        avatar: 'https://i.imgur.com/Z4tZyYR.jpg',
-        name: 'Mayoi Hachikuji'
+        id: '710517173805908038',
+        key: 'UaMr1vOQSiLlZ6XUmBhLlor0c0mOgWJqE0TLlrZKPzDlrW7PaRZpElV1GMkbrhaHsTcG'
     },
     '688536521959407628': { // Kanbaru
-        avatar: 'https://i.imgur.com/PaW9sjP.jpg',
-        name: 'Suruga Kanbaru'
+        id: '710517484356239432',
+        key: 'qr1TEGDnB2qSEORY0S-jL12aAQKgEIY7-st8dKOagxIFvZ1aSGRMyAaHzAoedEfijuQh'
     }
 }
 
@@ -58,16 +58,10 @@ export const run = async (message, args) => {
     } catch (e) {}
 
     const say = removeCommandPart(message.cleanContent);
-    if (message.channel.guild.id === '652432413586358273') {
+    if (message.channel.id === '652432414135681060') {
         for (const key in roleMap) {
             if (message.member.roles.cache.has(key)) {
-                const hook = new Discord.WebhookClient(process.env.WEBHOOK_ID, process.env.WEBHOOK_TOKEN);
-                await hook.edit({
-                    channel: message.channel,
-                    avatar: roleMap[key].avatar,
-                    name: roleMap[key].name,
-                    reason: 'Running say command with waifu'
-                });
+                const hook = new Discord.WebhookClient(roleMap[key].id, roleMap[key].key);
                 await hook.send(say);
                 return;
             }
