@@ -1,6 +1,7 @@
 import Discord from "discord.js";
 import logger from "./logger";
 import {setActivity, loadCommandsFromJson, addCommand} from "./utility";
+import {loadWeebCommands} from "./weeb";
 import fs from "fs";
 import _ from "lodash";
 
@@ -69,6 +70,7 @@ fs.readdir("./lib/commands", async (err, files) => {
     }
 });
 loadCommandsFromJson();
+loadWeebCommands();
 
 export const customImageList = JSON.parse(fs.readFileSync('./assets/image-list.json', 'utf8'));
 export default client;

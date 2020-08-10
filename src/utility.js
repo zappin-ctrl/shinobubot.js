@@ -13,7 +13,7 @@ import Canvas from "canvas";
 
 export const sleep = promisify(setTimeout);
 
-const packageJson = JSON.parse(fs.readFileSync('../package.json', 'utf8'));
+const packageJson = JSON.parse(fs.readFileSync('./package.json', 'utf8'));
 
 export function setActivity(client) {
     client.user.setActivity(process.env.PREFIX + 'help | ' + process.env.PREFIX + 'suggest');
@@ -148,14 +148,19 @@ export function deleteCommand(key) {
 
 const commandFiles = [{
     file: './assets/reaction-commands-api.json',
-    func: runReactionCommand
+    func: runReactionCommand,
+    save: true
 }, {
     file: './assets/reaction-commands-local-list.json',
-    func: runListReactionCommand
+    func: runListReactionCommand,
+    save: true
 }, {
     file: './assets/canvas-commands.json',
-    func: runCanvasReactionCommand
+    func: runCanvasReactionCommand,
+    save: false
 }];
+
+export const genericCommandData = {};
 
 export function loadCommandsFromJson() {
     for (const file of commandFiles) {
@@ -164,6 +169,10 @@ export function loadCommandsFromJson() {
             deleteCommand(key);
 
             const command = commandsInFile[key];
+            if (file.save) {
+                genericCommandData[key] = command;
+            }
+
             addCommand(key, {
                 run: file.func,
                 info: command,
@@ -248,7 +257,13 @@ export async function handleSimplePost(message, args, url, mentionString, noMent
     imageReplaceUrl = applyDefault(imageReplaceUrl, null);
 
     const image = async () => {
-        const response = await axios.get(url);
+        let response;
+        if (_.isObject(url)) {
+            response = url;
+        } else {
+            response = await axios.get(url);
+        }
+
         if (imagePath in response.data) {
             if (imageReplaceUrl !== null) {
                 return imageReplaceUrl.replace('$1', response.data[imagePath]);
