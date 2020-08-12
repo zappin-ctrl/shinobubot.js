@@ -1,4 +1,4 @@
-import {getEmbed} from "../utility";
+import {getEmbed, getEmoji} from "../utility";
 
 export const aliases = ["emoji", "enlarge", "steal"];
 export const run = async (message, args) => {
@@ -8,18 +8,16 @@ export const run = async (message, args) => {
         return;
     }
 
-    const emojiId = emoji.replace(/<a?:(.*?):+/g, '').replace(/>+/g, '');
-    let imageUrl = `https://cdn.discordapp.com/emojis/${emojiId}`;
     const embed = getEmbed();
-    if (emoji.indexOf('<a:') === 0) {
-        imageUrl += '.gif';
-        embed.setDescription(`Type: **Animated (.gif)** \n ID: **${emojiId}** \n [View GIF](${imageUrl})`)
-            .setImage(imageUrl);
-    } else if (emoji.indexOf('<:') === 0) {
-        imageUrl += '.png';
-        embed.setDescription(`Type: **Image (.png)** \n ID: **${emojiId}** \n [View PNG](${imageUrl})`)
-            .setImage(imageUrl);
-    } else {
+    try {
+        const [animated, imageUrl, emojiId] = getEmoji(emoji);
+        embed.setImage(imageUrl);
+        if (animated) {
+            embed.setDescription(`Type: **Animated (.gif)** \n ID: **${emojiId}** \n [View GIF](${imageUrl})`);
+        } else {
+            embed.setDescription(`Type: **Image (.png)** \n ID: **${emojiId}** \n [View PNG](${imageUrl})`);
+        }
+    } catch {
         embed.setDescription("**Something isn't right, please try again.**");
     }
 

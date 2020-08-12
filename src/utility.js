@@ -114,6 +114,118 @@ async function runCanvasReactionCommand(message, args, argsclean, command) {
     await message.channel.send(applyMentions(info.mention, message.author, user), attachment);
 }
 
+export function getEmoji(message) {
+    const emojiId = message.replace(/<a?:(.*?):+/g, '').replace(/>+/g, '');
+    let imageUrl = `https://cdn.discordapp.com/emojis/${emojiId}`;
+    let animated = true;
+    if (message.indexOf('<a:') === 0) {
+        imageUrl += '.gif';
+    } else if (message.indexOf('<:') === 0) {
+        imageUrl += '.png';
+        animated = false;
+    } else {
+        throw Error("Not an emoji");
+    }
+
+    return [animated, imageUrl, emojiId];
+}
+
+export async function getImageFromMessage(message, sources) {
+    let image = null;
+    const arr = message.cleanContent.split(" ");
+    let secondArgument = null;
+    if (arr.length >= 2) {
+        secondArgument = arr[1];
+    }
+
+    for (const source of sources) {
+        if (source === 'attachment') {
+            if (message.attachments.size > 0) {
+                image = message.attachments.first().url;
+            }
+        } else if (source === 'emote') {
+            if (secondArgument) {
+                try {
+                    const [animated, imageUrl] = getEmoji(secondArgument);
+                    image = imageUrl;
+                } catch {
+                    // todo: add logic later
+                }
+            }
+        } else if (source === 'link') {
+            if (secondArgument) {
+                try {
+                    const response = await axios.head(secondArgument);
+                    for (const key of Object.keys(response.headers)) {
+                        if (key.toLocaleLowerCase() === 'content-type' && response.headers[key].indexOf('image') !== -1) {
+                            image = secondArgument;
+                            break;
+                        }
+                    }
+                } catch {
+                    // todo: add logic later (possibly 404 or other codes, just ignore them)
+                }
+            }
+        } else if (source === 'last_image' && secondArgument === '^') {
+            const messages = await message.channel.messages.fetch({ limit: 11 }); // 1 more because this fetches our command
+            messages.forEach((message) => {
+                if (image !== null) {
+                    return;
+                }
+
+                if (message.attachments.size > 0) {
+                    image = message.attachments.first().url;
+                }
+            });
+        } else if (source === 'avatar') {
+            image = message.author.displayAvatarURL({format: "png", dynamic: true, size: 128});
+        }
+
+        if (image !== null) {
+            break;
+        }
+    }
+
+    return image;
+}
+
+async function runRemoteCanvasCommand(message, args, argsclean, command) {
+    const info = commands[command].info;
+    if (_.isUndefined(info)) {
+        logger.warning(`Command ${command} was called but no info was found for it`);
+        return;
+    }
+
+    let sources = ['attachment', 'emote', 'link', 'last_image', 'avatar'];
+    if (_.isArray(info.sources)) {
+        sources = info.sources;
+    }
+
+    const imageSrc = await getImageFromMessage(message, sources);
+    if (!imageSrc) {
+        await message.channel.send("No images found.");
+        return;
+    }
+
+    const element = new Image(); // todo: create image from the
+    //
+    // const canvas = Canvas.createCanvas(info.width, info.height);
+    // const ctx = canvas.getContext('2d');
+    //
+    // const canvasFunctions = await import("./canvasLogic");
+    //
+    // ctx.drawImage(await Canvas.loadImage(info.image), 0, 0, canvas.width, canvas.height);
+    // canvasFunctions[command](
+    //     ctx,
+    //     await Canvas.loadImage(message.author.displayAvatarURL({format: "jpg"})),
+    //     await Canvas.loadImage(user.displayAvatarURL({format: "jpg"})),
+    //     canvas
+    // );
+    //
+    // const attachment = new Discord.MessageAttachment(canvas.toBuffer(), 'image.jpg');
+    // await message.channel.send(applyMentions(info.mention, message.author, user), attachment);
+}
+
 export function addCommand(key, data, aliases = []) {
     if (key in commands) {
         logger.error(`Command ${key} is already defined`);
@@ -158,7 +270,13 @@ const commandFiles = [{
     file: './assets/canvas-commands.json',
     func: runCanvasReactionCommand,
     save: false
-}];
+}
+// , { so this doesn't get loaded for production
+//     file: './assets/canvas-manipulation-commands.json',
+//     func: runRemoteCanvasCommand,
+//     save: false
+// }
+];
 
 export const genericCommandData = {};
 
