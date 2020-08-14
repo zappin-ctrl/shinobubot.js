@@ -20,7 +20,7 @@
     "cross-env": "^7.0.2",
     "discord.js": "^12.0.2",
     "dotenv": "^8.2.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.20",
     "lowdb": "^1.0.0",
     "moment": "^2.27.0",
     "ogparser": "^1.0.0",
