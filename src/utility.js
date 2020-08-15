@@ -134,7 +134,7 @@ export function getEmoji(message) {
     return [animated, imageUrl, emojiId];
 }
 
-export async function getImageFromMessage(message, sources) {
+export async function getImageFromMessage(message, sources, args) {
     let image = null;
     const arr = message.cleanContent.split(" ");
     let secondArgument = null;
@@ -182,7 +182,16 @@ export async function getImageFromMessage(message, sources) {
                 }
             });
         } else if (source === 'avatar') {
-            image = message.author.displayAvatarURL({format: "png", dynamic: true, size: 128});
+            if (secondArgument) { // check for mention first
+                const user = getUserFromMention(args[0]);
+                if (user) {
+                    image = user.displayAvatarURL({format: "jpg", dynamic: true, size: 128});
+                }
+            }
+
+            if (image === null) {
+                image = message.author.displayAvatarURL({format: "jpg", dynamic: true, size: 128});
+            }
         }
 
         if (image !== null) {
@@ -205,7 +214,7 @@ async function runRemoteCanvasCommand(message, args, argsclean, command) {
         sources = info.sources;
     }
 
-    const imageSrc = await getImageFromMessage(message, sources);
+    const imageSrc = await getImageFromMessage(message, sources, args);
     if (!imageSrc) {
         await message.channel.send("No images found.");
         return;
