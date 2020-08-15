@@ -6,6 +6,10 @@
     "title": "Gif Stuff",
     "description": " **gif_name [@someone/ID] (optional)**\n Posts a gif of the requested action (with or without an @)"
   },
+  "image_manipulation": {
+    "title": "Image manipulation",
+    "description": " **method [attachment/emote/link/^(last image)/avatar]**\n Posts a modified image based on source"
+  },
   "utility": {
     "title": "Utility"
   }

@@ -1,6 +1,8 @@
 {
-  "test_command": {
-    "height": 1.5,
-    "width": 2
+  "wide": {
+    "height": 0.9,
+    "width": 3,
+    "helpGroup": "image_manipulation",
+    "helpSimpleGroup": 1
   }
 }

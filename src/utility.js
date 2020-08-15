@@ -51,6 +51,10 @@ export function getUserFromMention(message) {
 }
 
 export function applyMentions(string, userA, userB = null) {
+    if (_.isUndefined(string)) {
+        return '';
+    }
+
     string = string
         .replace('$1', `<@${userA.id}>`)
         .replace('$!1', userA.username);
@@ -207,23 +211,19 @@ async function runRemoteCanvasCommand(message, args, argsclean, command) {
         return;
     }
 
-    const element = new Image(); // todo: create image from the
-    //
-    // const canvas = Canvas.createCanvas(info.width, info.height);
-    // const ctx = canvas.getContext('2d');
-    //
-    // const canvasFunctions = await import("./canvasLogic");
-    //
-    // ctx.drawImage(await Canvas.loadImage(info.image), 0, 0, canvas.width, canvas.height);
-    // canvasFunctions[command](
-    //     ctx,
-    //     await Canvas.loadImage(message.author.displayAvatarURL({format: "jpg"})),
-    //     await Canvas.loadImage(user.displayAvatarURL({format: "jpg"})),
-    //     canvas
-    // );
-    //
-    // const attachment = new Discord.MessageAttachment(canvas.toBuffer(), 'image.jpg');
-    // await message.channel.send(applyMentions(info.mention, message.author, user), attachment);
+    try {
+        const image = await Canvas.loadImage(imageSrc);
+
+        const canvas = Canvas.createCanvas(image.width * (_.isUndefined(info.width) ? 1 : info.width), image.height * (_.isUndefined(info.height) ? 1 : info.height));
+        const ctx = canvas.getContext('2d');
+
+        ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+
+        const attachment = new Discord.MessageAttachment(canvas.toBuffer(), 'image.jpg');
+        await message.channel.send(applyMentions(info.noMention, message.author), attachment);
+    } catch { // image creation might fail
+        await message.channel.send("No images found.");
+    }
 }
 
 export function addCommand(key, data, aliases = []) {
@@ -270,13 +270,11 @@ const commandFiles = [{
     file: './assets/canvas-commands.json',
     func: runCanvasReactionCommand,
     save: false
-}
-// , { so this doesn't get loaded for production
-//     file: './assets/canvas-manipulation-commands.json',
-//     func: runRemoteCanvasCommand,
-//     save: false
-// }
-];
+}, {
+    file: './assets/canvas-manipulation-commands.json',
+    func: runRemoteCanvasCommand,
+    save: false
+}];
 
 export const genericCommandData = {};
 
