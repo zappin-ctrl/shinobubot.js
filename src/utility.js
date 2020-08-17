@@ -220,13 +220,19 @@ async function runRemoteCanvasCommand(message, args, argsclean, command) {
         return;
     }
 
+    const canvasFunctions = await import("./canvasTransformLogic");
+
     try {
         const image = await Canvas.loadImage(imageSrc);
 
         const canvas = Canvas.createCanvas(image.width * (_.isUndefined(info.width) ? 1 : info.width), image.height * (_.isUndefined(info.height) ? 1 : info.height));
+
         const ctx = canvas.getContext('2d');
 
-        ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+        const fn = canvasFunctions[command] ?? function (ctx, image, canvas) {
+            ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+        };
+        fn(ctx, image, canvas);
 
         const attachment = new Discord.MessageAttachment(canvas.toBuffer(), 'image.jpg');
         await message.channel.send(applyMentions(info.noMention, message.author), attachment);
