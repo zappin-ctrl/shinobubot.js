@@ -10,13 +10,6 @@
     "helpGroup": "gif",
     "helpSimpleGroup": 3
   },
-  "grope": {
-    "key": "gropeP",
-    "mention": "$1 groped $2",
-    "noMention": "$1 groped themselves? Ok.",
-    "helpGroup": "gif",
-    "helpSimpleGroup": 3
-  },
   "handhold": {
     "key": "handP",
     "mention": "$1 held hands with $2",
