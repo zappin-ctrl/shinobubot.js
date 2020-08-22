@@ -317,8 +317,17 @@ export function loadCommandsFromJson() {
     }
 }
 
-function applyDefault(variable, value) {
+export function applyDefault(variable, value) {
     if (_.isUndefined(variable)) {
+        return value;
+    }
+
+    return variable;
+}
+
+export function applyDefaultWithNull(variable, value) {
+    variable = applyDefault(variable, value);
+    if (_.isNull(variable)) {
         return value;
     }
 

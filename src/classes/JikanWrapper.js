@@ -1,47 +1,64 @@
 import axios from "axios";
-import {Mutex} from "async-mutex";
-import moment from "moment";
-import {sleep} from "../utility";
+import RateLimit, {RateSetting} from "./RateLimit";
 
 const API_URL = 'https://api.jikan.moe/v3';
 
-const ENDPOINT_ANIME_LOOKUP = '/anime/';
+const ENDPOINT_ANIME_LOOKUP = '/anime/$1';
 const ENDPOINT_ANIME_SEARCH = '/search/anime?q=$1&page=$2';
 
-let minute = [];
-let second = [];
-let cache = {};
+const limits = new RateLimit([
+    new RateSetting(2, 1000),
+    new RateSetting(30, 60000, true)
+]);
 
-const mutex = new Mutex();
-
-function calcTtl(date) {
-    return new Date() < date;
-}
-
-async function isAllowedToCall() {
-    if (minute.length > 30) {
-
-    }
-
-    if (second.length > 1) {
-        if (moment().format() === moment(second[0]).format()) {
-            await sleep(1000);
-        }
-
-        second = [];
-        return true;
-    }
-}
+const simpleRequestCache = {};
 
 export default class JikanWrapper {
-    async animeSearch(query, page = 1) {
-        const url = API_URL + ENDPOINT_ANIME_SEARCH.replace('$1', query).replace('$2', page);
-        if (url in cache) {
-            if (calcTtl(cache[url].ttl)) {
-                return cache[url].data;
+    checkCache(url) {
+        const allowedMaxTime = new Date().getTime() - (60 * 1000 * 24);
+        if (url in simpleRequestCache) {
+            if (simpleRequestCache[url].ms > allowedMaxTime) {
+                return simpleRequestCache[url].data;
+            } else {
+                delete simpleRequestCache[url];
             }
         }
 
+        return null;
+    }
 
+    addCache(url, data) {
+        simpleRequestCache[url] = {
+            ms: new Date().getTime(),
+            data: data
+        };
+    }
+
+    async handleByUrl(url) {
+        const cache = this.checkCache(url);
+        if (null !== cache) {
+            return cache;
+        }
+
+        await limits.wait();
+        try {
+            const response = await axios.get(url);
+            this.addCache(url, response.data);
+            return response.data;
+        } catch (e) {
+            throw new Error("An error occurred while fetching resource");
+        }
+    }
+
+    async animeSearch(query, page = 1) {
+        query = query.trim();
+        if (query.length <= 2) {
+            throw new Error("Query is not long enough")
+        }
+        return this.handleByUrl(API_URL + ENDPOINT_ANIME_SEARCH.replace('$1', query).replace('$2', page));
+    }
+
+    async animeLookup(id) {
+        return this.handleByUrl(API_URL + ENDPOINT_ANIME_LOOKUP.replace('$1', id));
     }
 }
