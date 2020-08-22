@@ -4,7 +4,9 @@ import RateLimit, {RateSetting} from "./RateLimit";
 const API_URL = 'https://api.jikan.moe/v3';
 
 const ENDPOINT_ANIME_LOOKUP = '/anime/$1';
+const ENDPOINT_MANGA_LOOKUP = '/manga/$1';
 const ENDPOINT_ANIME_SEARCH = '/search/anime?q=$1&page=$2';
+const ENDPOINT_MANGA_SEARCH = '/search/manga?q=$1&page=$2';
 
 const limits = new RateLimit([
     new RateSetting(2, 1000),
@@ -13,7 +15,7 @@ const limits = new RateLimit([
 
 const simpleRequestCache = {};
 
-export default class JikanWrapper {
+class JikanWrapper {
     checkCache(url) {
         const allowedMaxTime = new Date().getTime() - (60 * 1000 * 24);
         if (url in simpleRequestCache) {
@@ -58,7 +60,21 @@ export default class JikanWrapper {
         return this.handleByUrl(API_URL + ENDPOINT_ANIME_SEARCH.replace('$1', query).replace('$2', page));
     }
 
+    async mangaSearch(query, page = 1) {
+        query = query.trim();
+        if (query.length <= 2) {
+            throw new Error("Query is not long enough")
+        }
+        return this.handleByUrl(API_URL + ENDPOINT_MANGA_SEARCH.replace('$1', query).replace('$2', page));
+    }
+
     async animeLookup(id) {
         return this.handleByUrl(API_URL + ENDPOINT_ANIME_LOOKUP.replace('$1', id));
     }
+
+    async mangaLookup(id) {
+        return this.handleByUrl(API_URL + ENDPOINT_MANGA_LOOKUP.replace('$1', id));
+    }
 }
+
+export default new JikanWrapper();
