@@ -98,3 +98,7 @@ export const run = async (message, args, argsclean) => {
         }
     }
 };
+
+export const help = 'Lookup info on anime series, ya weeb.';
+export const helpArguments = '[anime name/ID]';
+export const helpGroup = 'anime';
