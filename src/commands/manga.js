@@ -1,6 +1,6 @@
 import JikanWrapper from "../classes/JikanWrapper";
 import {RateLimitError} from "../classes/RateLimit";
-import {applyDefaultWithNull, getEmbed} from "../utility";
+import {applyDefaultWithNull, ellipseText, getEmbed} from "../utility";
 
 export const run = async (message, args, argsclean) => {
     const manga = argsclean.join(" ").trim();
@@ -29,7 +29,7 @@ export const run = async (message, args, argsclean) => {
             const description = [
                 `**Score:** \`${applyDefaultWithNull(result.score, "?")}\` | **Rank:** \`${applyDefaultWithNull(result.rank, "?")}\` | **Popularity:** \`${applyDefaultWithNull(result.popularity, "?")}\`\n`,
                 "**Synopsis:**\n",
-                "> " + result.synopsis + "\n",
+                "> " + ellipseText(result.synopsis, 500) + "\n",
                 `**Volumes:** ${applyDefaultWithNull(result.volumes, "?")}`,
                 `**Status:** ${applyDefaultWithNull(result.status, "?")}`
             ];

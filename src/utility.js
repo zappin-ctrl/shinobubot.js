@@ -50,6 +50,14 @@ export function getUserFromMention(message) {
     return client.users.cache.get(message)
 }
 
+export function ellipseText(string, length = 300) {
+    if (string.length > 300) {
+        string = string.substr(0, length - 3) + "...";
+    }
+
+    return string;
+}
+
 export function applyMentions(string, userA, userB = null) {
     if (_.isUndefined(string)) {
         return '';
