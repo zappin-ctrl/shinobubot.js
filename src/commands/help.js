@@ -7,14 +7,15 @@ const groupSeparator = '======================';
 const helpFile = JSON.parse(fs.readFileSync("./assets/help.json", 'utf8'));
 
 export const run = async (message) => {
-    const embed = getEmbed()
-        .setTitle("🍩 Here's a list of what i can do: 🍩")
-        .setDescription('test');
-
-    let text = [];
-    let counter = 1;
-    const count = Object.keys(helpFile).length;
+    let counter = 0;
+    let count = Object.keys(helpFile).length;
     for (const group in helpFile) {
+        const embed = getEmbed();
+        if (counter === 0) {
+            embed.setTitle("🍩 Here's a list of what i can do: 🍩");
+        }
+
+        let text = [];
         text.push(`**${helpFile[group].title}**`);
         text.push(groupSeparator);
         if (!_.isUndefined(helpFile[group].description)) {
@@ -52,24 +53,29 @@ export const run = async (message) => {
             text.push("> " + groups[group].sort().join(" | "));
         }
 
-        if (counter !== count) {
-            text[text.length - 1] += '\n';
+        embed.setDescription(text.join('\n\n'));
+
+        if (counter === count - 1) {
+            embed.setFooter('Made by zappin#1312 and Ly#3449');
+        }
+
+        if (counter === 0) {
+            await message.react("✅");
+        }
+
+        try {
+            await message.author.send(embed);
+        } catch (e) {
+            await message.channel.send("Your DMs are disabled or some error occurred while sending message.");
+            await message.reactions.removeAll();
+            try {
+                await message.react('❌');
+            } catch (e) {} // user blocked mod probably, ignore
+            finally {
+                return;
+            }
         }
         counter++;
-    }
-
-    embed.setDescription(text.join('\n\n'))
-        .setFooter('Made by zappin#1312 and Ly#3449');
-
-    await message.react("✅");
-    try {
-        await message.author.send(embed);
-    } catch (e) {
-        await message.channel.send("Your DMs are disabled!");
-        await message.reactions.removeAll();
-        try {
-            await message.react('❌');
-        } catch (e) {} // user blocked mod probably, ignore
     }
 };
 

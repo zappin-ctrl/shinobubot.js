@@ -1,0 +1,105 @@
+{
+  "clagwimoth": {
+    "mention": "$2 what the frick are you on about",
+    "noMention": "$1 is confused",
+    "aliases": [
+      "nani",
+      "wut",
+      "what"
+    ]
+  },
+  "bang": {
+    "mention": "$1 shot $2",
+    "noMention": "$1 shot towards an undefined direction",
+    "aliases": [
+      "shoot"
+    ]
+  },
+  "insult": {
+    "mention": "$1 insulted $2",
+    "aliases": [
+      "bully",
+      "fuckyou",
+      "fuckoff"
+    ]
+  },
+  "smile": {
+    "mention": "$1 smiled at $2",
+    "noMention": "$1 is smiling"
+  },
+  "thumbsup": {
+    "mention": "$1 gave $2 a thumbs-up",
+    "noMention": "$1 are giving a thumbs-up",
+    "aliases": [
+      "bravo",
+      "approve"
+    ]
+  },
+  "triggered": {
+    "mention": "$1 is triggered by $2",
+    "noMention": "$1 is triggered"
+  },
+  "wag": {
+    "mention": "$1's tail is wagging for $2"
+  },
+  "waifu_insult": {
+    "mention": "$1 thinks $2's waifu sucks",
+    "aliases": [
+      "badwaifu",
+      "waifusucks"
+    ]
+  },
+  "banghead": {
+    "mention": "$1 are banging their head cause of $2",
+    "aliases": [
+      "headbang"
+    ]
+  },
+  "delet_this": {
+    "mention": "$1 deleted $2's  post",
+    "aliases": [
+      "deletethis",
+      "deletthis",
+      "delete"
+    ]
+  },
+  "thinking": {
+    "mention": "$1 is thinking with $2",
+    "noMention": "$1 is thinking real hard"
+  },
+  "greet": {
+    "mention": "$1 gave $2 a greeting",
+    "noMention": "$1 is waving",
+    "aliases": [
+      "wave"
+    ]
+  },
+  "punch": {
+    "mention": "$1 punched $2",
+    "noMention": "$1 punched the air"
+  },
+  "shrug": {
+    "mention": "$1 shrugs at $2",
+    "noMention": "$1 shrugged"
+  },
+  "sleepy": {
+    "mention": "$1 is sleepy and $2 isn't helping",
+    "noMention": "$1 is feeling sleepy",
+    "aliases": [
+      "tired"
+    ]
+  },
+  "dab": {
+    "mention": "$1 dabbed on $2",
+    "noMention": "$1 is dabbing furiously"
+  },
+  "teehee": {
+    "mention": "$1 is being silly with $2",
+    "noMention": "$1 is being silly",
+    "aliases": [
+      "hehe",
+      "giggle",
+      "silly"
+    ]
+  }
+}

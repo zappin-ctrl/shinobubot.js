@@ -13,7 +13,7 @@ import Canvas from "canvas";
 
 export const sleep = promisify(setTimeout);
 
-const packageJson = JSON.parse(fs.readFileSync('../package.json', 'utf8'));
+const packageJson = JSON.parse(fs.readFileSync('./package.json', 'utf8'));
 
 export function setActivity(client) {
     client.user.setActivity(process.env.PREFIX + 'help | ' + process.env.PREFIX + 'suggest');
@@ -51,6 +51,10 @@ export function getUserFromMention(message) {
 }
 
 export function applyMentions(string, userA, userB = null) {
+    if (_.isUndefined(string)) {
+        return '';
+    }
+
     string = string
         .replace('$1', `<@${userA.id}>`)
         .replace('$!1', userA.username);
@@ -114,6 +118,129 @@ async function runCanvasReactionCommand(message, args, argsclean, command) {
     await message.channel.send(applyMentions(info.mention, message.author, user), attachment);
 }
 
+export function getEmoji(message) {
+    const emojiId = message.replace(/<a?:(.*?):+/g, '').replace(/>+/g, '');
+    let imageUrl = `https://cdn.discordapp.com/emojis/${emojiId}`;
+    let animated = true;
+    if (message.indexOf('<a:') === 0) {
+        imageUrl += '.gif';
+    } else if (message.indexOf('<:') === 0) {
+        imageUrl += '.png';
+        animated = false;
+    } else {
+        throw Error("Not an emoji");
+    }
+
+    return [animated, imageUrl, emojiId];
+}
+
+export async function getImageFromMessage(message, sources, args) {
+    let image = null;
+    const arr = message.cleanContent.split(" ");
+    let secondArgument = null;
+    if (arr.length >= 2) {
+        secondArgument = arr[1];
+    }
+
+    for (const source of sources) {
+        if (source === 'attachment') {
+            if (message.attachments.size > 0) {
+                image = message.attachments.first().url;
+            }
+        } else if (source === 'emote') {
+            if (secondArgument) {
+                try {
+                    const [animated, imageUrl] = getEmoji(secondArgument);
+                    image = imageUrl;
+                } catch {
+                    // todo: add logic later
+                }
+            }
+        } else if (source === 'link') {
+            if (secondArgument) {
+                try {
+                    const response = await axios.head(secondArgument);
+                    for (const key of Object.keys(response.headers)) {
+                        if (key.toLocaleLowerCase() === 'content-type' && response.headers[key].indexOf('image') !== -1) {
+                            image = secondArgument;
+                            break;
+                        }
+                    }
+                } catch {
+                    // todo: add logic later (possibly 404 or other codes, just ignore them)
+                }
+            }
+        } else if (source === 'last_image' && secondArgument === '^') {
+            const messages = await message.channel.messages.fetch({ limit: 11 }); // 1 more because this fetches our command
+            messages.forEach((message) => {
+                if (image !== null) {
+                    return;
+                }
+
+                if (message.attachments.size > 0) {
+                    image = message.attachments.first().url;
+                }
+            });
+        } else if (source === 'avatar') {
+            if (secondArgument) { // check for mention first
+                const user = getUserFromMention(args[0]);
+                if (user) {
+                    image = user.displayAvatarURL({format: "jpg", dynamic: true, size: 128});
+                }
+            }
+
+            if (image === null) {
+                image = message.author.displayAvatarURL({format: "jpg", dynamic: true, size: 128});
+            }
+        }
+
+        if (image !== null) {
+            break;
+        }
+    }
+
+    return image;
+}
+
+async function runRemoteCanvasCommand(message, args, argsclean, command) {
+    const info = commands[command].info;
+    if (_.isUndefined(info)) {
+        logger.warning(`Command ${command} was called but no info was found for it`);
+        return;
+    }
+
+    let sources = ['attachment', 'emote', 'link', 'last_image', 'avatar'];
+    if (_.isArray(info.sources)) {
+        sources = info.sources;
+    }
+
+    const imageSrc = await getImageFromMessage(message, sources, args);
+    if (!imageSrc) {
+        await message.channel.send("No images found.");
+        return;
+    }
+
+    const canvasFunctions = await import("./canvasTransformLogic");
+
+    try {
+        const image = await Canvas.loadImage(imageSrc);
+
+        const canvas = Canvas.createCanvas(image.width * (_.isUndefined(info.width) ? 1 : info.width), image.height * (_.isUndefined(info.height) ? 1 : info.height));
+
+        const ctx = canvas.getContext('2d');
+
+        const fn = canvasFunctions[command] ?? function (ctx, image, canvas) {
+            ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+        };
+        fn(ctx, image, canvas);
+
+        const attachment = new Discord.MessageAttachment(canvas.toBuffer(), 'image.jpg');
+        await message.channel.send(applyMentions(info.noMention, message.author), attachment);
+    } catch { // image creation might fail
+        await message.channel.send("No images found.");
+    }
+}
+
 export function addCommand(key, data, aliases = []) {
     if (key in commands) {
         logger.error(`Command ${key} is already defined`);
@@ -148,14 +275,23 @@ export function deleteCommand(key) {
 
 const commandFiles = [{
     file: './assets/reaction-commands-api.json',
-    func: runReactionCommand
+    func: runReactionCommand,
+    save: true
 }, {
     file: './assets/reaction-commands-local-list.json',
-    func: runListReactionCommand
+    func: runListReactionCommand,
+    save: true
 }, {
     file: './assets/canvas-commands.json',
-    func: runCanvasReactionCommand
+    func: runCanvasReactionCommand,
+    save: false
+}, {
+    file: './assets/canvas-manipulation-commands.json',
+    func: runRemoteCanvasCommand,
+    save: false
 }];
+
+export const genericCommandData = {};
 
 export function loadCommandsFromJson() {
     for (const file of commandFiles) {
@@ -164,6 +300,10 @@ export function loadCommandsFromJson() {
             deleteCommand(key);
 
             const command = commandsInFile[key];
+            if (file.save) {
+                genericCommandData[key] = command;
+            }
+
             addCommand(key, {
                 run: file.func,
                 info: command,
@@ -248,7 +388,13 @@ export async function handleSimplePost(message, args, url, mentionString, noMent
     imageReplaceUrl = applyDefault(imageReplaceUrl, null);
 
     const image = async () => {
-        const response = await axios.get(url);
+        let response;
+        if (_.isObject(url)) {
+            response = url;
+        } else {
+            response = await axios.get(url);
+        }
+
         if (imagePath in response.data) {
             if (imageReplaceUrl !== null) {
                 return imageReplaceUrl.replace('$1', response.data[imagePath]);
