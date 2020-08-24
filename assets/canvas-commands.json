@@ -8,6 +8,15 @@
     "helpArguments": "[@someone/ID]",
     "helpGroup": "fun"
   },
+    "bonk": {
+    "image": "./assets/images/bonk.jpg",
+    "width": 700,
+    "height": 474,
+    "mention": "> **$!1** has bonked **$!2**",
+    "help": "Bonk someone when they're being horny",
+    "helpArguments": "[@someone/ID]",
+    "helpGroup": "fun"
+  },
   "pin": {
     "image": "./assets/images/pin.jpg",
     "width": 600,

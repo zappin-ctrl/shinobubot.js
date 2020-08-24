@@ -3,6 +3,14 @@ export const milk = (ctx, avatarAuthor, avatarUser) => {
     ctx.drawImage(avatarUser, 420, 110, 90, 90);
 };
 
+export const bonk = (ctx, avatarAuthor, avatarUser, canvas) => {
+    ctx.drawImage(avatarAuthor, 145, 90, 180, 180);
+	
+	ctx.translate(canvas.width/2, canvas.height/2);
+	ctx.rotate(45*Math.PI/180);
+    ctx.drawImage(avatarUser, 116, -136, 160, 160);
+};
+
 export const pin = (ctx, avatarAuthor, avatarUser) => {
     ctx.shadowColor = 'black';
     ctx.shadowBlur = 20;
