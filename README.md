@@ -21,6 +21,6 @@ An example .env file is provided as .env.dist.
 **Ta-dah, you -hopefully- have a working bot.**
 **Feel free to bully us on Discord @ `zappin#1312` or `Ly#3449` or join zappin's server [Shinobu & Friends](https://discord.gg/shinobu)**
 
-It uses **nekos.life, waifu.pics, rra.ram.moe** for the GIF commands.
+It uses **nekos.life, waifu.pics, rra.ram.moe** for the GIF commands (or **weeb.sh** if you supply a valid token).
 
 #### Please run the bot in docker or similar environment before reporting errors.
