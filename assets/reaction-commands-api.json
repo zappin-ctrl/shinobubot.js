@@ -8,6 +8,15 @@
     "helpGroup": "gif",
     "helpSimpleGroup": 2
   },
+  "shinobu": {
+    "url": "https://waifu.pics/api/shinobu",
+    "mention": "",
+    "aliases": [
+      "nobu"
+    ],
+    "help": "Send a random picture of Shinobu Oshino!",
+    "helpGroup": "utility"
+  },
   "bite": {
     "url": "https://waifu.pics/api/bite",
     "mention": "$1 bit $2",
