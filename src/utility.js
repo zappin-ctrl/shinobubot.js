@@ -370,8 +370,9 @@ async function prepareEmbedForPostHandling(message, args, mentionString, noMenti
             await message.reply("Please use a proper mention.");
             return null;
         }
-
-        embed.setDescription(applyMentions(mentionString, message.author, user));
+      if (mentionString !== null) {
+         embed.setDescription(applyMentions(mentionString, message.author, user));
+      }
     } else {
         if (noMentionString !== null) {
             embed.setDescription(applyMentions(noMentionString, message.author));
