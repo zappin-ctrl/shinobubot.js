@@ -231,6 +231,7 @@ async function runRemoteCanvasCommand(message, args, argsclean, command) {
     }
 
     const canvasFunctions = await import("./canvasTransformLogic");
+    console.log(canvasFunctions);
 
     try {
         message.channel.startTyping();
@@ -243,7 +244,7 @@ async function runRemoteCanvasCommand(message, args, argsclean, command) {
         const fn = canvasFunctions[command] ?? function (ctx, image, canvas) {
             ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
         };
-        fn(ctx, image, canvas);
+        fn(ctx, image, canvas, imageSrc);
 
         const attachment = new Discord.MessageAttachment(canvas.toBuffer(), 'image.jpg');
         
