@@ -246,11 +246,13 @@ async function runRemoteCanvasCommand(message, args, argsclean, command) {
         fn(ctx, image, canvas);
 
         const attachment = new Discord.MessageAttachment(canvas.toBuffer(), 'image.jpg');
-        message.channel.stopTyping();
+        
         await message.channel.send(applyMentions(info.noMention, message.author), attachment);
     } catch { // image creation might fail
-        message.channel.stopTyping();
+        
         await message.channel.send("No images found.");
+    } finally {
+        message.channel.stopTyping();
     }
 }
 
