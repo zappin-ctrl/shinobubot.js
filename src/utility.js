@@ -109,6 +109,7 @@ async function runCanvasReactionCommand(message, args, argsclean, command) {
         return;
     }
 
+    message.channel.startTyping();
     const canvas = Canvas.createCanvas(info.width, info.height);
     const ctx = canvas.getContext('2d');
 
@@ -123,6 +124,7 @@ async function runCanvasReactionCommand(message, args, argsclean, command) {
     );
 
     const attachment = new Discord.MessageAttachment(canvas.toBuffer(), 'image.jpg');
+    message.channel.stopTyping();
     await message.channel.send(applyMentions(info.mention, message.author, user), attachment);
 }
 
@@ -231,6 +233,7 @@ async function runRemoteCanvasCommand(message, args, argsclean, command) {
     const canvasFunctions = await import("./canvasTransformLogic");
 
     try {
+        message.channel.startTyping();
         const image = await Canvas.loadImage(imageSrc);
 
         const canvas = Canvas.createCanvas(image.width * (_.isUndefined(info.width) ? 1 : info.width), image.height * (_.isUndefined(info.height) ? 1 : info.height));
@@ -243,8 +246,10 @@ async function runRemoteCanvasCommand(message, args, argsclean, command) {
         fn(ctx, image, canvas);
 
         const attachment = new Discord.MessageAttachment(canvas.toBuffer(), 'image.jpg');
+        message.channel.stopTyping();
         await message.channel.send(applyMentions(info.noMention, message.author), attachment);
     } catch { // image creation might fail
+        message.channel.stopTyping();
         await message.channel.send("No images found.");
     }
 }
