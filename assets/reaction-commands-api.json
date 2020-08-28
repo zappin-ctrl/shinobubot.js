@@ -14,9 +14,17 @@
       "nobu",
       "kissshotacerolaorionheartunderblade"
     ],
-    "help": "Send a random picture of Shinobu Oshino!",
     "helpGroup": "waifu",
     "helpSimpleGroup": 1
+  },
+  "neko": {
+    "url": "https://waifu.pics/api/neko",
+    "aliases": [
+      "catgirl",
+      "nekos",
+    ],
+    "helpGroup": "waifu",
+    "helpSimpleGroup": 2
   },
   "bite": {
     "url": "https://waifu.pics/api/bite",
