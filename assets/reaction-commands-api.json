@@ -10,13 +10,13 @@
   },
   "shinobu": {
     "url": "https://waifu.pics/api/shinobu",
-    "mention": "",
     "aliases": [
       "nobu",
       "kissshotacerolaorionheartunderblade"
     ],
     "help": "Send a random picture of Shinobu Oshino!",
-    "helpGroup": "utility"
+    "helpGroup": "waifu",
+    "helpSimpleGroup": 1
   },
   "bite": {
     "url": "https://waifu.pics/api/bite",
@@ -159,8 +159,7 @@
   },
   "rem": {
     "url": "https://rra.ram.moe/i/r?type=rem",
-    "mention": "$1 wants to show you this picture of Rem, $2!",
-    "noMention": "Here's your Rem picture, $1",
+    "helpGroup": "waifu",
     "imagePath": "path",
     "imageReplaceUrl": "https://rra.ram.moe$1",
     "special": {
@@ -168,6 +167,15 @@
         "chance": 3,
         "message": "Who's Rem, $1?"
       }
-    }
+    },
+    "helpSimpleGroup": 1
+  },
+  "waifu": {
+    "url": "https://waifu.pics/api/sfw",
+    "helpGroup": "waifu",
+    "aliases": [
+      "randomwaifu"
+    ],
+    "helpSimpleGroup": 2
   }
 }

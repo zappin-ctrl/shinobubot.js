@@ -2,8 +2,12 @@
   "fun": {
     "title": "Fun/Memes"
   },
+  "waifu": {
+    "title": "Waifu Pics",
+    "description": "**Get a random image of the waifu of your choice, or a random one.**"
+  },
   "gif": {
-    "title": "Gif Stuff",
+    "title": "Reaction Gifs",
     "description": " **gif_name [@someone/ID] (optional)**\n Posts a gif of the requested action (with or without an @)"
   },
   "image_manipulation": {
