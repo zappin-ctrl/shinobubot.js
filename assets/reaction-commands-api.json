@@ -156,5 +156,18 @@
     "noMention": "$1 is winking",
     "helpGroup": "gif",
     "helpSimpleGroup": 2
+  },
+  "rem": {
+    "url": "https://rra.ram.moe/i/r?type=rem",
+    "mention": "$1 wants to show you this picture of Rem, $2!",
+    "noMention": "Here's your Rem picture, $1",
+    "imagePath": "path",
+    "imageReplaceUrl": "https://rra.ram.moe$1",
+    "special": {
+      "ultimateFailure": {
+        "chance": 3,
+        "message": "Who's Rem, $1?"
+      }
+    }
   }
 }

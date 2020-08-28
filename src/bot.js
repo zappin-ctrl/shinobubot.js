@@ -1,6 +1,6 @@
 import Discord from "discord.js";
 import logger from "./logger";
-import {setActivity, loadCommandsFromJson, addCommand} from "./utility";
+import {setActivity, loadCommandsFromJson, addCommand, applyMentions} from "./utility";
 import {loadWeebCommands} from "./weeb";
 import fs from "fs";
 import _ from "lodash";
@@ -43,6 +43,16 @@ client.on('message', (message) => {
         return;
     }
 
+    if (!_.isUndefined(cmd.info) && !_.isUndefined(cmd.info.special)) {
+        if ('ultimateFailure' in cmd.info.special && 'message' in cmd.info.special.ultimateFailure) {
+            const chance = parseInt(cmd.info.special.ultimateFailure.chance ?? 1);
+
+            if (chance >= Math.round(Math.random() * 99) + 1) {
+                message.channel.send(applyMentions(cmd.info.special.ultimateFailure.message, message.author));
+                return;
+            }
+        }
+    }
     cmd.run(message, args, argsclean, cmd.command);
 });
 

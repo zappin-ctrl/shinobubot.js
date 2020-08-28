@@ -50,10 +50,17 @@ export async function loadWeebCommands() {
             }
 
             let currentHelpGroup = data.helpSimpleGroup;
-            if (_.isUndefined(currentHelpGroup)) {
+            let helpGroup = _.isUndefined(genericCommandData[type]) ? 'gif' : genericCommandData[type].helpGroup;
+            if (_.isUndefined(currentHelpGroup) && (helpGroup === 'gif' || genericCommandData[type] === undefined)) {
                 currentHelpGroup = groupCounter;
+                helpGroup = 'gif';
                 newGroupCount++;
             }
+
+            const originalSpecial = _.isObject(genericCommandData[type]) &&
+                                    _.isObject(genericCommandData[type]) &&
+                                    _.isObject(genericCommandData[type].special) ?
+                                    genericCommandData[type].special : undefined;
 
             deleteCommand(type);
             addCommand(type, {
@@ -62,9 +69,10 @@ export async function loadWeebCommands() {
                 info: {
                     mention: data.mention,
                     noMention: data.noMention,
-                    type: type
+                    type: type,
+                    special: originalSpecial
                 },
-                helpGroup: 'gif',
+                helpGroup: helpGroup,
                 helpSimpleGroup: currentHelpGroup
             }, data.aliases);
 
