@@ -12,7 +12,8 @@
     "url": "https://waifu.pics/api/shinobu",
     "mention": "",
     "aliases": [
-      "nobu"
+      "nobu",
+      "kissshotacerolaorionheartunderblade"
     ],
     "help": "Send a random picture of Shinobu Oshino!",
     "helpGroup": "utility"
