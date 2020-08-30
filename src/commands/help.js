@@ -1,4 +1,4 @@
-import {getEmbed} from "../utility";
+import {getEmbed, version} from "../utility";
 import {commands} from "../bot";
 import fs from "fs";
 import _ from "lodash";
@@ -56,7 +56,7 @@ export const run = async (message) => {
         embed.setDescription(text.join('\n\n'));
 
         if (counter === count - 1) {
-            embed.setFooter('Made by zappin#1312 and Ly#3449');
+            embed.setFooter('Made by zappin#1312 and Ly#3449 - ' + version());
         }
 
         if (counter === 0) {
