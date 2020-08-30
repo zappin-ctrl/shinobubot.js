@@ -1,3 +1,4 @@
+import _ from "lodash";
 import {getUserFromMention, sleep, applyMentions} from "../utility";
 
 const startQuote = [
@@ -28,10 +29,10 @@ export const run = async (message, args) => {
             return;
         }
 
-        const post = await message.channel.send(process.env.LOADING_EMOTE + " " + startQuote[Math.floor(Math.random() * startQuote.length)] + " . . .");
+        const post = await message.channel.send(process.env.LOADING_EMOTE + " " + _.sample(startQuote) + " . . .");
 
         await sleep(3000);
-        await post.edit(applyMentions(endQuote[Math.floor(Math.random() * endQuote.length)], message.author, user));
+        await post.edit(applyMentions(_.sample(endQuote), message.author, user));
     } else {
        await message.channel.send(`<@${message.author.id}> killed themselves ${process.env.DEAD_EMOTE}`);
     }

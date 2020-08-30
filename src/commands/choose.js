@@ -1,3 +1,4 @@
+import _ from "lodash";
 export const aliases = ['pick'];
 
 const failMessage = `Please type your options separated with a comma.\n**Example: \`${process.env.PREFIX}choose option 1,option 2,etc\`**`;
@@ -17,7 +18,7 @@ export const run = async (message, args, argsclean) => {
         return;
     }
 
-    await message.channel.send(options[Math.floor(Math.random() * options.length)]);
+    await message.channel.send(_.sample(options));
 };
 
 export const help = "I'll choose one of the options on your behalf";

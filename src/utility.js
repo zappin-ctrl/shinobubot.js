@@ -15,6 +15,26 @@ export const sleep = promisify(setTimeout);
 
 const packageJson = JSON.parse(fs.readFileSync('./package.json', 'utf8'));
 
+export function getStringableArray(data) {
+    const d = [];
+
+    if (_.isString(data)) {
+        d.push(data);
+    } else if (_.isArray(data)) {
+        for (let i of data) {
+            if (_.isString(i)) {
+                d.push(i);
+            }
+        }
+    }
+
+    if (d.length) {
+        return d;
+    }
+
+    return null;
+}
+
 export function setActivity(client) {
     client.user.setActivity(process.env.PREFIX + 'help | ' + process.env.PREFIX + 'suggest');
 }
@@ -403,7 +423,7 @@ export async function handleLocalImagePost(message, args, storage, mentionString
         return;
     }
 
-    embed.setImage(customImageList[storage][Math.floor(Math.random() * customImageList[storage].length)]);
+    embed.setImage(_.sample(customImageList[storage]));
     await message.channel.send(embed);
 }
 

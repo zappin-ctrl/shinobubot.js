@@ -7,5 +7,5 @@ export const magik = async (ctx, image, canvas, imageSrc) => {
     });
     const base64 = Buffer.from(response.data, 'binary').toString('base64');
 
-    ctx.drawImage(await Canvas.loadImage('data:' + response.headers['content-type'] + ';base64,' + base64), 0, 0, canvas.width, canvas.height)
+    ctx.drawImage(await Canvas.loadImage('data:' + response.headers['content-type'] + ';base64,' + base64), 0, 0, canvas.width, canvas.height);
 };

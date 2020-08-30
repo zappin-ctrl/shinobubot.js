@@ -172,8 +172,11 @@
     "imageReplaceUrl": "https://rra.ram.moe$1",
     "special": {
       "ultimateFailure": {
-        "chance": 3,
-        "message": "Who's Rem, $1?"
+        "chance": 10,
+        "message": [
+          "Who's Rem, $1?",
+          "Who's that?"
+        ]
       }
     },
     "helpSimpleGroup": 1

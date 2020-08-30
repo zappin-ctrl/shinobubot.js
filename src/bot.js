@@ -1,6 +1,6 @@
 import Discord from "discord.js";
 import logger from "./logger";
-import {setActivity, loadCommandsFromJson, addCommand, applyMentions} from "./utility";
+import {setActivity, loadCommandsFromJson, addCommand, applyMentions, getStringableArray} from "./utility";
 import {loadWeebCommands} from "./weeb";
 import fs from "fs";
 import _ from "lodash";
@@ -9,6 +9,25 @@ const client = new Discord.Client();
 
 export const commands = {};
 export const commandAliases = {};
+
+function handleSpecial(cmd, message) {
+    let messages = null;
+
+    if (!_.isUndefined(cmd.info) && !_.isUndefined(cmd.info.special)) {
+        if ('ultimateFailure' in cmd.info.special &&
+            'message' in cmd.info.special.ultimateFailure &&
+            (messages = getStringableArray(cmd.info.special.ultimateFailure.message)) !== null) {
+            const chance = parseInt(cmd.info.special.ultimateFailure.chance ?? 1);
+
+            if (chance >= Math.round(Math.random() * 99) + 1) {
+                message.channel.send(applyMentions(_.sample(messages), message.author));
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
 
 client.on('guildCreate', (guild) => {
     logger.info(`New guild joined: ${guild.name} (id: ${guild.id}). This guild has ${guild.memberCount} members!`);
@@ -43,17 +62,16 @@ client.on('message', (message) => {
         return;
     }
 
-    if (!_.isUndefined(cmd.info) && !_.isUndefined(cmd.info.special)) {
-        if ('ultimateFailure' in cmd.info.special && 'message' in cmd.info.special.ultimateFailure) {
-            const chance = parseInt(cmd.info.special.ultimateFailure.chance ?? 1);
-
-            if (chance >= Math.round(Math.random() * 99) + 1) {
-                message.channel.send(applyMentions(cmd.info.special.ultimateFailure.message, message.author));
-                return;
-            }
-        }
+    if (handleSpecial(cmd, message)) {
+        return;
     }
-    cmd.run(message, args, argsclean, cmd.command);
+
+    try {
+        cmd.run(message, args, argsclean, cmd.command);
+    } catch (e) {
+        message.channel.send("An error occurred while running the command!");
+        logger.error(`An error occurred while running command ${cmd.command}`, e);
+    }
 });
 
 fs.readdir("./lib/commands", async (err, files) => {
