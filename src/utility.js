@@ -392,18 +392,20 @@ export function isOwner(message) {
 
 async function prepareEmbedForPostHandling(message, args, mentionString, noMentionString = null) {
     let embed = getEmbed();
+    let strings = null;
     if (args[0]) {
         const user = getUserFromMention(args[0]);
         if (!user) {
             await message.reply("Please use a proper mention.");
             return null;
         }
-      if (mentionString !== null) {
-         embed.setDescription(applyMentions(mentionString, message.author, user));
-      }
+
+        if ((strings = getStringableArray(mentionString)) !== null) {
+            embed.setDescription(applyMentions(_.sample(strings), message.author, user));
+        }
     } else {
-        if (noMentionString !== null) {
-            embed.setDescription(applyMentions(noMentionString, message.author));
+        if ((strings = getStringableArray(noMentionString)) !== null) {
+            embed.setDescription(applyMentions(_.sample(strings), message.author));
         }
     }
 
