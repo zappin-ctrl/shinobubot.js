@@ -1,7 +1,11 @@
 {
   "disgust": {
     "key": "disgustP",
-    "mention": "$1 is disgusted by $2",
+    "mention": [
+      "$1 is disgusted by $2",
+      "$2, ew that's gross",
+      "$1 is grossed out by $2"
+    ],
     "aliases": [
       "gross",
       "disgusting",
@@ -12,14 +16,27 @@
   },
   "handhold": {
     "key": "handP",
-    "mention": "$1 held hands with $2",
-    "noMention": "$1 held their own hand",
+    "mention": [
+      "$1 held hands with $2",
+      "$1 and $2's fingers are intertwined"
+    ],
+    "noMention": [
+      "$1 held their own hand",
+      "$1's hands are lonely"
+    ],
     "helpGroup": "gif",
     "helpSimpleGroup": 3
   },
   "kill": {
     "key": "killP",
-    "mention": "$1 killed $2",
+    "mention": [
+      "$1 killed $2",
+      "$1 murdered $2 in cold blood",
+      "$2 got destroyed by $1"
+    ],
+    "noMention": [
+      "$1 killed themselves"
+    ],
     "helpGroup": "gif",
     "helpSimpleGroup": 3
   },
@@ -34,7 +51,7 @@
   },
   "noswear": {
     "key": "noswearP",
-    "mention": "$1, please no swearing $2",
+    "mention": "$1: Please no swearing $2",
     "aliases": [
       "noswearing"
     ],
