@@ -1,7 +1,14 @@
 {
   "clagwimoth": {
-    "mention": "$2 what the frick are you on about",
-    "noMention": "$1 is confused",
+    "mention": [
+      "$2 what the frick are you on about",
+      "$2, nani the fuck?",
+      "$1 is confused cause of $2"
+    ],
+    "noMention": [
+      "$1 is confused",
+      "$1 doesn't get it"
+    ],
     "aliases": [
       "nani",
       "wut",
@@ -9,18 +16,31 @@
     ]
   },
   "bang": {
-    "mention": "$1 shot $2",
-    "noMention": "$1 shot towards an undefined direction",
+    "mention": [
+      "$1 shot $2",
+      "$1 blasted through $2",
+      "$1's gun fired off at $2"
+    ],
+    "noMention": [
+      "$1 shot towards an undefined direction",
+      "$1's gun misfired"
+    ],
     "aliases": [
       "shoot"
     ]
   },
   "insult": {
-    "mention": "$1 insulted $2",
+    "mention": [
+      "$1 insulted $2",
+      "$1 is cursing at $2",
+      "$2 is being verbally abused by $1"
+    ],
     "aliases": [
       "bully",
       "fuckyou",
-      "fuckoff"
+      "fuckoff",
+      "fu",
+      "fucku"
     ]
   },
   "smile": {
@@ -28,74 +48,139 @@
     "noMention": "$1 is smiling"
   },
   "thumbsup": {
-    "mention": "$1 gave $2 a thumbs-up",
-    "noMention": "$1 are giving a thumbs-up",
+    "mention": [
+      "$1 gave $2 a thumbs-up",
+      "$1 approves of $2"
+    ],
+    "noMention": "$1 is giving a thumbs-up",
     "aliases": [
       "bravo",
       "approve"
     ]
   },
   "triggered": {
-    "mention": "$1 is triggered by $2",
-    "noMention": "$1 is triggered"
+    "mention": [
+      "$1 is triggered by $2",
+      "$2 triggered $1",
+      "$1 is pissed off at $2"
+    ],
+    "noMention": [
+      "$1 is triggered",
+      "$1 is very very mad"
+    ]
   },
   "wag": {
-    "mention": "$1's tail is wagging for $2"
+    "mention": [
+      "$1's tail is wagging for $2",
+      "$1 is being a furry for $2",
+      "$1's tail is going turbo mode for $2"
+    ]
   },
   "waifu_insult": {
-    "mention": "$1 thinks $2's waifu sucks",
+    "mention": [
+      "$1 thinks $2's waifu sucks",
+      "$2, your waifu is fucking garbage according to $1",
+      "$1 doesn't appreciate $2's waifu choice"
+    ],
     "aliases": [
       "badwaifu",
-      "waifusucks"
+      "waifusucks",
+      "waifuinsult",
+      "insultwaifu"
     ]
   },
   "banghead": {
-    "mention": "$1 are banging their head cause of $2",
+    "mention": [
+      "$1 are banging their head cause of $2",
+      "$2 caused $1 to smash their head against a wall"
+    ],
     "aliases": [
       "headbang"
     ]
   },
   "delet_this": {
-    "mention": "$1 deleted $2's  post",
+    "mention": [
+      "$1 deleted $2's  post",
+      "$2, your post should be deleted",
+      "$1 wants to annihilate $2's post"
+    ],
     "aliases": [
       "deletethis",
       "deletthis",
-      "delete"
+      "delete",
+      "delet"
     ]
   },
   "thinking": {
-    "mention": "$1 is thinking with $2",
-    "noMention": "$1 is thinking real hard"
+    "mention": [
+      "$1 is thinking with $2",
+      "$1 and $2 are thinking real hard..."
+    ],
+    "noMention": [
+      "$1 is thinking real hard",
+      "$1 is pondering something"
+    ]
   },
   "greet": {
-    "mention": "$1 gave $2 a greeting",
+    "mention": [
+      "$1 gave $2 a greeting",
+      "$1 is glad $2 is here"
+    ],
     "noMention": "$1 is waving",
     "aliases": [
       "wave"
     ]
   },
   "punch": {
-    "mention": "$1 punched $2",
-    "noMention": "$1 punched the air"
+    "mention": [
+      "$1 punched $2",
+      "$1 destroyed $2 with punches",
+      "$2 just got slam dunked by $1",
+      "$1 beat up $2 pretty badly",
+      "$1 is throwing hands with $2"
+    ],
+    "noMention": [
+      "$1 punched the air",
+      "$1 is throwing hands with a ghost"
+    ]
   },
   "shrug": {
-    "mention": "$1 shrugs at $2",
+    "mention": [
+      "$1 shrugs at $2",
+      "$1 isn't very interested in $2"
+    ],
     "noMention": "$1 shrugged"
   },
   "sleepy": {
-    "mention": "$1 is sleepy and $2 isn't helping",
-    "noMention": "$1 is feeling sleepy",
+    "mention": [
+      "$1 is feeling sleepy along with $2",
+      "$1 and $2 should have a nap"
+    ],
+    "noMention": [
+      "$1 is feeling sleepy",
+      "$1 should have a nap"
+    ],
     "aliases": [
       "tired"
     ]
   },
   "dab": {
-    "mention": "$1 dabbed on $2",
+    "mention": [
+      "$1 dabbed on $2",
+      "$1 did a sick dab on $2",
+      "$2 just got yeet naenae'd on by $1"
+    ],
     "noMention": "$1 is dabbing furiously"
   },
   "teehee": {
-    "mention": "$1 is being silly with $2",
-    "noMention": "$1 is being silly",
+    "mention": [
+      "$1 is being silly with $2",
+      "$1 is giggling with $2"
+    ],
+    "noMention": [
+      "$1 is being silly",
+      "$1 is giggling"
+    ],
     "aliases": [
       "hehe",
       "giggle",
