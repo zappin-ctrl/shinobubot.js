@@ -1,9 +1,16 @@
 {
   "baka": {
     "url": "https://nekos.life/api/v2/img/baka",
-    "mention": "$1 called $2 a dummy",
+    "mention": [
+      "$1 called $2 a dummy",
+      "$2, you're a dumbass according to $1",
+      "$2, you b-baka ><",
+      "$1 is sceptical of $2's intellectual prowess"
+    ],
     "aliases": [
-      "dummy"
+      "dummy",
+      "stupid",
+      "dumbass"
     ],
     "helpGroup": "gif",
     "helpSimpleGroup": 2
@@ -28,21 +35,43 @@
   },
   "bite": {
     "url": "https://waifu.pics/api/bite",
-    "mention": "$1 bit $2",
-    "noMention": "$1 bit themselves",
+    "mention": [
+      "$1 bit $2",
+      "$1 took a bite out of $2",
+      "$2 just got friggin chomped by $1",
+      "$1 Used Crunch on $2 - It was highly effective!"
+    ],
+    "noMention": [
+      "$1 bit themselves",
+      "$1 is his own dinner . . .",
+      "$1 chomped on themselves"
+    ],
     "helpGroup": "gif",
     "helpSimpleGroup": 1
   },
   "blush": {
     "url": "https://waifu.pics/api/blush",
-    "mention": "$1 blushes at $2",
-    "noMention": "$1 blushed",
+    "mention": [
+      "$1 blushes at $2",
+      "$1 is flustered cause of $2",
+      "$2 you made $1 blush"
+    ],
+    "noMention": [
+      "$1 blushed",
+      "$1 is blushing",
+      "$1 is flustered"
+    ],
     "helpGroup": "gif",
     "helpSimpleGroup": 1
   },
   "cry": {
     "url": "https://rra.ram.moe/i/r?type=cry",
-    "mention": "$1 cries with $2",
+    "mention": [
+      "$1 cries with $2",
+      "$1 is crying with $2",
+      "$1 and $2 are having a crying party",
+      "$1 and $2 are pretty sad right now"
+    ],
     "imagePath": "path",
     "imageReplaceUrl": "https://rra.ram.moe$1",
     "helpGroup": "gif",
@@ -50,45 +79,87 @@
   },
   "cuddle": {
     "url": "https://nekos.life/api/v2/img/cuddle",
-    "mention": "$1 cuddled with $2",
-    "noMention": "$1 cuddled with themselves",
+    "mention": [
+      "$1 cuddled with $2",
+      "$2 you just got cuddled by $1",
+      "$1 is having cuddles with $2"
+    ],
+    "noMention": [
+      "$1 cuddled with themselves",
+      "$1 is cuddling empty space",
+      "$1 is having cuddles with the air"
+    ],
     "helpGroup": "gif",
     "helpSimpleGroup": 1
   },
   "dance": {
     "url": "https://waifu.pics/api/dance",
-    "mention": "$1 is dancing with $2",
+    "mention": [
+      "$1 is dancing with $2",
+      "$1 and $2 are partying hard",
+      "$1 is hitting the stanky leg with $2"
+    ],
     "noMention": "$1 is dancing alone",
     "helpGroup": "gif",
     "helpSimpleGroup": 1
   },
   "highfive": {
     "url": "https://waifu.pics/api/highfive",
-    "mention": "$1 highfived $2",
-    "noMention": "$1 highfived themselves",
+    "mention": [
+      "$1 highfived $2",
+      "$2 here's a highfive from $1"
+    ],
+    "noMention": [
+      "$1 highfived themselves",
+      "$1 is highfiving literal air...",
+      "$1 is trying to slap space"
+    ],
     "helpGroup": "gif",
     "helpSimpleGroup": 2
   },
   "hug": {
     "url": "https://nekos.life/api/v2/img/hug",
-    "mention": "$1 hugged $2",
-    "noMention": "$1 hugged themselves",
+    "mention": [
+      "$1 hugged $2",
+      "$1 and $2 are sharing a hug",
+      "$1 held $2 tight for a hug"
+    ],      
+    "noMention": [
+      "$1 hugged themselves",
+      "$1 hugged their imaginary friend...",
+      "$1 and the air are hugging"
+    ],
     "helpGroup": "gif",
     "helpSimpleGroup": 1
   },
   "kiss": {
     "url": "https://nekos.life/api/v2/img/kiss",
-    "mention": "$1 kissed $2",
-    "noMention": "$1 kissed themselves",
+    "mention": [
+      "$1 kissed $2",
+      "$1 smooched $2",
+      "$1 and $2 are sharing a kiss",
+      "$1 and $2 should get a room..."
+    ],
+    "noMention": [
+      "$1 kissed themselves",
+      "$1 is extremelly alone rn",
+      "$1 is kissing straight up nothingness"
+    ],
     "aliases": [
-      "smooch"
+      "smooch",
+      "muah",
+      "kissu"
     ],
     "helpGroup": "gif",
     "helpSimpleGroup": 1
   },
   "lewd": {
     "url": "https://rra.ram.moe/i/r?type=lewd",
-    "mention": "$1 bonks $2 for being lewd",
+    "mention": [
+      "$1 bonks $2 for being lewd",
+      "$2 is pretty friggin lewd, $1 is concerned",
+      "$1 found $2's post very lewd indeed"
+    ],
     "imagePath": "path",
     "imageReplaceUrl": "https://rra.ram.moe$1",
     "helpGroup": "gif",
@@ -96,27 +167,56 @@
   },
   "nom": {
     "url": "https://waifu.pics/api/nom",
-    "mention": "$1 nommed $2",
+    "mention": [
+      "$1 nommed $2",
+      "$1 took a bite out of $2",
+      "$1 almost vored $2"
+    ],
+    "noMention": [
+      "$1 just nommed empty space",
+      "$1 is trying to nom themselves???",
+      "$1 is self-nomming"
+    ],
     "helpGroup": "gif",
     "helpSimpleGroup": 1
   },
   "pat": {
     "url": "https://nekos.life/api/v2/img/pat",
-    "mention": "$1 gave $2 a pat",
-    "noMention": "$1 gave themselves a pat",
+    "mention": [
+      "$1 gave $2 a pat",
+      "$1 pats $2's head",
+      "$2 just got patted by $1",
+      "$1 gave $2 a headpat"
+    ],
+    "noMention": [
+      "$1 gave themselves a pat",
+      "$1 is trying to pat the sky",
+      "$1 pats a ghost"
+    ],
     "helpGroup": "gif",
     "helpSimpleGroup": 2
   },
   "poke": {
     "url": "https://nekos.life/api/v2/img/poke",
-    "mention": "$1 poked $2",
-    "noMention": "$1 poked themselves",
+    "mention": [
+      "$1 poked $2",
+      "$1 is poking $2 with a stick",
+      "$2 got friggin poked by $1"
+    ],
+    "noMention": [
+      "$1 poked themselves",
+      "$1 is shaking a finger around aimlessly..."
+    ],
     "helpGroup": "gif",
     "helpSimpleGroup": 2
   },
   "pout": {
     "url": "https://rra.ram.moe/i/r?type=pout",
-    "mention": "$1 pouts at $2",
+    "mention": [
+      "$1 pouts at $2",
+      "$2 made $1 pout",
+      "$1 is grumpy because of $2"
+    ],
     "imagePath": "path",
     "imageReplaceUrl": "https://rra.ram.moe$1",
     "helpGroup": "gif",
@@ -124,21 +224,40 @@
   },
   "slap": {
     "url": "https://nekos.life/api/v2/img/slap",
-    "mention": "$1 slapped $2",
-    "noMention": "$1 slapped themselves",
+    "mention": [
+      "$1 slapped $2",
+      "$1 slammed $2's cheek",
+      "$2 just got slapped by $1"
+    ],
+    "noMention": [
+      "$1 slapped themselves",
+      "$1 hands are shaking about?",
+      "$1 is aimlessly slapping the air"
+    ],
     "helpGroup": "gif",
     "helpSimpleGroup": 3
   },
   "smug": {
     "url": "https://nekos.life/api/v2/img/smug",
-    "mention": "$1 smugs at $2",
-    "noMention": "$1 is feeling smug",
+    "mention": [
+      "$1 smugs at $2",
+      "$1 is being smug at $2"
+    ],
+    "noMention": [
+      "$1 is feeling smug",
+      "$1 is so smug rn",
+      "$1 is being extra smug"
+    ],
     "helpGroup": "gif",
     "helpSimpleGroup": 2
   },
   "stare": {
     "url": "https://rra.ram.moe/i/r?type=stare",
-    "mention": "$1 stares at $2",
+    "mention": [
+      "$1 stares at $2",
+      "$1 is staring into $2's eyes",
+      "$2, I'd run if i were you - $1 is staring at you..."
+    ],
     "imagePath": "path",
     "imageReplaceUrl": "https://rra.ram.moe$1",
     "helpGroup": "gif",
@@ -146,22 +265,45 @@
   },
   "tickle": {
     "url": "https://nekos.life/api/v2/img/tickle",
-    "mention": "$1 tickled $2",
-    "noMention": "$1 tickled themselves",
+    "mention": [
+      "$1 tickled $2",
+      "$1 and $2 are having a tickle-fight",
+      "$2 is laughing involuntarily, thanks to $1"
+    ],
+    "noMention": [
+      "$1 tickled themselves",
+      "$1 is uh... Not okay..."
+    ],
     "helpGroup": "gif",
     "helpSimpleGroup": 2
   },
   "lick": {
     "url": "https://waifu.pics/api/lick",
-    "mention": "$1 licked $2",
-    "noMention": "$1 licked themselves",
+    "mention": [
+      "$1 licked $2",
+      "$1 run his tongue along $2",
+      "$2 just got licked by $1",
+      "$1 tasted $2, it's pretty nice!"
+    ],
+    "noMention": [
+      "$1 licked themselves",
+      "$1's tongue is swinging around",
+      "$1 is licking air, probably tastes like nothing"
+    ],
     "helpGroup": "gif",
     "helpSimpleGroup": 3
   },
   "wink": {
     "url": "https://waifu.pics/api/wink",
-    "mention": "$1 winked at $2",
-    "noMention": "$1 is winking",
+    "mention": [
+      "$1 winked at $2",
+      "$1 is winking over at $2",
+      "$1's wink at $2 could mean lots of things"
+    ],
+    "noMention": [
+      "$1 is winking",
+      "$1 is blinking? I think?"
+    ],
     "helpGroup": "gif",
     "helpSimpleGroup": 2
   },
