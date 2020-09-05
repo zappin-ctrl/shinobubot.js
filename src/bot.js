@@ -10,6 +10,39 @@ const client = new Discord.Client();
 export const commands = {};
 export const commandAliases = {};
 
+let cmdUsage = {};
+
+function logCommands() {
+    for (let i in cmdUsage) {
+        const cmds = [];
+        for (let y in cmdUsage[i]) {
+            cmds.push(`${y}: ${cmdUsage[i][y]}`);
+        }
+
+        logger.info(`Guild ${i} used commands ${cmds.join(", ")} in the last ${process.env.COMMAND_SAVE_TIME / 1000} seconds`);
+    }
+
+    cmdUsage = {};
+}
+
+function saveCommand(cmd, message) {
+    let guild = 'private';
+
+    if (message.guild) {
+        guild = message.guild.id;
+    }
+
+    if (!(guild in cmdUsage)) {
+        cmdUsage[guild] = {};
+    }
+
+    if (!(cmd.command in cmdUsage[guild])) {
+        cmdUsage[guild][cmd.command] = 0;
+    }
+
+    cmdUsage[guild][cmd.command]++;
+}
+
 function handleSpecial(cmd, message) {
     let messages = null;
 
@@ -62,6 +95,8 @@ client.on('message', (message) => {
         return;
     }
 
+    saveCommand(cmd, message);
+
     if (handleSpecial(cmd, message)) {
         return;
     }
@@ -100,5 +135,6 @@ fs.readdir("./lib/commands", async (err, files) => {
 loadCommandsFromJson();
 loadWeebCommands();
 
+setInterval(logCommands, parseInt(process.env.COMMAND_SAVE_TIME));
 export const customImageList = JSON.parse(fs.readFileSync('./assets/image-list.json', 'utf8'));
 export default client;
