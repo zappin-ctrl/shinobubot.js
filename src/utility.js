@@ -7,8 +7,6 @@ import {commands, commandAliases} from "./bot";
 import fs from "fs";
 import _ from "lodash";
 import {promisify} from "util";
-import low from 'lowdb';
-import FileSync from 'lowdb/adapters/FileSync';
 import Canvas from "canvas";
 
 export const sleep = promisify(setTimeout);
@@ -462,10 +460,3 @@ export async function handleSimplePost(message, args, url, mentionString, noMent
     embed.setImage(await image());
     await message.channel.send(embed);
 }
-
-const requestDb = getNewDatabase('assets/requests');
-requestDb.defaults({
-    requests: []
-}).write();
-
-export {requestDb};

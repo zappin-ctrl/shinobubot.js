@@ -1,5 +1,5 @@
-import {requestDb, removeCommandPart} from "../utility";
-import moment from "moment";
+import {removeCommandPart} from "../utility";
+import client from "../bot";
 
 export const aliases = ["request", "suggestion", "idea"];
 export const run = async (message, args) => {
@@ -8,12 +8,11 @@ export const run = async (message, args) => {
         return;
     }
 
-    await requestDb.get('requests').push({
-        author: message.author.username,
-        userid: message.author.id,
-        request:removeCommandPart(message.cleanContent),
-        date: moment().format()
-    }).write();
+    const owner = process.env.OWNER.split(",")[0];
+
+    await client.users.cache.get(owner).send(
+        `User <@${message.author.id}> requested the following: "${removeCommandPart(message.cleanContent)}"`
+    );
     await message.reply(` your request/suggestion has been recorded ${process.env.EMOTE_VERIFIED}`);
 };
 
