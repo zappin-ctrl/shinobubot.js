@@ -6,7 +6,7 @@ import { registerFont } from 'canvas';
 export const run = async (message, args) => {
   try {
     message.channel.startTyping();
-    let question = args.join('+');
+    let question = encodeURI(args.join('+'));
 
     if (!question) {
         return message.channel.send("Please type out a valid location.");
@@ -49,7 +49,7 @@ export const run = async (message, args) => {
       ctx.font = "48px Roboto";
       ctx.textAlign = 'center';
       ctx.fillStyle = `${mode}`;
-      ctx.fillText(`${parseInt(weather.data.main.temp)}°C`, x, 150); 
+      ctx.fillText(`${parseInt(weather.data.main.temp)}Â°C`, x, 150); 
       ctx.font = "23px Roboto";
       ctx.fillText(`${weather.data.weather[0].main.toLowerCase()}`, x, 180);
       ctx.font = "14px Roboto";
