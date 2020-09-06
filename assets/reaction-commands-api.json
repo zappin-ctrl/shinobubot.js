@@ -324,7 +324,7 @@
     "helpSimpleGroup": 1
   },
   "waifu": {
-    "url": "https://waifu.pics/api/sfw/sfw",
+    "url": "https://waifu.pics/api/sfw/waifu",
     "helpGroup": "waifu",
     "aliases": [
       "randomwaifu"
