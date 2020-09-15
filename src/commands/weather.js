@@ -4,10 +4,11 @@ import Canvas from "canvas";
 import { registerFont } from 'canvas';
 
 export const run = async (message, args) => {
-    await message.channel.startTyping();
+    message.channel.startTyping(); // do NOT await this, it freezes the execution.
     let question = encodeURI(args.join('+'));
     if (!question) {
-        return message.channel.send("Please type out a valid location.");
+        await message.channel.send("Please type out a valid location.");
+        return;
     }
 
     try {
@@ -15,7 +16,7 @@ export const run = async (message, args) => {
 
         if (weather.data.cod !== 200) {
             await message.channel.send(`Please use a valid location's name.`);
-            await message.channel.stopTyping();
+            message.channel.stopTyping();
             return;
         }
 
@@ -58,10 +59,10 @@ export const run = async (message, args) => {
         ctx.drawImage(await Canvas.loadImage(icon), 60, -1, 80, 80);
 
         await message.channel.send(new Discord.MessageAttachment(canvas.toBuffer(), 'weather.jpg'));
-    } catch {
+    } catch (e) {
         await message.channel.send(`Something went wrong, try another location.`);
     } finally {
-        await message.channel.stopTyping();
+        message.channel.stopTyping();
     }
 };
 

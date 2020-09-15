@@ -127,7 +127,7 @@ async function runCanvasReactionCommand(message, args, argsclean, command) {
         return;
     }
 
-    message.channel.startTyping();
+    message.channel.startTyping(); // do NOT await this, it freezes the execution.
     const canvas = Canvas.createCanvas(info.width, info.height);
     const ctx = canvas.getContext('2d');
 
@@ -252,7 +252,7 @@ async function runRemoteCanvasCommand(message, args, argsclean, command) {
     console.log(canvasFunctions);
 
     try {
-        message.channel.startTyping();
+        message.channel.startTyping(); // do NOT await this, it freezes the execution.
         const image = await Canvas.loadImage(imageSrc);
 
         const canvas = Canvas.createCanvas(image.width * (_.isUndefined(info.width) ? 1 : info.width), image.height * (_.isUndefined(info.height) ? 1 : info.height));
