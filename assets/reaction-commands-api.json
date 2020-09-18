@@ -16,7 +16,7 @@
     "helpSimpleGroup": 2
   },
   "shinobu": {
-    "url": "https://api.waifu.pics/sfw/shinobu",
+    "url": "https://waifu.pics/api/sfw/shinobu",
     "aliases": [
       "nobu",
       "kissshotacerolaorionheartunderblade"
@@ -25,7 +25,7 @@
     "helpSimpleGroup": 1
   },
   "neko": {
-    "url": "https://api.waifu.pics/sfw/neko",
+    "url": "https://waifu.pics/api/sfw/neko",
     "aliases": [
       "catgirl",
       "nekos"
@@ -34,7 +34,7 @@
     "helpSimpleGroup": 2
   },
   "bite": {
-    "url": "https://api.waifu.pics/sfw/bite",
+    "url": "https://waifu.pics/api/sfw/bite",
     "mention": [
       "$1 bit $2",
       "$1 took a bite out of $2",
@@ -50,7 +50,7 @@
     "helpSimpleGroup": 1
   },
   "blush": {
-    "url": "https://api.waifu.pics/sfw/blush",
+    "url": "https://waifu.pics/api/sfw/blush",
     "mention": [
       "$1 blushes at $2",
       "$1 is flustered cause of $2",
@@ -65,7 +65,7 @@
     "helpSimpleGroup": 1
   },
   "cry": {
-    "url": "https://api.waifu.pics/sfw/cry",
+    "url": "https://waifu.pics/api/sfw/cry",
     "mention": [
       "$1 cries with $2",
       "$1 is crying with $2",
@@ -93,7 +93,7 @@
     "helpSimpleGroup": 1
   },
   "dance": {
-    "url": "https://api.waifu.pics/sfw/dance",
+    "url": "https://waifu.pics/api/sfw/dance",
     "mention": [
       "$1 is dancing with $2",
       "$1 and $2 are partying hard",
@@ -104,7 +104,7 @@
     "helpSimpleGroup": 1
   },
   "highfive": {
-    "url": "https://api.waifu.pics/sfw/highfive",
+    "url": "https://waifu.pics/api/sfw/highfive",
     "mention": [
       "$1 highfived $2",
       "$2 here's a highfive from $1"
@@ -118,7 +118,7 @@
     "helpSimpleGroup": 2
   },
   "hug": {
-    "url": "https://api.waifu.pics/sfw/hug",
+    "url": "https://waifu.pics/api/sfw/hug",
     "mention": [
       "$1 hugged $2",
       "$1 and $2 are sharing a hug",
@@ -133,7 +133,7 @@
     "helpSimpleGroup": 1
   },
   "kiss": {
-    "url": "https://api.waifu.pics/sfw/kiss",
+    "url": "https://waifu.pics/api/sfw/kiss",
     "mention": [
       "$1 kissed $2",
       "$1 smooched $2",
@@ -166,7 +166,7 @@
     "helpSimpleGroup": 3
   },
   "nom": {
-    "url": "https://api.waifu.pics/sfw/nom",
+    "url": "https://waifu.pics/api/sfw/nom",
     "mention": [
       "$1 nommed $2",
       "$1 took a bite out of $2",
@@ -181,7 +181,7 @@
     "helpSimpleGroup": 1
   },
   "pat": {
-    "url": "https://api.waifu.pics/sfw/pat",
+    "url": "https://waifu.pics/api/sfw/pat",
     "mention": [
       "$1 gave $2 a pat",
       "$1 pats $2's head",
@@ -197,7 +197,7 @@
     "helpSimpleGroup": 2
   },
   "poke": {
-    "url": "https://api.waifu.pics/sfw/poke",
+    "url": "https://waifu.pics/api/sfw/poke",
     "mention": [
       "$1 poked $2",
       "$1 is poking $2 with a stick",
@@ -238,7 +238,7 @@
     "helpSimpleGroup": 3
   },
   "smug": {
-    "url": "https://api.waifu.pics/sfw/smug",
+    "url": "https://waifu.pics/api/sfw/smug",
     "mention": [
       "$1 smugs at $2",
       "$1 is being smug at $2"
@@ -278,7 +278,7 @@
     "helpSimpleGroup": 2
   },
   "lick": {
-    "url": "https://api.waifu.pics/sfw/lick",
+    "url": "https://waifu.pics/api/sfw/lick",
     "mention": [
       "$1 licked $2",
       "$1 run his tongue along $2",
@@ -294,7 +294,7 @@
     "helpSimpleGroup": 3
   },
   "wink": {
-    "url": "https://api.waifu.pics/sfw/wink",
+    "url": "https://waifu.pics/api/sfw/wink",
     "mention": [
       "$1 winked at $2",
       "$1 is winking over at $2",
@@ -324,7 +324,7 @@
     "helpSimpleGroup": 1
   },
   "waifu": {
-    "url": "https://api.waifu.pics/sfw/waifu",
+    "url": "https://waifu.pics/api/sfw/waifu",
     "helpGroup": "waifu",
     "aliases": [
       "randomwaifu"
