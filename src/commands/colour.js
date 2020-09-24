@@ -2,17 +2,16 @@ import Discord from "discord.js";
 import axios from "axios";
 import Canvas from "canvas";
 import { registerFont } from 'canvas';
-import {getEmbed, getUserFromMention} from "../utility";
+import {getEmbed} from "../utility";
 
 export const aliases = ["color", "hex", "rgb", "cmyk"];
 export const run = async (message, args) => {
   const errmsg = `Please type out a valid colour after \`+colour\`!\n**Examples:** \`#FFFFFF\` - \`rgb(0,71,171)\` - \`hsl(215,100%,34%)\` - \`cmyk(100,58,0,33)\``;
-
+  try {
   message.channel.startTyping();
 
   let question = args.join('');
-  let user = await getUserFromMention(args[0], message);
-  let mention = await message.guild.members.fetch(user.id);
+  let user = message.mentions.users.first();
   if (!question) {
     return message.channel.send(errmsg);
   }
@@ -26,9 +25,10 @@ export const run = async (message, args) => {
     type = "cmyk";
   } else {
     type = "hex";
-    if (!mention) {
+    if (!user) {
       question = args[0].replace('#','');
     } else {
+      let mention = await message.guild.members.fetch(user.id);
       question = mention.displayHexColor.toString().replace('#','');
     }
   }
@@ -37,7 +37,6 @@ export const run = async (message, args) => {
     question = question.replace(/([^(\)]+)(?:$)/g ,"").replace(/^([^(]*)/g, "");
   }
 
-  try {
     const colour = await axios.get(`https://www.thecolorapi.com/scheme?${type}=${question}`);
     if (colour.data.colors[0].cmyk.value.includes("NaN") === true) {
       return message.channel.send(errmsg);
@@ -85,7 +84,7 @@ export const run = async (message, args) => {
       embed.setThumbnail(`attachment://seed.jpg`);
       embed.attachFiles(bigpic);
       embed.setImage(`attachment://array.jpg`);
-      
+      message.channel.stopTyping();
       await message.channel.send(embed);
   } catch {
     message.channel.send(errmsg)
