@@ -2,7 +2,7 @@ import Discord from "discord.js";
 import axios from "axios";
 import Canvas from "canvas";
 import { registerFont } from 'canvas';
-import {getEmbed} from "../utility";
+import {getEmbed, getUserFromMention} from "../utility";
 
 export const aliases = ["color", "hex", "rgb", "cmyk"];
 export const run = async (message, args) => {
@@ -11,6 +11,8 @@ export const run = async (message, args) => {
   message.channel.startTyping();
 
   let question = args.join('');
+  let user = getUserFromMention(args[0]);
+  let mention = await message.guild.members.fetch(user.id);
   if (!question) {
     return message.channel.send(errmsg);
   }
@@ -24,7 +26,11 @@ export const run = async (message, args) => {
     type = "cmyk";
   } else {
     type = "hex";
-    question = args[0].replace('#','');
+    if (!mention) {
+      question = args[0].replace('#','');
+    } else {
+      question = mention.displayHexColor.toString().replace('#','');
+    }
   }
 
   if (type !== "hex") {
