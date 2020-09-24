@@ -1,11 +1,10 @@
-import Discord from "discord.js";
 import {getUserFromMention} from "../utility";
 
 export const aliases = ["pfp","image","profilepic","pic"];
 export const run = async (message, args) => {
     let file = '';
     if (args[0]) {
-        const user = getUserFromMention(args[0]);
+        const user = await getUserFromMention(args[0], message);
         if (!user) {
             await message.reply("Please use a proper mention.");
             return;

@@ -38,7 +38,7 @@ const ratings = new RangeHelper([{
 export const run = async (message, args) => {
     let user = message.author;
     if (args[0]) {
-        user = getUserFromMention(args[0]);
+        user = await getUserFromMention(args[0], message);
 
         if (!user) {
             await message.channel.send("Please use a proper mention");

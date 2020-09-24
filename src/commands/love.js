@@ -30,13 +30,13 @@ const ranges = new RangeHelper([{
 
 export const aliases = ["lovecalc", "ship", "calclove"];
 export const run = async (message, args) => {
-    let userA = getUserFromMention(args[0]);
+    let userA = await getUserFromMention(args[0], message);
     if (!userA) {
        await message.channel.send("Please mention a user.");
        return;
     }
 
-    let userB = getUserFromMention(args[1]);
+    let userB = await getUserFromMention(args[1], message);
     if (!userB) {
         userB = userA;
         userA = message.author;

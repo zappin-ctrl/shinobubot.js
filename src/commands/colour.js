@@ -11,7 +11,7 @@ export const run = async (message, args) => {
   message.channel.startTyping();
 
   let question = args.join('');
-  let user = getUserFromMention(args[0]);
+  let user = await getUserFromMention(args[0], message);
   let mention = await message.guild.members.fetch(user.id);
   if (!question) {
     return message.channel.send(errmsg);

@@ -51,11 +51,7 @@ export function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
 }
 
-export const getNewDatabase = (filename) => {
-    return low(new FileSync(filename + ".json"));
-}
-
-export function getUserFromMention(message) {
+export async function getUserFromMention(message, messageObj, findFromText = true) {
     if (!message) {
         return undefined;
     }
@@ -63,6 +59,14 @@ export function getUserFromMention(message) {
     if (message.startsWith('<@') && message.endsWith('>')) {
         (message = message.slice(2,-1)).startsWith("!") && (message=message.slice(1));
         return client.users.cache.get(message);
+    }
+
+    if (findFromText) {
+        const members = await messageObj.guild.members.fetch({ query: message, limit: 1 });
+        const m = members.first();
+        if (m) {
+            return m.user;
+        }
     }
 
     return client.users.cache.get(message)
@@ -122,7 +126,7 @@ async function runCanvasReactionCommand(message, args, argsclean, command) {
     }
 
     let user = null;
-    if (!args[0] || !(user = getUserFromMention(args[0]))) {
+    if (!args[0] || !(user = await getUserFromMention(args[0], message))) {
         await message.reply("please use a proper mention");
         return;
     }
@@ -211,7 +215,7 @@ export async function getImageFromMessage(message, sources, args) {
             });
         } else if (source === 'avatar') {
             if (secondArgument) { // check for mention first
-                const user = getUserFromMention(args[0]);
+                const user = await getUserFromMention(args[0], message);
                 if (user) {
                     image = user.displayAvatarURL({format: "jpg", dynamic: true, size: 128});
                 }
@@ -392,7 +396,7 @@ async function prepareEmbedForPostHandling(message, args, mentionString, noMenti
     let embed = getEmbed();
     let strings = null;
     if (args[0]) {
-        const user = getUserFromMention(args[0]);
+        const user = await getUserFromMention(args[0], message);
         if (!user) {
             await message.reply("Please use a proper mention.");
             return null;
