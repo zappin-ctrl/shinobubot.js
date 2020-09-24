@@ -29,34 +29,52 @@ export const run = async (message, args) => {
             mode = `#FFFFFF`;
         }
         registerFont('./assets/fonts/Roboto.ttf', { family: 'Roboto' });
-        const canvas = Canvas.createCanvas(200, 200);
+        const canvas = Canvas.createCanvas(400, 400);
         const ctx = canvas.getContext('2d');
-        const x = canvas.width / 2;
+        var x = canvas.width / 2;
+        var y = canvas.height / 2;
         ctx.beginPath();
-        ctx.rect(0, 0, 200, 200);
+        ctx.rect(0, 0, 400, 400);
         ctx.fillStyle = `${light}`;
         ctx.fill();
 
         ctx.globalAlpha = 0.2;
         ctx.beginPath();
-        ctx.rect(0, 10, 200, 84);
+        ctx.rect(0, 20, 400, 168);
         ctx.fillStyle = `${mode}`;
         ctx.fill();
 
         ctx.globalAlpha = 1;
 
-        ctx.font = "48px Roboto";
+        ctx.font = "80px Roboto";
         ctx.textAlign = 'center';
         ctx.fillStyle = `${mode}`;
-        ctx.fillText(`${parseInt(weather.data.main.temp)}°C`, x, 150);
-        ctx.font = "23px Roboto";
-        ctx.fillText(`${weather.data.weather[0].main.toLowerCase()}`, x, 180);
-        ctx.font = "14px Roboto";
-        ctx.fillText(`${weather.data.name}`, x, 82);
+        ctx.fillText(`${parseInt(weather.data.main.temp)}°C`, x, 290);
+        ctx.font = "40px Roboto";
+        ctx.fillText(`${weather.data.weather[0].main.toLowerCase()}`, x, 380);
+        ctx.font = "24px Roboto";
+        ctx.fillText(`${weather.data.name}`, x, 164);
 
-        ctx.drawImage(await Canvas.loadImage(flag), -1, 174, 32, 32);
+        ctx.globalAlpha = 0.7;
 
-        ctx.drawImage(await Canvas.loadImage(icon), 60, -1, 80, 80);
+        ctx.font = "25px Roboto";
+        ctx.fillText(`feels like ${parseInt(weather.data.main.feels_like)}°C`, x, 320)
+
+        ctx.globalAlpha = 1;
+
+        ctx.drawImage(await Canvas.loadImage('./assets/images/humidity.png'), 35, 250, 31, 31)
+
+        ctx.font = "21px Roboto";
+        ctx.fillText(`${parseInt(weather.data.main.humidity)}%`, 51.5, 310)
+
+        ctx.drawImage(await Canvas.loadImage('./assets/images/wind.png'), 330.5, 250, 35, 35)
+
+        ctx.font = "18px Roboto";
+        ctx.fillText(`${parseInt(weather.data.wind.speed)}km/h`, 350, 305)
+
+        ctx.drawImage(await Canvas.loadImage(flag), -2, 9, 64, 64);
+
+        ctx.drawImage(await Canvas.loadImage(icon), 120, -2, 160, 160);
 
         await message.channel.send(new Discord.MessageAttachment(canvas.toBuffer(), 'weather.jpg'));
     } catch (e) {
