@@ -38,9 +38,6 @@ export const run = async (message, args) => {
   }
 
     const colour = await axios.get(`https://www.thecolorapi.com/scheme?${type}=${question}`);
-    if (colour.data.colors[0].cmyk.value.includes("NaN") === true) {
-      return message.channel.send(errmsg);
-    }
 
       registerFont('./assets/fonts/Roboto.ttf', { family: 'Roboto' });
       const canvas = Canvas.createCanvas(200, 200);
