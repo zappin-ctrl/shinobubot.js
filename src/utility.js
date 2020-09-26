@@ -51,7 +51,7 @@ export function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
 }
 
-export async function getUserFromMention(message, messageObj, findFromText = true) {
+export async function getUserFromMention(message, messageObj, asGuildMember = false, findFromText = true) {
     if (!message) {
         return undefined;
     }
@@ -65,6 +65,10 @@ export async function getUserFromMention(message, messageObj, findFromText = tru
         const members = await messageObj.guild.members.fetch({ query: message, limit: 1 });
         const m = members.first();
         if (m) {
+            if (asGuildMember) {
+                return m;
+            }
+
             return m.user;
         }
     }
