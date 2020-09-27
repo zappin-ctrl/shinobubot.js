@@ -4,6 +4,18 @@ import Canvas from "canvas";
 import {registerFont} from 'canvas';
 import {getEmbed, getUserFromMention} from "../utility";
 
+const rgbRegEx = /rgba?\( *([0-9]{1,3})%* *, *([0-9]{1,3})%* *, *([0-9]{1,3})%* *(, *[0-9]{1,3} *)*%*?\)/i;
+const hslRegEx = /hsl\( *([0-9]{1,3}) *, *([0-9]{1,3})%* *, *([0-9]{1,3})%* *\)/i;
+const cmykRegEx = /cmyk\( *([0-9]{1,3})%* *, *([0-9]{1,3})%* *, *([0-9]{1,3})%* *, *([0-9]{1,3})%* *\)/i;
+const hexRegEx = /(#|0x)([0-9A-F]{6})/i;
+
+function vErr(name, value, from, to) {
+    value = parseInt(value);
+    if (value < from || value > to) {
+        throw new Error(`Value for ${name} must be between ${from} and ${to}`);
+    }
+}
+
 export const aliases = ["color", "hex", "rgb", "cmyk"];
 export const run = async (message, args) => {
     try {
@@ -15,31 +27,40 @@ export const run = async (message, args) => {
             throw new Error();
         }
 
-        if (args[0]) {
-            user = await getUserFromMention(args[0], message, true);
-        }
+        const rgb = question.match(rgbRegEx);
+        const hsl = question.match(hslRegEx);
+        const cmyk = question.match(cmykRegEx);
+        const hex = question.match(hexRegEx);
 
-        let type;
-        if (question.includes("rgb") === true) {
-            type = "rgb";
-        } else if (question.includes("hsl") === true) {
-            type = "hsl";
-        } else if (question.includes("cmyk") === true) {
-            type = "cmyk";
+        let uri = null;
+        if (rgb !== null) {
+            vErr('r', rgb[1], 0, 255);
+            vErr('g', rgb[2], 0, 255);
+            vErr('b', rgb[3], 0, 255);
+            uri = `rgb=rgb(${rgb[1]},${rgb[2]},${rgb[3]})`;
+        } else if (hsl !== null) {
+            vErr('h', hsl[1], 0, 359);
+            vErr('s', hsl[2], 0, 100);
+            vErr('l', hsl[3], 0, 100);
+            uri = `hsl=hsl(${hsl[1]},${hsl[2]}%,${hsl[3]}%)`;
+        } else if (cmyk !== null) {
+            vErr('c', cmyk[1], 0, 100);
+            vErr('m', cmyk[2], 0, 100);
+            vErr('y', cmyk[3], 0, 100);
+            vErr('k', cmyk[4], 0, 100);
+            uri = `cmyk=cmyk(${cmyk[1]}%,${cmyk[2]}%,${cmyk[3]}%,${cmyk[4]}%)`;
+        } else if (hex !== null) {
+            uri = `hex=${hex[2]}`;
         } else {
-            type = "hex";
+            user = await getUserFromMention(args[0], message, true);
             if (!user) {
-                question = args[0].replace('#','').replace('0x', '');
-            } else {
-                question = user.displayHexColor.toString().replace('#','');
+                throw new Error();
             }
+
+            uri = `hex=${user.displayHexColor.toString().replace('#','')}`;
         }
 
-        if (type !== "hex") {
-            question = question.replace(/([^(\)]+)(?:$)/g ,"").replace(/^([^(]*)/g, "");
-        }
-
-        const colour = await axios.get(`https://www.thecolorapi.com/scheme?${type}=${question}`);
+        const colour = await axios.get(`https://www.thecolorapi.com/scheme?${uri}`);
 
         registerFont('./assets/fonts/Roboto.ttf', { family: 'Roboto' });
         const canvas = Canvas.createCanvas(200, 200);
@@ -84,9 +105,10 @@ export const run = async (message, args) => {
         message.channel.stopTyping();
         await message.channel.send(embed);
     } catch (e) {
-        console.log(e);
         message.channel.stopTyping();
-        await message.channel.send(`Please type out a valid colour after \`+colour\`!\n**Examples:** \`#FFFFFF\` - \`rgb(0,71,171)\` - \`hsl(215,100%,34%)\` - \`cmyk(100,58,0,33)\``)
+        await message.channel.send(`Please type out a valid colour after \`${process.env.PREFIX}colour\`!\n` +
+            `**Examples:** \`#FFFFFF\` - \`rgb(0-255,0-255,0-255)\` - \`hsl(0-359,0-100%,0-100%)\` - \`cmyk(0-100%,0-100%,0-100%,0-100%)\`` +
+            (e.message.length ? `\n${e.message}` : ''));
     }
 };
 
