@@ -330,5 +330,19 @@
       "randomwaifu"
     ],
     "helpSimpleGroup": 2
+  },
+  "happy": {
+    "url": "https://waifu.pics/api/sfw/happy",
+    "mention": [
+      "$1 is happy cause of $2",
+      "$1 and $2 are happy!"
+    ],
+    "noMention": [
+      "$1 is feeling happy af",
+      "$1 is beyond the moon with happiness!!!",
+      "$1 is super happy rn!"
+    ],
+    "helpGroup": "gif",
+    "helpSimpleGroup": 3
   }
 }
