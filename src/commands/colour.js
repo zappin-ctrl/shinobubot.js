@@ -23,6 +23,7 @@ export const run = async (message, args) => {
 
         let question = args.join('');
         let user = null;
+        let memuser = null;
         if (!question) {
             throw new Error();
         }
@@ -53,11 +54,14 @@ export const run = async (message, args) => {
             uri = `hex=${hex[2]}`;
         } else {
             user = await getUserFromMention(args[0], message, true);
-            if (!user) {
-                throw new Error();
+            memuser = message.channel.guild.member(user);
+            if (memuser) {
+                uri = `hex=${memuser.displayHexColor.toString().replace('#','')}`;
+            } else if (typeof memuser === 'undefined' && typeof user.displayHexColor !== 'undefined') {
+                uri = `hex=${user.displayHexColor.toString().replace('#','')}`;
+            } else {
+              throw new Error(`If you're looking for hex, use \`#\` or \`0x\`.`);
             }
-
-            uri = `hex=${user.displayHexColor.toString().replace('#','')}`;
         }
 
         const colour = await axios.get(`https://www.thecolorapi.com/scheme?${uri}`);
