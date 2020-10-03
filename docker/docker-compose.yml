@@ -1,0 +1,8 @@
+version: "3.0"
+services:
+  shino_node:
+    container_name: shino_node
+    build: node
+    volumes:
+    - ../:/usr/src/app
+    restart: unless-stopped
