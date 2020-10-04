@@ -122,6 +122,8 @@ async function runListReactionCommand(message, args, argsclean, command) {
     await handleLocalImagePost(message, args, info.key, info.mention, info.noMention);
 }
 
+const imageCanvasPreload = {};
+
 async function runCanvasReactionCommand(message, args, argsclean, command) {
     const info = commands[command].info;
     if (_.isUndefined(info)) {
@@ -141,7 +143,13 @@ async function runCanvasReactionCommand(message, args, argsclean, command) {
 
     const canvasFunctions = await import("./canvasLogic");
 
-    ctx.drawImage(await Canvas.loadImage(info.image), 0, 0, canvas.width, canvas.height);
+    // force load the image into ram once, then just read from it instead of file
+    let image = imageCanvasPreload[info.image] ?? null;
+    if (_.isNull(image)) {
+        image = imageCanvasPreload[info.image] = await Canvas.loadImage(info.image);
+    }
+
+    ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
     canvasFunctions[command](
         ctx,
         await Canvas.loadImage(message.author.displayAvatarURL({format: "jpg"})),
