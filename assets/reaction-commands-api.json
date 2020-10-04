@@ -194,7 +194,10 @@
       "$1 pats a ghost"
     ],
     "helpGroup": "gif",
-    "helpSimpleGroup": 2
+    "helpSimpleGroup": 2,
+    "aliases": [
+      "pet"
+    ]
   },
   "poke": {
     "url": "https://waifu.pics/api/sfw/poke",
