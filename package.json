@@ -1,6 +1,6 @@
 {
   "name": "shinobot",
-  "version": "2.0.6",
+  "version": "2.1.0",
   "description": "",
   "main": "lib/index.js",
   "scripts": {
@@ -22,8 +22,10 @@
     "dotenv": "^8.2.0",
     "lodash": "^4.17.20",
     "moment": "^2.28.0",
+    "mysql2": "^2.2.5",
     "ogparser": "^1.0.0",
     "seedrandom": "^3.0.5",
+    "sequelize": "^6.3.5",
     "winston": "^3.2.1"
   },
   "devDependencies": {

@@ -1,7 +1,6 @@
 import Discord from "discord.js";
 import axios from "axios";
 import Canvas from "canvas";
-import {registerFont} from 'canvas';
 import {getEmbed, getUserFromMention} from "../utility";
 
 const rgbRegEx = /rgba?\( *([0-9]{1,3})%* *, *([0-9]{1,3})%* *, *([0-9]{1,3})%* *(, *[0-9]{1,3} *)*%*?\)/i;
@@ -66,7 +65,6 @@ export const run = async (message, args) => {
 
         const colour = await axios.get(`https://www.thecolorapi.com/scheme?${uri}`);
 
-        registerFont('./assets/fonts/Roboto.ttf', { family: 'Roboto' });
         const canvas = Canvas.createCanvas(200, 200);
         const ctx = canvas.getContext('2d');
         ctx.beginPath();

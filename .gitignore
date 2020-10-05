@@ -1,9 +1,10 @@
 node_modules
 lib
 
-.env
+/.env
 combined.log
 error.log
+orm.log
 
 .idea
 .vscode

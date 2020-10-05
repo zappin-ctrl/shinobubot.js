@@ -6,3 +6,20 @@ services:
     volumes:
     - ../:/usr/src/app
     restart: unless-stopped
+    environment:
+      - SEQUELIZE_DSN=mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@shino_mysql:3306/${MYSQL_DATABASE}
+    depends_on:
+      - shino_mysql
+
+  shino_mysql:
+    container_name: shino_mysql
+    image: mysql:8.0.21
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}
+    ports:
+    - ${MYSQL_PORT}:3306
+    security_opt:
+      - seccomp:unconfined

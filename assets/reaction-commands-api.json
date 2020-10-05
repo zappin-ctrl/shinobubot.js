@@ -317,7 +317,7 @@
     "imageReplaceUrl": "https://rra.ram.moe$1",
     "special": {
       "ultimateFailure": {
-        "chance": 10,
+        "chance": 20,
         "message": [
           "Who's Rem, $1?",
           "Who's that?"

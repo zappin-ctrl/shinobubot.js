@@ -4,6 +4,7 @@ import {setActivity, loadCommandsFromJson, addCommand, applyMentions, getStringa
 import {loadWeebCommands} from "./weeb";
 import fs from "fs";
 import _ from "lodash";
+import {tryClaimSpoopyPoints} from "./auto/spoopy";
 
 const client = new Discord.Client();
 
@@ -78,7 +79,14 @@ client.on('ready', () => {
 })
 
 client.on('message', (message) => {
-    if (message.author.bot || message.content.indexOf(process.env.PREFIX) !== 0) {
+    if (message.author.bot) {
+        return;
+    }
+
+    if (message.content.indexOf(process.env.PREFIX) !== 0) {
+        // try to claim points
+        tryClaimSpoopyPoints(message);
+
         return;
     }
 

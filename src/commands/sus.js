@@ -1,7 +1,6 @@
 import Discord from "discord.js";
 import _ from "lodash";
 import Canvas from "canvas";
-import {registerFont} from 'canvas';
 import {getUserFromMention} from "../utility";
 
 let image = null;
@@ -44,9 +43,7 @@ export const run = async (message, args) => {
             color = '#FFFFFF'
         }
 
-        registerFont('./assets/fonts/Roboto.ttf', {family: 'Roboto'});
         const canvas = Canvas.createCanvas(1116, 628);
-        let y = canvas.height / 2;
         let x = canvas.width / 2;
         const ctx = canvas.getContext('2d');
         ctx.beginPath();

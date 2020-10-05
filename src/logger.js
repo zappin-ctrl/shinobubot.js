@@ -5,6 +5,10 @@ const myFormat = printf(({ level, message,  timestamp }) => {
     return `[${timestamp}][${level}]: ${message}`;
 });
 
+const sequelizeFormat = printf(({ level, message,  timestamp }) => {
+    return `[${timestamp}][ORM][${level}]: ${message}`;
+});
+
 const logger = createLogger({
     level: 'info',
     format: format.json(),
@@ -33,4 +37,26 @@ const logger = createLogger({
     ],
 });
 
+const sequelizeLogger = createLogger({
+    level: 'info',
+    format: format.json(),
+    defaultMeta: { service: 'user-service' },
+    transports: [
+        new transports.File({
+            filename: 'orm.log',
+            format: combine(
+                timestamp(),
+                sequelizeFormat
+            ),
+        }),
+        new transports.Console({
+            format: combine(
+                timestamp(),
+                sequelizeFormat
+            )
+        })
+    ]
+});
+
 export default logger;
+export {sequelizeLogger};

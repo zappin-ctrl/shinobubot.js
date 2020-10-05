@@ -1,7 +1,6 @@
 import Discord from "discord.js";
 import axios from "axios";
 import Canvas from "canvas";
-import { registerFont } from 'canvas';
 import _ from "lodash";
 
 let humidity = null;
@@ -37,11 +36,10 @@ export const run = async (message, args) => {
             light = `#43445c`;
             mode = `#FFFFFF`;
         }
-        registerFont('./assets/fonts/Roboto.ttf', { family: 'Roboto' });
+
         const canvas = Canvas.createCanvas(400, 400);
         const ctx = canvas.getContext('2d');
-        var x = canvas.width / 2;
-        var y = canvas.height / 2;
+        let x = canvas.width / 2;
         ctx.beginPath();
         ctx.rect(0, 0, 400, 400);
         ctx.fillStyle = `${light}`;
