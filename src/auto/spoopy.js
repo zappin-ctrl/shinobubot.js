@@ -75,7 +75,7 @@ export default async() => {
                     item.message.delete();
                     delete spoopy_quotes[guild.guildId];
                 }
-            }, 1000 * 60 * 5);
+            }, 1000 * 60 * 2);
         } catch (e) {
             logger.error(`An error occurred while working on a spoopy image for guild ${guild.guildId} with value ${guild.value}`, e);
         }
