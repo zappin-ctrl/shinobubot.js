@@ -15,7 +15,7 @@ export const run = async (message) => {
     const lines = [];
     for (let i in leaderboard) {
         try {
-            lines.push(`${i+1} - ${safeGetUsername(leaderboard[i].discordId)} - ${leaderboard[i].amount}`);
+            lines.push(`${parseInt(i)+1} - ${safeGetUsername(leaderboard[i].discordId)} - ${leaderboard[i].amount}`);
         } catch (e) {}
     }
     await message.channel.send('```py\n' + lines.join("\n") + '```');
