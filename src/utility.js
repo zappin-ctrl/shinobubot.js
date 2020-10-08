@@ -476,3 +476,16 @@ export async function handleSimplePost(message, args, url, mentionString, noMent
     embed.setImage(await image());
     await message.channel.send(embed);
 }
+
+export function randomBetween(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min)
+}
+
+export function safeGetUsername(id) {
+    const u = client.users.cache.get(id);
+    if (!u) {
+        return 'Unknown';
+    }
+
+    return u.username;
+}

@@ -6,6 +6,7 @@ import Wallet from "../orm/identity/Wallet";
 import client from "../bot";
 import logger from "../logger";
 import Discord from "discord.js";
+import {randomBetween} from "../utility";
 
 const quotes = JSON.parse(fs.readFileSync('./assets/spoopy-words.json', 'utf8'));
 let image = null;
@@ -18,7 +19,7 @@ export async function tryClaimSpoopyPoints(message) {
     }
 
     const item = spoopy_quotes[message.guild.id];
-    if (item.quote.toLowerCase() === message.cleanContent.toLowerCase()) {
+    if (message.channel.id === item.channel && item.quote.toLowerCase() === message.cleanContent.toLowerCase()) {
         const points = item.points;
         delete spoopy_quotes[message.guild.id];
         await message.channel.send(`Good job <@${message.author.id}>, you get ${points} points!`);
@@ -56,10 +57,11 @@ export default async () => {
             ctx.fillStyle = `white`;
             ctx.fillText(`${quote}`, x, 275);
 
-            const points = Math.floor((Math.random() * 100) + 100);
+            const points = randomBetween(50, 300);
             spoopy_quotes[guild.guildId] = {
                 quote: quote,
                 points: points,
+                channel: channel.id,
                 message: await channel.send(
                     `🔔**A Halloween spirit has visited!**🔔\n> Type the word to claim \`${points}\` points!`,
                     new Discord.MessageAttachment(canvas.toBuffer(), 'spoopy.jpg')

@@ -1,5 +1,5 @@
 import Wallet from "../orm/identity/Wallet";
-import client from "../bot";
+import {safeGetUsername} from "../utility";
 
 export const run = async (message) => {
     const leaderboard = await Wallet.findAll({
@@ -15,7 +15,7 @@ export const run = async (message) => {
     const lines = [];
     for (let i in leaderboard) {
         try {
-            lines.push(`${i+1} - ${client.users.cache.get(leaderboard[i].discordId).username} - ${leaderboard[i].amount}`);
+            lines.push(`${i+1} - ${safeGetUsername(leaderboard[i].discordId)} - ${leaderboard[i].amount}`);
         } catch (e) {}
     }
     await message.channel.send('```py\n' + lines.join("\n") + '```');
