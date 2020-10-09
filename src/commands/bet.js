@@ -2,7 +2,7 @@ import Wallet from "../orm/identity/Wallet";
 import { safeGetUsername } from "../utility";
 import { sleep } from "../utility";
 
-const BET_MAX = 1000;
+const BET_MAX = 500;
 export const run = async(message, args) => {
     const amount = parseInt(args[0]);
 
@@ -22,7 +22,7 @@ export const run = async(message, args) => {
         return;
     }
 
-    const win = Math.random() >= 0.5;
+    const win = Math.random() >= 0.65;
     let endPost = null;
     const post = await message.channel.send(process.env.EMOTE_COINFLIP + " Betting your points . . .");
     if (win) {
