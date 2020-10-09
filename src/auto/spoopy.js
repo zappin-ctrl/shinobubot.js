@@ -57,7 +57,7 @@ export default async() => {
             ctx.fillStyle = `white`;
             ctx.fillText(`${quote}`, x, 275);
 
-            const points = randomBetween(50, 500);
+            const points = randomBetween(100, 666);
             spoopy_quotes[guild.guildId] = {
                 quote: quote,
                 points: points,
