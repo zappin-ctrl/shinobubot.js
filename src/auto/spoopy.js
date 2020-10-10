@@ -44,7 +44,7 @@ export function startTimeout() {
         clearTimeout(post_timeout);
     }
 
-    post_timeout = setTimeout(spook, randomBetween(1000 * 60 * 5, 1000 * 60 * 9)); // between 5-9 minutes
+    post_timeout = setTimeout(spook, 1000 * randomBetween(60 * 5, 60 * 9)); // between 5-9 minutes
 }
 
 async function spook() {
