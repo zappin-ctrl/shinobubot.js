@@ -4,7 +4,7 @@ import client from "./bot";
 import axios from "axios";
 import {getUserAgent} from "./utility";
 import sequelize from "./sequelize";
-import spoopy from "./auto/spoopy";
+import {startTimeout} from "./auto/spoopy";
 import { registerFont } from 'canvas';
 
 // models here, they have to be imported to be sync-able
@@ -21,7 +21,7 @@ axios.defaults.headers.common['User-Agent'] = getUserAgent();
         client.login(process.env.DISCORD_TOKEN)
         await sequelize.sync();
 
-        setInterval(spoopy, 1000 * 60 * 6); // every 20 minutes
+        startTimeout();
     } catch (e) {
         console.log(e);
         logger.error(e);

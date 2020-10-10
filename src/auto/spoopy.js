@@ -12,6 +12,7 @@ const quotes = JSON.parse(fs.readFileSync('./assets/spoopy-words.json', 'utf8'))
 let image = null;
 
 const spoopy_quotes = {};
+const deletion_timeouts = {};
 
 export async function tryClaimSpoopyPoints(message) {
     if (!(message.guild.id in spoopy_quotes)) {
@@ -36,7 +37,22 @@ export async function tryClaimSpoopyPoints(message) {
     return -1;
 }
 
-export default async() => {
+let post_timeout = null;
+
+export function startTimeout() {
+    if (null !== post_timeout) {
+        clearTimeout(post_timeout);
+    }
+
+    post_timeout = setTimeout(spook, randomBetween(1000 * 60 * 5, 1000 * 60 * 9)); // between 5-9 minutes
+}
+
+async function spook() {
+    if (null !== post_timeout) {
+        clearTimeout(post_timeout);
+        post_timeout = null;
+    }
+
     const allGuilds = await GuildTag.findAll({ where: { tag: TAG_SPOOPY } });
 
     if (_.isNull(image)) {
@@ -68,16 +84,26 @@ export default async() => {
                 )
             };
 
-            setTimeout(() => {
+            if (guild.guildId in deletion_timeouts) {
+                clearTimeout(deletion_timeouts[guild.guildId]);
+            }
+
+            deletion_timeouts[guild.guildId] = setTimeout(() => {
                 if (guild.guildId in spoopy_quotes) {
                     const item = spoopy_quotes[guild.guildId];
                     item.message.channel.send(`${process.env.EMOTE_MINUS} You missed this one! Look out for the next.`);
                     item.message.delete();
                     delete spoopy_quotes[guild.guildId];
                 }
+
+                delete deletion_timeouts[guild.guildId];
             }, 1000 * 60 * 2);
         } catch (e) {
             logger.error(`An error occurred while working on a spoopy image for guild ${guild.guildId} with value ${guild.value}`, e);
         }
     }
-};
+
+    startTimeout();
+}
+
+export default spook;
