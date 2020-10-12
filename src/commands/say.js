@@ -6,6 +6,10 @@ const roleMap = {
         id: '710516700419719280',
         key: 'a2y5k-L20uSEMhCwhuJdjYrC5uUJgKdEiYy_l6Kc5GTx5k0V1LX4no2T0tVuaqiWKfPr'
     },
+    '758046971972812840': { // Sodachi
+        id: '758050073316688032',
+        key: 'F6-P8N7zNjhgVcs8c6T6iYOi_ng93xyJ6kaRmfcOWRp3tGu_zu0SKNwaXVyVRQaHJX3j'
+    },
     '688536488488861720': { // Senjou
         id: '710515855943008337',
         key: 'oLmkKwAp1XcuuJq-4qS_siMBhqtgJGFrzGyFrE5m3chjJ-iyTOx3MqQpsHl_CErjhgmX'
