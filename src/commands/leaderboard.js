@@ -1,10 +1,12 @@
 import Wallet from "../orm/identity/Wallet";
 import {safeGetUsername} from "../utility";
 
+
+export const aliases = ["lb"];
 export const run = async (message) => {
     const leaderboard = await Wallet.findAll({
         order: [['amount', 'DESC']],
-        limit: 10
+        limit: 20
     });
 
     if (!leaderboard.length) {
