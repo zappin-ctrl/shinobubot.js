@@ -14,6 +14,12 @@ let image = null;
 const spoopy_quotes = {};
 const deletion_timeouts = {};
 
+const claim_multipliers = [
+    1,
+    0.4,
+    0.15
+];
+
 export async function tryClaimSpoopyPoints(message) {
     if (!(message.guild.id in spoopy_quotes)) {
         return -1;
@@ -21,9 +27,20 @@ export async function tryClaimSpoopyPoints(message) {
 
     const item = spoopy_quotes[message.guild.id];
     if (message.channel.id === item.channel && item.quote.toLowerCase() === message.cleanContent.toLowerCase()) {
-        const points = item.points;
-        delete spoopy_quotes[message.guild.id];
-        await message.channel.send(`> Good job <@${message.author.id}>, you get **${points}** points!`);
+        if (item.claimed.length >= claim_multipliers.length || item.claimed.indexOf(message.author.id) !== -1) { // max claims or already claimed
+            return;
+        }
+
+        const points = Math.floor(item.points * claim_multipliers[item.claimed.length]);
+        spoopy_quotes[message.guild.id].claimed.push(message.author.id);
+        if (null === item.response) {
+            spoopy_quotes[message.guild.id].response = await message.channel.send(`> Good job <@${message.author.id}>, you get **${points}** points!`);
+            setTimeout(() => {
+                delete spoopy_quotes[message.guild.id];
+            }, 5000); // stop listening for other claims in 5 seconds
+        } else {
+            await item.response.edit(item.response.content + `\n> and <@${message.author.id}>, you get **${points}** points!`);
+        }
         const [wallet, created] = await Wallet.findOrCreate({
             where: { discordId: message.author.id },
             defaults: { discordId: message.author.id }
@@ -81,7 +98,9 @@ async function spook() {
                 message: await channel.send(
                     `🔔**A Halloween spirit has visited!**🔔\n> Type the word to claim **\`${points}\`** points!`,
                     new Discord.MessageAttachment(canvas.toBuffer(), 'spoopy.jpg')
-                )
+                ),
+                claimed: [],
+                response: null,
             };
 
             if (guild.guildId in deletion_timeouts) {
