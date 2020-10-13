@@ -32,7 +32,7 @@ export async function tryClaimSpoopyPoints(message) {
             return;
         }
 
-        const points = Math.floor(item.points * claim_multipliers[item.claimed.length]);
+        const points = Math.floor(spoopy_quotes[message.guild.id].points * claim_multipliers[spoopy_quotes[message.guild.id].claimed.length]);
         spoopy_quotes[message.guild.id].claimed.push(message.author.id);
         if (null === spoopy_quotes[message.guild.id].response) {
             spoopy_quotes[message.guild.id].response = await message.channel.send(`> Good job <@${message.author.id}>, you get **${points}** points!`);
