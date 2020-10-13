@@ -36,11 +36,15 @@ export async function tryClaimSpoopyPoints(message) {
         spoopy_quotes[message.guild.id].claimed.push(message.author.id);
         if (null === spoopy_quotes[message.guild.id].response) {
             spoopy_quotes[message.guild.id].response = await message.channel.send(`> Good job <@${message.author.id}>, you get **${points}** points!`);
-            setTimeout(() => {
+            setTimeout(async () => {
+                let content = spoopy_quotes[message.guild.id].response.content;
+                for (let i = 0; i < spoopy_quotes[message.guild.id].claimed.length; i++) {
+                    content += `\n> <@${spoopy_quotes[message.guild.id].claimed[i]}>, you get **${Math.floor(spoopy_quotes[message.guild.id].points * claim_multipliers[i])}** points!`;
+                }
+
+                await spoopy_quotes[message.guild.id].response.edit(content);
                 delete spoopy_quotes[message.guild.id];
-            }, 7000); // stop listening for other claims in 7 seconds?
-        } else {
-            await spoopy_quotes[message.guild.id].response.edit(spoopy_quotes[message.guild.id].response.content + `\n> and <@${message.author.id}>, you get **${points}** points!`);
+            }, 4000); // stop listening for other claims in 4 seconds?
         }
         const [wallet, created] = await Wallet.findOrCreate({
             where: { discordId: message.author.id },
