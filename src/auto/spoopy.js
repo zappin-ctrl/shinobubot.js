@@ -37,12 +37,15 @@ export async function tryClaimSpoopyPoints(message) {
         if (null === spoopy_quotes[message.guild.id].response) {
             spoopy_quotes[message.guild.id].response = await message.channel.send(`> Good job <@${message.author.id}>, you get **${points}** points!`);
             setTimeout(async () => {
-                let content = spoopy_quotes[message.guild.id].response.content;
-                for (let i = 0; i < spoopy_quotes[message.guild.id].claimed.length; i++) {
-                    content += `\n> <@${spoopy_quotes[message.guild.id].claimed[i]}>, you get **${Math.floor(spoopy_quotes[message.guild.id].points * claim_multipliers[i])}** points!`;
+                if (spoopy_quotes[message.guild.id].claimed.length > 1) {
+                    let content = spoopy_quotes[message.guild.id].response.content;
+                    for (let i = 1; i < spoopy_quotes[message.guild.id].claimed.length; i++) {
+                        content += `\n> <@${spoopy_quotes[message.guild.id].claimed[i]}>, you get **${Math.floor(spoopy_quotes[message.guild.id].points * claim_multipliers[i])}** points!`;
+                    }
+
+                    await spoopy_quotes[message.guild.id].response.edit(content);
                 }
 
-                await spoopy_quotes[message.guild.id].response.edit(content);
                 delete spoopy_quotes[message.guild.id];
             }, 4000); // stop listening for other claims in 4 seconds?
         }
