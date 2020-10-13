@@ -25,21 +25,22 @@ export async function tryClaimSpoopyPoints(message) {
         return -1;
     }
 
-    const item = spoopy_quotes[message.guild.id];
-    if (message.channel.id === item.channel && item.quote.toLowerCase() === message.cleanContent.toLowerCase()) {
-        if (item.claimed.length >= claim_multipliers.length || item.claimed.indexOf(message.author.id) !== -1) { // max claims or already claimed
+    if (message.channel.id === spoopy_quotes[message.guild.id].channel &&
+        spoopy_quotes[message.guild.id].quote.toLowerCase() === message.cleanContent.toLowerCase()) {
+        if (spoopy_quotes[message.guild.id].claimed.length >= claim_multipliers.length ||
+            spoopy_quotes[message.guild.id].claimed.indexOf(message.author.id) !== -1) { // max claims or already claimed
             return;
         }
 
         const points = Math.floor(item.points * claim_multipliers[item.claimed.length]);
         spoopy_quotes[message.guild.id].claimed.push(message.author.id);
-        if (null === item.response) {
+        if (null === spoopy_quotes[message.guild.id].response) {
             spoopy_quotes[message.guild.id].response = await message.channel.send(`> Good job <@${message.author.id}>, you get **${points}** points!`);
             setTimeout(() => {
                 delete spoopy_quotes[message.guild.id];
-            }, 5000); // stop listening for other claims in 5 seconds
+            }, 7000); // stop listening for other claims in 7 seconds?
         } else {
-            await item.response.edit(item.response.content + `\n> and <@${message.author.id}>, you get **${points}** points!`);
+            await spoopy_quotes[message.guild.id].response.edit(spoopy_quotes[message.guild.id].response.content + `\n> and <@${message.author.id}>, you get **${points}** points!`);
         }
         const [wallet, created] = await Wallet.findOrCreate({
             where: { discordId: message.author.id },
