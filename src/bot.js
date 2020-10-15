@@ -13,6 +13,28 @@ export const commandAliases = {};
 
 let cmdUsage = {};
 
+const confirmation_queue = {};
+
+export async function askForConfirmation(message, description, callback, timeout = 10000) { // in ms
+    if (!(message.guild.id in confirmation_queue)) {
+        confirmation_queue[message.guild.id] = {};
+    }
+
+    const last = confirmation_queue[message.guild.id][message.author.id];
+    if (!_.isUndefined(last)) {
+        clearTimeout(last.timeout);
+        delete confirmation_queue[message.guild.id][message.author.id]; // delete last action confirmation
+    }
+
+    await message.channel.send(`> Are you sure you want to ${description}? Reply with **yes** to do it.`);
+    confirmation_queue[message.guild.id][message.author.id] = {
+        callback: callback,
+        timeout: setTimeout(() => {
+            delete confirmation_queue[message.guild.id][message.author.id];
+        }, timeout)
+    };
+}
+
 function logCommands() {
     for (let i in cmdUsage) {
         const cmds = [];
@@ -81,6 +103,15 @@ client.on('ready', () => {
 client.on('message', (message) => {
     if (message.author.bot) {
         return;
+    }
+
+    // process confirmation checks
+    if (message.cleanContent.toLowerCase() === "yes" &&
+        message.guild.id in confirmation_queue &&
+        message.author.id in confirmation_queue[message.guild.id]) {
+        clearTimeout(confirmation_queue[message.guild.id][message.author.id]);
+        confirmation_queue[message.guild.id][message.author.id].callback();
+        delete confirmation_queue[message.guild.id][message.author.id];
     }
 
     if (message.content.indexOf(process.env.PREFIX) !== 0) {

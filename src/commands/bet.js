@@ -1,34 +1,21 @@
 import Wallet from "../orm/identity/Wallet";
 import { safeGetUsername } from "../utility";
 import { sleep } from "../utility";
+import {askForConfirmation} from "../bot";
 
-const BET_MAX = 666;
-export const run = async(message, args) => {
-    const amount = parseInt(args[0]);
-
-    if (!args[0] || isNaN(amount) || amount <= 0) {
-        await message.channel.send(`You need to specify how much you wanna bet!`);
-        return;
+async function doBet(message, amount, wallet, winChance = 0.58, multiplier = 1) {
+    if (null === wallet) {
+        wallet = await Wallet.findOne({ where: { discordId: message.author.id } });
     }
 
-    if (amount > BET_MAX) {
-        await message.channel.send(`Betting max is ${BET_MAX}!`);
-        return;
-    }
-
-    const wallet = await Wallet.findOne({ where: { discordId: message.author.id } });
-    if (null === wallet || wallet.amount < amount) {
-        await message.channel.send(`You can't bet this much! You have **${(null === wallet ? 0 : wallet.amount)}** points!`);
-        return;
-    }
-
-    const win = Math.random() >= 0.58;
+    const win = Math.random() >= winChance;
     let endPost = null;
     const post = await message.channel.send(process.env.EMOTE_COINFLIP + " Betting your points . . .");
     if (win) {
-        wallet.amount += amount;
+        const finalAmount = Math.floor(amount * multiplier);
+        wallet.amount += finalAmount;
         await wallet.save();
-        endPost = `${process.env.EMOTE_PLUS} You win **${amount}** points!`;
+        endPost = `${process.env.EMOTE_PLUS} You win **${finalAmount}** points!`;
     } else {
         wallet.amount -= amount;
         await wallet.save();
@@ -47,6 +34,38 @@ export const run = async(message, args) => {
     }
     await sleep(3000);
     await post.edit(endPost);
+}
+
+const BET_MAX = 666;
+export const run = async(message, args) => {
+    const amount = parseInt(args[0]);
+
+    if ((args[0] ?? null) === 'all') {
+        const wallet = await Wallet.findOne({ where: { discordId: message.author.id } });
+
+        if (wallet.amount > 0) {
+            await askForConfirmation(message, 'bet all your points away', doBet.bind(null, message, wallet.amount, null, 0.95, 2));
+        } else {
+            await message.channel.send("You have no points to bet!");
+        }
+        return;
+    } else if (!args[0] || isNaN(amount) || amount <= 0) {
+        await message.channel.send(`You need to specify how much you wanna bet!`);
+        return;
+    }
+
+    if (amount > BET_MAX) {
+        await message.channel.send(`Betting max is ${BET_MAX}!`);
+        return;
+    }
+
+    const wallet = await Wallet.findOne({ where: { discordId: message.author.id } });
+    if (null === wallet || wallet.amount < amount) {
+        await message.channel.send(`You can't bet this much! You have **${(null === wallet ? 0 : wallet.amount)}** points!`);
+        return;
+    }
+
+    await doBet(message, amount, wallet);
 };
 
 export const help = "Bet some points on the running event!";
