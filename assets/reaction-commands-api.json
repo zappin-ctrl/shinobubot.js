@@ -334,6 +334,14 @@
     ],
     "helpSimpleGroup": 2
   },
+  "megumeme": {
+    "url": "https://waifu.pics/api/sfw/megumin",
+    "helpGroup": "waifu",
+    "aliases": [
+      "megumin"
+    ],
+    "helpSimpleGroup": 1
+  },
   "happy": {
     "url": "https://waifu.pics/api/sfw/happy",
     "mention": [

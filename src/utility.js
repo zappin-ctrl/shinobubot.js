@@ -76,6 +76,19 @@ export async function getUserFromMention(message, messageObj, asGuildMember = fa
     return client.users.cache.get(message)
 }
 
+export async function getChannelFromMention(message) {
+    if (!message) {
+        return undefined;
+    }
+
+    if (message.startsWith('<#') && message.endsWith('>')) {
+        message = message.slice(2, -1);
+        return client.channels.cache.get(message);
+    }
+
+    return client.channels.cache.get(message);
+}
+
 export function ellipseText(string, length = 300) {
     if (string.length > 300) {
         string = string.substr(0, length - 3) + "...";
@@ -401,7 +414,7 @@ export function removeCommandPart(string) {
 }
 
 export function isOwner(message) {
-    return message.author.id === process.env.OWNER || process.env.OWNER === 'any';
+    return process.env.OWNER.split(',').indexOf(message.author.id) !== -1 || process.env.OWNER === 'any';
 }
 
 async function prepareEmbedForPostHandling(message, args, mentionString, noMentionString = null) {
