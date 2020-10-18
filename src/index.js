@@ -10,6 +10,7 @@ import { registerFont } from 'canvas';
 // models here, they have to be imported to be sync-able
 import Wallet from "./orm/identity/Wallet";
 import GuildTag from "./orm/settings/GuildTag";
+import CommandStateList from "./orm/settings/CommandStateList";
 
 registerFont('./assets/fonts/Roboto.ttf', { family: 'Roboto' });
 

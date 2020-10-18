@@ -7,12 +7,14 @@ import client from "../bot";
 import logger from "../logger";
 import Discord from "discord.js";
 import { randomBetween } from "../utility";
+import {Mutex} from "async-mutex";
 
 const quotes = JSON.parse(fs.readFileSync('./assets/spoopy-words.json', 'utf8'));
 let image = null;
 
 const spoopy_quotes = {};
 const deletion_timeouts = {};
+const mutexes = {};
 
 const claim_multipliers = [
     1,
@@ -27,6 +29,8 @@ export async function tryClaimSpoopyPoints(message) {
 
     if (message.channel.id === spoopy_quotes[message.guild.id].channel &&
         spoopy_quotes[message.guild.id].quote.toLowerCase() === message.cleanContent.toLowerCase()) {
+        const release = await mutexes[message.guild.id].acquire();
+
         if (spoopy_quotes[message.guild.id].claimed.length >= claim_multipliers.length ||
             spoopy_quotes[message.guild.id].claimed.indexOf(message.author.id) !== -1) { // max claims or already claimed
             return;
@@ -55,6 +59,8 @@ export async function tryClaimSpoopyPoints(message) {
         });
         wallet.amount += points;
         await wallet.save();
+
+        release();
 
         return points;
     }
@@ -85,6 +91,12 @@ async function spook() {
     }
 
     for (let guild of allGuilds) {
+        if (!(guild.guildId in mutexes)) {
+            mutexes[guild.guildId] = new Mutex();
+        }
+
+        const release = await mutexes[guild.guildId].acquire();
+
         try {
             const channel = await client.channels.fetch(guild.value);
 
@@ -127,6 +139,8 @@ async function spook() {
             }, 1000 * 60 * 2);
         } catch (e) {
             logger.error(`An error occurred while working on a spoopy image for guild ${guild.guildId} with value ${guild.value}`, e);
+        } finally {
+            release();
         }
     }
 

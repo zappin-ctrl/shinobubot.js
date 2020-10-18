@@ -38,10 +38,6 @@ async function doBet(message, amount, wallet, winChance = 0.58, multiplier = 1) 
 
 const BET_MAX = 666;
 export const run = async(message, args) => {
-    if (message.channel.id !== `652433231966371870` && message.channel.type !== `dm`) {
-        message.channel.send(`Use <#652433231966371870> or DMs!`);
-        return;
-    }
     const amount = parseInt(args[0]);
 
     if ((args[0] ?? null) === 'all') {

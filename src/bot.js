@@ -5,15 +5,45 @@ import {loadWeebCommands} from "./weeb";
 import fs from "fs";
 import _ from "lodash";
 import {tryClaimSpoopyPoints} from "./auto/spoopy";
+import CommandStateList from "./orm/settings/CommandStateList";
+import {Mutex} from "async-mutex";
 
 const client = new Discord.Client();
 
 export const commands = {};
 export const commandAliases = {};
 
+let commandLockList = {};
+const commandLockListMutex = new Mutex();
+
 let cmdUsage = {};
 
 const confirmation_queue = {};
+
+export async function reloadLockList() {
+    const release = await commandLockListMutex.acquire();
+    commandLockList = {};
+    for (let l of await CommandStateList.findAll()) {
+        if (!(l.guildId in commandLockList)) {
+            commandLockList[l.guildId] = {};
+        }
+
+        if (!(l.command in commandLockList[l.guildId])) {
+            commandLockList[l.guildId][l.command] = {
+                'whitelist': [],
+                'blacklist': []
+            };
+        }
+
+        if (l.isWhitelist && commandLockList[l.guildId][l.command]['whitelist'].indexOf(l.channelId)) {
+            commandLockList[l.guildId][l.command]['whitelist'].push(l.channelId);
+        } else if (!l.isWhitelist && commandLockList[l.guildId][l.command]['blacklist'].indexOf(l.channelId)) {
+            commandLockList[l.guildId][l.command]['blacklist'].push(l.channelId)
+        }
+    }
+
+    release();
+}
 
 export async function askForConfirmation(message, description, callback, timeout = 10000) { // in ms
     if (!(message.guild.id in confirmation_queue)) {
@@ -67,6 +97,22 @@ function saveCommand(cmd, message) {
 }
 
 function handleSpecial(cmd, message) {
+    if (message.channel.type !== 'dm' &&
+        message.guild.id in commandLockList &&
+        cmd.command in commandLockList[message.guild.id]) {
+        const item = commandLockList[message.guild.id][cmd.command];
+        if ((item['whitelist'].length > 0 && item['whitelist'].indexOf(message.channel.id) === -1) ||
+            (item['blacklist'].length > 0 && item['blacklist'].indexOf(message.channel.id) !== -1)) {
+            message.channel.send(`<@${message.author.id}> command ${cmd.command} is not allowed in this channel.`).then((m) => {
+                m.delete({
+                    timeout: 5000
+                }); // delete this message after 5 seconds
+            });
+
+            return true; // don't fire real command
+        }
+    }
+
     let messages = null;
 
     if (!_.isUndefined(cmd.info) && !_.isUndefined(cmd.info.special)) {
@@ -98,9 +144,10 @@ client.on('guildDelete', (guild) => {
 client.on('ready', () => {
     logger.info(`Bot has started, with ${client.users.cache.size} users, in ${client.channels.cache.size} channels of ${client.guilds.cache.size} guilds.`);
     setActivity(client);
+    reloadLockList();
 })
 
-client.on('message', (message) => {
+client.on('message', async (message) => {
     if (message.author.bot) {
         return;
     }
@@ -141,7 +188,7 @@ client.on('message', (message) => {
     }
 
     try {
-        cmd.run(message, args, argsclean, cmd.command);
+        cmd.run(message, args, argsclean, cmd.command, command); // last argument is real alias used
     } catch (e) {
         message.channel.send("An error occurred while running the command!");
         logger.error(`An error occurred while running command ${cmd.command}`, e);
