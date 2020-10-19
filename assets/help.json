@@ -12,7 +12,7 @@
   },
   "image_manipulation": {
     "title": "Image Filters/Warping",
-    "description": " **method [attachment/emote/link/^(last image)/avatar]**\n Posts a modified image based on source"
+    "description": " **method [attachment/emote/link/^(last image)/avatar]**\n Posts a modified image based on the source"
   },
   "anime": {
     "title": "Anime/Manga Lookup"
