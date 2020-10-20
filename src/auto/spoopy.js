@@ -68,7 +68,7 @@ export async function tryClaimSpoopyPoints(message) {
             release();
         }
 
-        return points;
+        return;
     }
 
     return -1;
