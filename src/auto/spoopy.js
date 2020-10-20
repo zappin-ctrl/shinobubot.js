@@ -29,38 +29,44 @@ export async function tryClaimSpoopyPoints(message) {
 
     if (message.channel.id === spoopy_quotes[message.guild.id].channel &&
         spoopy_quotes[message.guild.id].quote.toLowerCase() === message.cleanContent.toLowerCase()) {
+
         const release = await mutexes[message.guild.id].acquire();
 
-        if (spoopy_quotes[message.guild.id].claimed.length >= claim_multipliers.length ||
-            spoopy_quotes[message.guild.id].claimed.indexOf(message.author.id) !== -1) { // max claims or already claimed
-            return;
-        }
+        try {
+            if (spoopy_quotes[message.guild.id].claimed.length >= claim_multipliers.length ||
+                spoopy_quotes[message.guild.id].claimed.indexOf(message.author.id) !== -1) { // max claims or already claimed
+                release();
+                return;
+            }
 
-        const points = Math.floor(spoopy_quotes[message.guild.id].points * claim_multipliers[spoopy_quotes[message.guild.id].claimed.length]);
-        spoopy_quotes[message.guild.id].claimed.push(message.author.id);
-        if (null === spoopy_quotes[message.guild.id].response) {
-            spoopy_quotes[message.guild.id].response = await message.channel.send(`> Good job <@${message.author.id}>, you get **${points}** points!`);
-            setTimeout(async () => {
-                if (spoopy_quotes[message.guild.id].claimed.length > 1) {
-                    let content = spoopy_quotes[message.guild.id].response.content;
-                    for (let i = 1; i < spoopy_quotes[message.guild.id].claimed.length; i++) {
-                        content += `\n> <@${spoopy_quotes[message.guild.id].claimed[i]}>, you get **${Math.floor(spoopy_quotes[message.guild.id].points * claim_multipliers[i])}** points!`;
+            const points = Math.floor(spoopy_quotes[message.guild.id].points * claim_multipliers[spoopy_quotes[message.guild.id].claimed.length]);
+            spoopy_quotes[message.guild.id].claimed.push(message.author.id);
+            if (null === spoopy_quotes[message.guild.id].response) {
+                spoopy_quotes[message.guild.id].response = await message.channel.send(`> Good job <@${message.author.id}>, you get **${points}** points!`);
+                setTimeout(async () => {
+                    if (spoopy_quotes[message.guild.id].claimed.length > 1) {
+                        let content = spoopy_quotes[message.guild.id].response.content;
+                        for (let i = 1; i < spoopy_quotes[message.guild.id].claimed.length; i++) {
+                            content += `\n> <@${spoopy_quotes[message.guild.id].claimed[i]}>, you get **${Math.floor(spoopy_quotes[message.guild.id].points * claim_multipliers[i])}** points!`;
+                        }
+
+                        await spoopy_quotes[message.guild.id].response.edit(content);
                     }
 
-                    await spoopy_quotes[message.guild.id].response.edit(content);
-                }
-
-                delete spoopy_quotes[message.guild.id];
-            }, 4000); // stop listening for other claims in 4 seconds?
+                    delete spoopy_quotes[message.guild.id];
+                }, 4000); // stop listening for other claims in 4 seconds?
+            }
+            const [wallet, created] = await Wallet.findOrCreate({
+                where: { discordId: message.author.id },
+                defaults: { discordId: message.author.id }
+            });
+            wallet.amount += points;
+            await wallet.save();
+        } catch (e) {
+            logger.error(`An issue occurred while trying to claim ${message.guild.id}'s spoopy stuff`, e);
+        } finally {
+            release();
         }
-        const [wallet, created] = await Wallet.findOrCreate({
-            where: { discordId: message.author.id },
-            defaults: { discordId: message.author.id }
-        });
-        wallet.amount += points;
-        await wallet.save();
-
-        release();
 
         return points;
     }
