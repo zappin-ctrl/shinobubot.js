@@ -1,8 +1,8 @@
 {
-  "wide": {
-    "height": 0.9,
-    "width": 3,
-    "helpGroup": "image_manipulation",
-    "helpSimpleGroup": 1
-  }
+    "wide": {
+        "height": 0.9,
+        "width": 3,
+        "helpGroup": "fun",
+        "helpArguments": "[attachment/pfp/link/^ for last image]"
+    }
 }

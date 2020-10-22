@@ -1,6 +1,6 @@
-import {getChannelFromMention, isOwner} from "../utility";
+import { getChannelFromMention, isOwner } from "../utility";
 import CommandStateList from "../orm/settings/CommandStateList";
-import client, {commands, reloadLockList} from "../bot";
+import client, { commands, reloadLockList } from "../bot";
 
 export async function addToList(command, guildId, channelId, isWhitelist = true) {
     const [obj, created] = await CommandStateList.findOrCreate({
@@ -20,7 +20,7 @@ export async function addToList(command, guildId, channelId, isWhitelist = true)
 }
 
 export const aliases = ['blacklist'];
-export const run = async (message, args, argsclean, cmd, realAlias) => {
+export const run = async(message, args, argsclean, cmd, realAlias) => {
     if (!isOwner(message)) {
         return;
     }
@@ -43,5 +43,9 @@ export const run = async (message, args, argsclean, cmd, realAlias) => {
     }
 
     await addToList(args[0], message.guild.id, channel.id, realAlias === "whitelist");
-    await message.channel.send(`Command ${args[0]} is now ${realAlias === "whitelist" ? "usable" : "locked out"} in channel <#${channel.id}>`);
+    await message.channel.send(`Command \`${args[0]}\` is now **${realAlias === "whitelist" ? "usable" : "locked out"}** in channel <#${channel.id}>`);
 }
+
+export const help = 'Allow (whitelist) or block (blacklist) a command in a channel.';
+export const helpArguments = '[channel]';
+export const helpGroup = 'utility';

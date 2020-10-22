@@ -1,23 +1,19 @@
 {
-  "fun": {
-    "title": "Fun/Memes"
-  },
-  "waifu": {
-    "title": "Waifu Pics",
-    "description": "**Get a random image of the waifu of your choice, or a random one.**"
-  },
-  "gif": {
-    "title": "Reaction Gifs",
-    "description": " **gif_name [@someone/ID] (optional)**\n Posts a gif of the requested action (with or without an @)"
-  },
-  "image_manipulation": {
-    "title": "Image Filters/Warping",
-    "description": " **method [attachment/emote/link/^(last image)/avatar]**\n Posts a modified image based on the source"
-  },
-  "anime": {
-    "title": "Anime/Manga Lookup"
-  },
-  "utility": {
-    "title": "Utility"
-  }
+    "fun": {
+        "title": "Fun/Memes"
+    },
+    "waifu": {
+        "title": "Waifu Pics",
+        "description": "**Get a random image of the waifu of your choice, or a random one.**"
+    },
+    "gif": {
+        "title": "Reaction Gifs",
+        "description": " **gif_name [@someone/ID] (optional)**\n Posts a gif of the requested action (with or without an @)"
+    },
+    "anime": {
+        "title": "Anime/Manga Lookup"
+    },
+    "utility": {
+        "title": "Utility"
+    }
 }
