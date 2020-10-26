@@ -278,7 +278,6 @@ async function runRemoteCanvasCommand(message, args, argsclean, command) {
     }
 
     const canvasFunctions = await import("./canvasTransformLogic");
-    console.log(canvasFunctions);
 
     try {
         message.channel.startTyping(); // do NOT await this, it freezes the execution.
