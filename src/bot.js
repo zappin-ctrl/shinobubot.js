@@ -160,6 +160,10 @@ client.on('message', async (message) => {
         delete confirmation_queue[message.guild.id][message.author.id];
     }
 
+    if (message.content.indexOf(process.env.PREFIX) !== 0) {
+        return;
+    }
+
     // todo: look over this shit later
     const argsclean = message.cleanContent.slice(process.env.PREFIX.length).trim().split(/ +/g);
     const args = message.content.slice(process.env.PREFIX.length).trim().split(/ +/g);
