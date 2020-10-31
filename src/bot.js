@@ -4,7 +4,6 @@ import {setActivity, loadCommandsFromJson, addCommand, applyMentions, getStringa
 import {loadWeebCommands} from "./weeb";
 import fs from "fs";
 import _ from "lodash";
-import {tryClaimSpoopyPoints} from "./auto/spoopy";
 import CommandStateList from "./orm/settings/CommandStateList";
 import {Mutex} from "async-mutex";
 
@@ -159,13 +158,6 @@ client.on('message', async (message) => {
         clearTimeout(confirmation_queue[message.guild.id][message.author.id]);
         confirmation_queue[message.guild.id][message.author.id].callback();
         delete confirmation_queue[message.guild.id][message.author.id];
-    }
-
-    if (message.content.indexOf(process.env.PREFIX) !== 0) {
-        // try to claim points
-        tryClaimSpoopyPoints(message);
-
-        return;
     }
 
     // todo: look over this shit later
