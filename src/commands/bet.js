@@ -43,7 +43,7 @@ export const run = async(message, args) => {
     if ((args[0] ?? null) === 'all') {
         const wallet = await Wallet.findOne({ where: { discordId: message.author.id } });
 
-        if (wallet.amount > 0) {
+        if (null !== wallet && wallet.amount > 0) {
             await askForConfirmation(message, 'bet all your points away', doBet.bind(null, message, wallet.amount, null, 0.95, 3));
         } else {
             await message.channel.send("You have no points to bet!");
