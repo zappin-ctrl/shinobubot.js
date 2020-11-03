@@ -19,9 +19,11 @@ export const run = async (message, args) => {
         return;
     }
 
+    let userCount = 0;
     const guilds = client.guilds.cache.map(guild => `**${guild.name}** (${guild.memberCount}) - \`${guild.id}\`\nOwner: ${guild.owner} (\`${guild.ownerID}\`)\n`);
+    client.guilds.cache.map(guild => userCount += guild.memberCount);
     const embed = getEmbed()
-        .setDescription(`${guilds.toString().replace(/,/g, '\n')} \n **Servers:** ${client.guilds.cache.size} - **Users:** ${client.users.cache.size}`);
+        .setDescription(`${guilds.toString().replace(/,/g, '\n')} \n **Servers:** ${client.guilds.cache.size} - **Users:** ${userCount}`);
 
     await message.channel.send(embed);
 };
