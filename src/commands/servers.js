@@ -1,5 +1,6 @@
 import {getEmbed, isOwner} from "../utility";
 import client from "../bot";
+import _ from "lodash";
 
 export const aliases = ["guilds"];
 export const run = async (message, args) => {
@@ -22,8 +23,17 @@ export const run = async (message, args) => {
     let userCount = 0;
     const guilds = client.guilds.cache.map(guild => `**${guild.name}** (${guild.memberCount}) - \`${guild.id}\`\nOwner: ${guild.owner} (\`${guild.ownerID}\`)\n`);
     client.guilds.cache.map(guild => userCount += guild.memberCount);
-    const embed = getEmbed()
-        .setDescription(`${guilds.toString().replace(/,/g, '\n')} \n **Servers:** ${client.guilds.cache.size} - **Users:** ${userCount}`);
+    const chunks = _.chunk(guilds, 10);
+    for (let i = 0; i < chunks.length; i++) {
+        let description = `${chunks[i].join('\n')}`;
+        if (0 === i) {
+            description = `**Servers:** ${client.guilds.cache.size} - **Users:** ${userCount}\n\n` + description;
+        }
 
-    await message.channel.send(embed);
+        await message.channel.send(
+            getEmbed()
+                .setDescription(description)
+        );
+    }
+
 };
