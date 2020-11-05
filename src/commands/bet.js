@@ -5,7 +5,7 @@ import {askForConfirmation} from "../bot";
 
 async function doBet(message, amount, wallet, winChance = 0.58, multiplier = 1) {
     if (null === wallet) {
-        wallet = await Wallet.findOne({ where: { discordId: message.author.id } });
+        wallet = await Wallet.findOne({ where: { discordId: message.author.id, guildId: message.guild.id } });
     }
 
     const win = Math.random() >= winChance;
@@ -22,7 +22,10 @@ async function doBet(message, amount, wallet, winChance = 0.58, multiplier = 1) 
         const lowest = await Wallet.findOne({
             order: [
                 ['amount', 'ASC']
-            ]
+            ],
+            where: {
+                guildId: message.guild.id
+            }
         });
         if (null === lowest || lowest.discordId === wallet.discordId) {
             endPost = `${process.env.EMOTE_MINUS} You lose **${amount}** points! They're off to somewhere!`;
@@ -41,7 +44,7 @@ export const run = async(message, args) => {
     const amount = parseInt(args[0]);
 
     if ((args[0] ?? null) === 'all') {
-        const wallet = await Wallet.findOne({ where: { discordId: message.author.id } });
+        const wallet = await Wallet.findOne({ where: { discordId: message.author.id, guildId: message.guild.id } });
 
         if (null !== wallet && wallet.amount > 0) {
             await askForConfirmation(message, 'bet all your points away', doBet.bind(null, message, wallet.amount, null, 0.95, 3));
@@ -59,7 +62,7 @@ export const run = async(message, args) => {
         return;
     }
 
-    const wallet = await Wallet.findOne({ where: { discordId: message.author.id } });
+    const wallet = await Wallet.findOne({ where: { discordId: message.author.id, guildId: message.guild.id } });
     if (null === wallet || wallet.amount < amount) {
         await message.channel.send(`You can't bet this much! You have **${(null === wallet ? 0 : wallet.amount)}** points!`);
         return;

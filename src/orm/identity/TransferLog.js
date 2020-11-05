@@ -14,6 +14,10 @@ TransferLog.init({
     amount: {
         type: DataTypes.INTEGER,
         allowNull: false
+    },
+    guildId: {
+        type: DataTypes.STRING,
+        allowNull: false
     }
 }, {
     sequelize: connection,

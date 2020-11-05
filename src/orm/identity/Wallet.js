@@ -7,6 +7,10 @@ Wallet.init({
         type: DataTypes.STRING,
         allowNull: false
     },
+    guildId: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
     amount: {
         type: DataTypes.INTEGER,
         allowNull: false,

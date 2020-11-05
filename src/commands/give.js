@@ -5,22 +5,22 @@ import {getUserFromMention} from "../utility";
 import _ from "lodash";
 
 async function doTransfer(message, user, amount) {
-    const wallet = await Wallet.findOne({where: {discordId: message.author.id}});
+    const wallet = await Wallet.findOne({where: {discordId: message.author.id, guildId: message.guild.id}});
     if (null === wallet || (amount !== 'all' && wallet.amount < amount)) {
         await message.channel.send("You don't have enough points to give");
         return;
     }
 
     const [receiver, created] = await Wallet.findOrCreate({
-        where: {discordId: user.id},
-        defaults: {discordId: user.id}
+        where: {discordId: user.id, guildId: message.guild.id},
+        defaults: {discordId: user.id, guildId: message.guild.id}
     });
     amount = (amount === 'all' ? wallet.amount : amount);
     receiver.amount += amount;
     wallet.amount -= amount;
     await wallet.save();
     await receiver.save();
-    await TransferLog.create({sender: message.author.id, receiver: user.id, amount: amount});
+    await TransferLog.create({sender: message.author.id, receiver: user.id, amount: amount, guildId: message.guild.id});
     await message.channel.send(`You've successfully gifted ${amount} points to <@${user.id}>!`);
 }
 
@@ -36,7 +36,7 @@ export const run = async (message, args) => {
         return;
     }
 
-    const wallet = await Wallet.findOne({where: {discordId: message.author.id}});
+    const wallet = await Wallet.findOne({where: {discordId: message.author.id, guildId: message.guild.id}});
     if (null === wallet || (amount !== 'all' && wallet.amount < amount)) {
         await message.channel.send("You don't have enough points to give");
         return;
