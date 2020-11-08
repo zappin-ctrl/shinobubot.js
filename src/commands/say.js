@@ -61,7 +61,7 @@ export const run = async (message, args) => {
         });
     } catch (e) {}
 
-    const say = removeCommandPart(message.cleanContent.replace("@everyone","everyone").replace("@here","here");
+    const say = removeCommandPart(message.cleanContent.replace("@everyone","everyone").replace("@here","here"));
     if (message.channel.id === '652432414135681060') {
         for (const key in roleMap) {
             if (message.member.roles.cache.has(key)) {
