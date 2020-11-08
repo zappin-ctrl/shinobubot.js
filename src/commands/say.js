@@ -1,4 +1,4 @@
-import Discord from "discord.js";
+/*import Discord from "discord.js";
 import {removeCommandPart} from "../utility";
 
 const roleMap = {
@@ -78,3 +78,4 @@ export const run = async (message, args) => {
 export const help = "Have the bot repeat your message";
 export const helpArguments = '[sentence]';
 export const helpGroup = 'fun';
+*/
