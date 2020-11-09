@@ -7,7 +7,6 @@ let humidity = null;
 let wind = null;
 
 export const run = async (message, args) => {
-    message.channel.startTyping(); // do NOT await this, it freezes the execution.
     let question = encodeURI(args.join('+'));
     if (!question) {
         await message.channel.send("Please type out a valid location.");
@@ -20,6 +19,7 @@ export const run = async (message, args) => {
     }
 
     try {
+        message.channel.startTyping();
         const weather = await axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${question}&units=metric&appid=${process.env.OPENWEATHER_API_KEY}`);
 
         if (weather.data.cod !== 200) {
