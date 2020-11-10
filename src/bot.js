@@ -6,6 +6,7 @@ import fs from "fs";
 import _ from "lodash";
 import CommandStateList from "./orm/settings/CommandStateList";
 import {Mutex} from "async-mutex";
+import {saveCommandOutputs} from "./data";
 
 const client = new Discord.Client();
 
@@ -66,12 +67,15 @@ export async function askForConfirmation(message, description, callback, timeout
 
 function logCommands() {
     for (let i in cmdUsage) {
-        const cmds = [];
+        const cmds = {};
+        const readableCmds = [];
         for (let y in cmdUsage[i]) {
-            cmds.push(`${y}: ${cmdUsage[i][y]}`);
+            cmds[y] = cmdUsage[i][y];
+            readableCmds.push(`${y}: ${cmds[y]}`);
         }
 
-        logger.info(`Guild ${i} used commands ${cmds.join(", ")} in the last ${process.env.COMMAND_SAVE_TIME / 1000} seconds`);
+        saveCommandOutputs(i, cmds, process.env.COMMAND_SAVE_TIME / 1000);
+        logger.info(`Guild ${i} used commands ${readableCmds.join(", ")} in the last ${process.env.COMMAND_SAVE_TIME / 1000} seconds`);
     }
 
     cmdUsage = {};
