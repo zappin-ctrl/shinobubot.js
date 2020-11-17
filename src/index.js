@@ -19,7 +19,7 @@ axios.defaults.headers.common['User-Agent'] = getUserAgent();
 (async () => {
     try {
         await sequelize.authenticate();
-        client.login(process.env.DISCORD_TOKEN)
+        client.login(process.env.DISCORD_TOKEN);
         await sequelize.sync();
     } catch (e) {
         console.log(e);
