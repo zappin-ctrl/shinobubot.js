@@ -23,8 +23,10 @@ GuildTag.init({
 
 export default GuildTag;
 export const TAG_SPOOPY = 'spoopy';
+export const TAG_WINTER = 'winter';
 
 const allowedTags = [
-    TAG_SPOOPY
+    TAG_SPOOPY,
+    TAG_WINTER
 ];
 export {allowedTags};

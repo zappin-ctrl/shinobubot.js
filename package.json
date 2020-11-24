@@ -1,6 +1,6 @@
 {
   "name": "shinobot",
-  "version": "2.1.5",
+  "version": "2.1.6",
   "description": "",
   "main": "lib/index.js",
   "scripts": {
@@ -20,7 +20,7 @@
     "babel-plugin-lodash": "^3.3.4",
     "canvas": "^2.6.1",
     "cross-env": "^7.0.2",
-    "discord.js": "^12.4.1",
+    "discord.js": "^12.5.0",
     "dotenv": "^8.2.0",
     "lodash": "^4.17.20",
     "moment": "^2.29.1",
@@ -31,10 +31,10 @@
     "winston": "^3.2.1"
   },
   "devDependencies": {
-    "@babel/cli": "^7.12.1",
-    "@babel/core": "^7.12.3",
+    "@babel/cli": "^7.12.8",
+    "@babel/core": "^7.12.8",
     "@babel/plugin-proposal-class-properties": "^7.12.1",
     "@babel/plugin-proposal-nullish-coalescing-operator": "^7.12.1",
-    "@babel/preset-env": "^7.12.1"
+    "@babel/preset-env": "^7.12.7"
   }
 }

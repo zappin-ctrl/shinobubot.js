@@ -501,3 +501,15 @@ export function safeGetUsername(id) {
 
     return u.username;
 }
+
+export function drawTextOnImage(width, height, image, text, fromTop = 275, fontSize = '120px', fillStyle = 'white', align = 'center') {
+    const canvas = Canvas.createCanvas(width, height);
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(image, 0, 0, width, height);
+    ctx.font = fontSize + ' Roboto';
+    ctx.textAlign = align;
+    ctx.fillStyle = fillStyle;
+    ctx.fillText(text, width / 2, fromTop);
+
+    return canvas.toBuffer();
+}

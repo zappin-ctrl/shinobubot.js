@@ -1,11 +1,12 @@
 import {randomBetween} from "../utility";
 
 export default class RandomTimeout {
-    constructor(min, max, call) {
+    constructor(min, max, call, multiplier = 1) {
         this.min = min;
         this.max = max;
+        this.multiplier = multiplier;
 
-        this.call = call;
+        this.call = call.bind(this);
         this.timeout = null;
     }
 
@@ -14,7 +15,7 @@ export default class RandomTimeout {
             clearTimeout(this.timeout);
         }
 
-        this.timeout = setTimeout(this.wrapped, randomBetween(this.min, this.max));
+        this.timeout = setTimeout(this.wrapped.bind(this), this.multiplier * randomBetween(this.min, this.max));
     }
 
     stop() {

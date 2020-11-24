@@ -7,6 +7,7 @@ import _ from "lodash";
 import CommandStateList from "./orm/settings/CommandStateList";
 import {Mutex} from "async-mutex";
 import {saveCommandOutputs} from "./data";
+import {tryActionMessage} from "./auto/init";
 
 const client = new Discord.Client();
 
@@ -165,6 +166,8 @@ client.on('message', async (message) => {
     }
 
     if (message.content.indexOf(process.env.PREFIX) !== 0) {
+        tryActionMessage(message);
+
         return;
     }
 
