@@ -11,11 +11,11 @@ export const run = async(message, args) => {
         return;
     }
 
-    const person = args[0].replace("<@", "").replace(">", "");
+    const person = args[0].replace(/<|@|!|>/g, "");
 
     try {
         await client.users.cache.get(person).send(
-            `**\`From zappin#1312:\` ${args.join(" ").replace(args[0], "")}**`
+            `**\`From zappin#1312:\`** ${args.join(" ").replace(args[0], "")}`
         );
     } catch {
     message.reply("That user doesn't exist.")
