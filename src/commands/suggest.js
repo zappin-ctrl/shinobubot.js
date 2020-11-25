@@ -11,7 +11,7 @@ export const run = async (message, args) => {
     const owner = process.env.OWNER.split(",")[0];
 
     await client.users.cache.get(owner).send(
-        `User <@${message.author.id}> (${message.author.tag}) requested the following: \n> ${removeCommandPart(message.cleanContent)}`
+        `User <@${message.author.id}> (${message.author.tag} / ${message.author.id}) requested the following: \n> ${removeCommandPart(message.cleanContent)}`
     );
     await message.reply(` your suggestion has been sent ${process.env.EMOTE_VERIFIED}`);
 };
