@@ -5,12 +5,19 @@ import Wallet from "../orm/identity/Wallet";
 import client from "../bot";
 import logger from "../logger";
 import Discord from "discord.js";
-import {drawTextOnImage, randomBetween} from "../utility";
+import {drawTextOnImage, randomBetween, randomChance} from "../utility";
 import {Mutex} from "async-mutex";
 import Canvas from "canvas";
 import NonRepeatingRandom from "../classes/NonRepeatingRandom";
 
-const quotes = new NonRepeatingRandom(JSON.parse(fs.readFileSync("./assets/event/winter/words.json", 'utf8')));
+let words = JSON.parse(fs.readFileSync("./assets/event/winter/words.json", 'utf8'));
+const wordsSimple = JSON.parse(fs.readFileSync("./assets/event/winter/words-simple.json", "utf8"));
+
+for (let i of wordsSimple) {
+    words[i] = [i];
+}
+
+const quotes = new NonRepeatingRandom(words);
 let image = null;
 
 const mutexes = {};
@@ -94,14 +101,14 @@ export async function run() {
 
             const [quote, expected] = quotes.get();
             const buffer = drawTextOnImage(1400, 500, image, quote);
-            const points = randomBetween(100, 1000);
+            const points = randomBetween(100, 1000) * (randomChance(5) ? 5 : 1);
 
             event_quotes[guild.guildId] = {
-                quote: _.isArray(expected) ? expected : [expected],
+                quote: _.isArray(expected) ? expected.map((s) => s.toLowerCase()) : [expected.toLowerCase()],
                 points: points,
                 channel: channel.id,
                 message: await channel.send(
-                    `🔔**A Halloween spirit has visited!**🔔\n> Type the word to claim **\`${points}\`** points!`,
+                    `🔔**A Christmas spirit has visited!**🔔\n> Type the word to claim **\`${points}\`** points!`,
                     new Discord.MessageAttachment(buffer, 'event.jpg')
                 ),
                 claimed: [],

@@ -493,6 +493,10 @@ export function randomBetween(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min)
 }
 
+export function randomChance(percentage) {
+    return randomBetween(1, 100) > (100 - percentage);
+}
+
 export function safeGetUsername(id) {
     const u = client.users.cache.get(id);
     if (!u) {
