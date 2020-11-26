@@ -20,7 +20,7 @@
     "babel-plugin-lodash": "^3.3.4",
     "canvas": "^2.6.1",
     "cross-env": "^7.0.2",
-    "discord.js": "^12.5.0",
+    "discord.js": "^12.5.1",
     "dotenv": "^8.2.0",
     "lodash": "^4.17.20",
     "moment": "^2.29.1",
