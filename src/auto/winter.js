@@ -108,7 +108,7 @@ export async function run() {
                 points: points,
                 channel: channel.id,
                 message: await channel.send(
-                    `🔔**A Christmas spirit has visited!**🔔\n> Type the word to claim **\`${points}\`** points!`,
+                    `🔔**A Christmas spirit has visited!**🔔\n> Type the word/do the math to claim **\`${points}\`** points!`,
                     new Discord.MessageAttachment(buffer, 'event.jpg')
                 ),
                 claimed: [],
