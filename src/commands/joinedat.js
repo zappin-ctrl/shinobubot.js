@@ -35,13 +35,14 @@ export const run = async(message, args) => {
     let end;
     let complete;
     if (!args[0]) {
-        end = message.member.joinedAt;
-        if (!end) {
-            await message.channel.send(`You can only use this command in a server.`)
+        try {
+            end = message.member.joinedAt;
+            complete = (start - end);
+            await message.channel.send(`> 🛎 **${message.member.user.username}**, you joined **${convertMS(complete)}** ago!\n*(${end.toUTCString().replace(" GMT","")})*`);
+        } catch {
+            await message.channel.send("You're not in a server.");
             return;
         }
-        complete = (start - end);
-        await message.channel.send(`> 🛎 **You** joined **${convertMS(complete)}** ago!\n*(${end.toUTCString().replace(" GMT","")})*`);
     } else {
         let user = await getUserFromMention(args[0], message, true);
         let memuser = message.channel.guild.member(user);
