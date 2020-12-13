@@ -10,6 +10,9 @@ services:
       - SEQUELIZE_DSN=mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@shino_mysql:3306/${MYSQL_DATABASE}
     depends_on:
       - shino_mysql
+    dns:
+      - 1.1.1.1
+      - 1.0.0.1
 
   shino_mysql:
     container_name: shino_mysql
