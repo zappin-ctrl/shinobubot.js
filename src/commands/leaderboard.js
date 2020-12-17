@@ -22,7 +22,7 @@ export const run = async (message) => {
             lines.push(`${parseInt(i)+1} - ${safeGetUsername(leaderboard[i].discordId)} - ${leaderboard[i].amount}`);
         } catch (e) {}
     }
-    await message.channel.send('```py\n' + lines.join("\n") + '```');
+    await message.channel.send('```py\n' + lines.join("\n").replace("'"," ") + '```');
 };
 
 export const help = 'Check the point leaderboard';
