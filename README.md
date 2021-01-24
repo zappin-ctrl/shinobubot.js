@@ -3,17 +3,7 @@
  
 #### How to:
 
-Clone the repository, go into the folder with it and then run the following commands
-```
-npm install
-npm run build
-```
-
-and then to start it
-
-```
-npm run start
-```
+Experimental C# rewrite.
 
 An example .env file is provided as .env.dist.
 
