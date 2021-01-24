@@ -1,11 +1,8 @@
-node_modules
-lib
-
-/.env
-combined.log
-error.log
-orm.log
-
 .idea
 .vscode
 logs/
+.env.local
+
+# csharp
+bot/src/shinobu/bin
+bot/src/shinobu/obj
