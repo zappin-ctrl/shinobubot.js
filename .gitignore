@@ -4,5 +4,5 @@ logs/
 .env.local
 
 # csharp
-bot/src/shinobu/bin
-bot/src/shinobu/obj
+bot/src/bin
+bot/src/obj

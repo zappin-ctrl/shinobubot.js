@@ -2,12 +2,13 @@
 using System.Threading.Tasks;
 using Discord.WebSocket;
 using CommandLine;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace shinobu
 {
     class Bot
     {
-        private DiscordSocketClient client;
+        private ServiceCollection services;
 
         static int Main(string[] args)
             => new Bot().Run(args).GetAwaiter().GetResult();
@@ -15,7 +16,7 @@ namespace shinobu
         public async Task<int> Run(string[] args)
         {
             Parser.Default.ParseArguments<Options>(args).WithParsed(o => {
-                var path = o.envPath == null ? null : o.envPath + "/.env";
+                var path = o.envPath == null ? null : o.envPath + "/.env.local";
                 DotNetEnv.Env.Load(path);
             });
 
@@ -24,13 +25,15 @@ namespace shinobu
                 Console.WriteLine(".env file could not be read, recheck your .env file or specify env-path as a cli argument");
                 return -1;
             }
-            Console.WriteLine("now env");
-            Console.WriteLine(System.Environment.GetEnvironmentVariable("DISCORD_TOKEN"));
-            this.client = new DiscordSocketClient();
-            this.client.Log += this.Log;
+            this.services = new ServiceCollection();
+            this.services.AddSingleton<DiscordSocketClient>();
 
-            await this.client.LoginAsync(Discord.TokenType.Bot, "");
-            await this.client.StartAsync();
+            var provider = this.services.BuildServiceProvider();
+            provider.GetService<DiscordSocketClient>().Log += this.Log;
+
+
+            await provider.GetService<DiscordSocketClient>().LoginAsync(Discord.TokenType.Bot, token);
+            await provider.GetService<DiscordSocketClient>().StartAsync();
 
             await Task.Delay(-1);
             return 0;
