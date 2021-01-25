@@ -4,9 +4,9 @@ using Discord.Commands;
 
 namespace shinobu.Commands
 {
-    class Utility : ModuleBase<SocketCommandContext>
+    public class Utility : ModuleBase<SocketCommandContext>
     {
-        [Command("ping")]
+        [Command("ping", RunMode=RunMode.Async)]
         public Task Ping()
         {
             this.Context.Channel.SendMessageAsync("yeet my ass");

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Discord.WebSocket;
+using Discord.Commands;
 using CommandLine;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -8,13 +9,13 @@ namespace shinobu
 {
     class Bot
     {
-        private ServiceCollection services;
-
         static int Main(string[] args)
             => new Bot().Run(args).GetAwaiter().GetResult();
 
         public async Task<int> Run(string[] args)
         {
+            var services = this.ConfigureServices();
+
             Parser.Default.ParseArguments<Options>(args).WithParsed(o => {
                 var path = o.envPath == null ? null : o.envPath + "/.env.local";
                 DotNetEnv.Env.Load(path);
@@ -25,15 +26,14 @@ namespace shinobu
                 Console.WriteLine(".env file could not be read, recheck your .env file or specify env-path as a cli argument");
                 return -1;
             }
-            this.services = new ServiceCollection();
-            this.services.AddSingleton<DiscordSocketClient>();
+            
+            services.GetService<DiscordSocketClient>().Log += this.Log;
+            services.GetService<CommandService>().Log += this.Log;
 
-            var provider = this.services.BuildServiceProvider();
-            provider.GetService<DiscordSocketClient>().Log += this.Log;
+            await services.GetService<DiscordSocketClient>().LoginAsync(Discord.TokenType.Bot, token);
+            await services.GetService<DiscordSocketClient>().StartAsync();
 
-
-            await provider.GetService<DiscordSocketClient>().LoginAsync(Discord.TokenType.Bot, token);
-            await provider.GetService<DiscordSocketClient>().StartAsync();
+            await services.GetService<CommandHandler>().InitializeAsync();
 
             await Task.Delay(-1);
             return 0;
@@ -43,6 +43,15 @@ namespace shinobu
         {
             Console.WriteLine(msg.ToString());
             return Task.CompletedTask;
+        }
+
+        private ServiceProvider ConfigureServices()
+        {
+            return new ServiceCollection()
+                .AddSingleton<DiscordSocketClient>()
+                .AddSingleton<CommandService>() // discord.net stuff
+                .AddSingleton<CommandHandler>() // ours
+                .BuildServiceProvider();
         }
     }
 }
