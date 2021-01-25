@@ -28,7 +28,7 @@ namespace shinobu
 
         public async Task InitializeAsync()
         {
-            await _services.GetService<CommandService>().AddModulesAsync(Assembly.GetEntryAssembly(), _services);
+            await _commands.AddModulesAsync(Assembly.GetEntryAssembly(), _services);
         }
 
         public async Task MessageReceivedAsync(SocketMessage msg)
