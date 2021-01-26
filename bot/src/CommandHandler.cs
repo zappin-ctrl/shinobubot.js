@@ -62,19 +62,19 @@ namespace shinobu
             // if a command isn't found, log that info to console and exit this method
             if (!command.IsSpecified)
             {
-                System.Console.WriteLine($"Command failed to execute for [] <-> []!");
+                Console.WriteLine(String.Format("Command failed to execute unknown command for {1}!", command.ToString(), context.User.Id));
                 return;
             }
 
             // log success to the console and exit this method
             if (result.IsSuccess)
             {
-                System.Console.WriteLine($"Command [] executed for -> []");
+                Console.WriteLine(String.Format("Command {0} executed for {1}", command.Value.Name, context.User.Id));
                 return;
             }
                 
             // failure scenario, let's let the user know
-            await context.Channel.SendMessageAsync($"Sorry, ... something went wrong -> []!");
+            await context.Channel.SendMessageAsync("Sorry, something went wrong!");
         }
     }
 }

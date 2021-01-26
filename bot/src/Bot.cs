@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Discord.WebSocket;
 using Discord.Commands;
-using CommandLine;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace shinobu
@@ -14,14 +13,10 @@ namespace shinobu
 
         public async Task<int> Run(string[] args)
         {
+            Helper.Init(args);
             var services = this.ConfigureServices();
 
-            Parser.Default.ParseArguments<Options>(args).WithParsed(o => {
-                var path = o.envPath == null ? null : o.envPath + "/.env.local";
-                DotNetEnv.Env.Load(path);
-            });
-
-            string token = System.Environment.GetEnvironmentVariable("DISCORD_TOKEN");
+            string token = Helper.Env("BOT_TOKEN");
             if (null == token || 0 == token.Length) {
                 Console.WriteLine(".env file could not be read, recheck your .env file or specify env-path as a cli argument");
                 return -1;
@@ -47,9 +42,12 @@ namespace shinobu
 
         private ServiceProvider ConfigureServices()
         {
+            var CommandServiceConfig = new CommandServiceConfig();
+            CommandServiceConfig.DefaultRunMode = RunMode.Async;
+            
             return new ServiceCollection()
                 .AddSingleton<DiscordSocketClient>()
-                .AddSingleton<CommandService>() // discord.net stuff
+                .AddSingleton<CommandService>(s => new CommandService(CommandServiceConfig)) // discord.net stuff
                 .AddSingleton<CommandHandler>() // ours
                 .BuildServiceProvider();
         }
