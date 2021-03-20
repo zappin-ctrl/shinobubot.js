@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using System.Net.Http;
 using Discord.WebSocket;
 using Discord.Commands;
 using Microsoft.Extensions.DependencyInjection;
@@ -49,6 +50,7 @@ namespace shinobu
                 .AddSingleton<DiscordSocketClient>()
                 .AddSingleton<CommandService>(s => new CommandService(CommandServiceConfig)) // discord.net stuff
                 .AddSingleton<CommandHandler>() // ours
+                .AddSingleton<HttpClient>()
                 .BuildServiceProvider();
         }
     }
