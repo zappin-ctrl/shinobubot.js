@@ -72,7 +72,7 @@ namespace shinobu
                 Console.WriteLine(String.Format("Command {0} executed for {1}", command.Value.Name, context.User.Id));
                 return;
             }
-                
+            
             // failure scenario, let's let the user know
             await context.Channel.SendMessageAsync("Sorry, something went wrong!");
         }
