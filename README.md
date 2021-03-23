@@ -14,3 +14,7 @@ An example .env file is provided as .env.dist.
 It uses **nekos.life, waifu.pics, rra.ram.moe** for the GIF commands (or **weeb.sh** if you supply a valid token).
 
 #### Please run the bot in docker or similar environment before reporting errors.
+
+#### Issues:
+
+- Command errors for now simply return errors in themselves but they should do that as an annotation in the CommandHandler class instead.

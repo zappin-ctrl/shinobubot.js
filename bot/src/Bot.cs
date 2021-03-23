@@ -51,6 +51,7 @@ namespace shinobu
                 .AddSingleton<CommandService>(s => new CommandService(CommandServiceConfig)) // discord.net stuff
                 .AddSingleton<CommandHandler>() // ours
                 .AddSingleton<HttpClient>()
+                .AddSingleton<Random>() // shared randomizer
                 .BuildServiceProvider();
         }
     }
