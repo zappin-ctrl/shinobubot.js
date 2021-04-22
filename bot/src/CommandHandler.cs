@@ -1,11 +1,14 @@
 using System;
 using System.Threading.Tasks;
 using System.Reflection;
+using System.Collections.Generic;
 using Discord;
 using Discord.WebSocket;
 using Discord.Commands;
 using Microsoft.Extensions.DependencyInjection;
+using shinobu.Attributes;
 
+#nullable enable
 namespace shinobu
 {
     class CommandHandler
@@ -14,6 +17,8 @@ namespace shinobu
         private readonly DiscordSocketClient _client;
         private readonly CommandService _commands;
         private readonly string _prefix;
+
+        private readonly HashSet<CommandError> ACCEPTABLE_COMMAND_FAILS = new HashSet<CommandError> {CommandError.BadArgCount, CommandError.ParseFailed};
 
         public CommandHandler(IServiceProvider services)
         {
@@ -73,8 +78,23 @@ namespace shinobu
                 return;
             }
             
-            // failure scenario, let's let the user know
-            await context.Channel.SendMessageAsync("Sorry, something went wrong!");
+            string? failMessage = null;
+
+            if (ACCEPTABLE_COMMAND_FAILS.Contains((CommandError) result.Error)) {
+                foreach (var i in command.Value.Attributes)
+                {
+                    var a = i as ErrorMessageAttribute;
+
+                    if (null != a) {
+                        failMessage = a.Message;
+                    }
+                }
+            }
+            
+            await Helper.SimpleMessage(
+                context,
+                failMessage ?? "Sorry, something went wrong! Our cute retards have been notified~"
+            );
         }
     }
 }

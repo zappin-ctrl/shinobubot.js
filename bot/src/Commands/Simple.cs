@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Collections.Generic;
 using Discord.Commands;
+using shinobu.Attributes;
 
 #nullable enable
 
@@ -98,9 +99,11 @@ namespace shinobu.Commands
         }
 
         [Command("roll")]
-        public async Task Roll(int? number = null)
+        [ErrorMessage("Please enter a number to roll with it as the max")]
+        public async Task Roll(int number)
         {
-            if (null == number || 0 == number) {
+            // todo: add a failure jump via exception?
+            if (0 == number) {
                 await Helper.SimpleMessage(this.Context, "Please enter a number to roll with it as the max");
                 return;
             }
