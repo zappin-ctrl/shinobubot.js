@@ -5,6 +5,7 @@ using System.Text.Json;
 using System.Collections.Generic;
 using Discord.Commands;
 using shinobu.Attributes;
+using Discord;
 
 #nullable enable
 
@@ -116,6 +117,32 @@ namespace shinobu.Commands
                     _random.Next((int) number - 1) + 1,
                     number
                 )
+            );
+        }
+
+        [Command("usertest")]
+        public async Task TestMember(IGuildUser? users)
+        {
+            string message = "found users: ";
+            // foreach (var u in users) {
+            //     if (u is null) {
+            //         message += "nulluser, ";
+            //         continue;
+            //     }
+            //     message += u.Nickname + ", ";
+            // }
+
+            if (users is null) {
+                message += "null!";
+            } else {
+                message += users.Id;
+            }
+
+            Console.WriteLine(users);
+
+            await Helper.SimpleMessage(
+                this.Context,
+                message
             );
         }
     }
