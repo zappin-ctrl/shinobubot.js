@@ -7,6 +7,7 @@ using Discord.WebSocket;
 using Discord.Commands;
 using Microsoft.Extensions.DependencyInjection;
 using shinobu.Attributes;
+using shinobu.TypeReaders;
 
 #nullable enable
 namespace shinobu
@@ -33,6 +34,9 @@ namespace shinobu
 
         public async Task InitializeAsync()
         {
+            // allow for fetching users
+            _commands.AddTypeReader<IGuildUser?>(new IGuildUserTypeReader());
+
             await _commands.AddModulesAsync(Assembly.GetEntryAssembly(), _services);
         }
 
