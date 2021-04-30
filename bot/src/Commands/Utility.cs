@@ -1,12 +1,12 @@
 using System;
 using System.Threading.Tasks;
-using Discord.Commands;
+using Disqord.Bot;
+using Disqord.Rest;
+using Qmmands;
 
-#nullable enable
-
-namespace shinobu.Commands
+namespace Shinobu.Commands
 {
-    public class Utility : ModuleBase<SocketCommandContext>
+    public class Utility : DiscordModuleBase
     {
         private const string PING_MESSAGE = "Receive delay {0}ms, latency is {1}ms";    
 
@@ -14,11 +14,15 @@ namespace shinobu.Commands
         public async Task Ping()
         {
             long now = Helper.GetTimestamp();
-            long message = this.Context.Message.CreatedAt.ToUnixTimeMilliseconds();
+            long message = Context.Message.CreatedAt.ToUnixTimeMilliseconds();
             long diff = now - message;
-            var embed = Helper.GetEmbed().WithDescription(String.Format(PING_MESSAGE, diff, '?'));
-            var msg = await this.Context.Channel.SendMessageAsync(null, false, embed.Build());
-            await msg.ModifyAsync(m => m.Embed = embed.WithDescription(String.Format(PING_MESSAGE, diff, msg.CreatedAt.ToUnixTimeMilliseconds() - message)).Build());
+            var embed = Helper.GetEmbed(String.Format(PING_MESSAGE, diff, '?'));
+            var response = await Response(embed);
+            await response.ModifyAsync(x => 
+                x.Embed = embed.WithDescription(
+                    String.Format(PING_MESSAGE, diff, response.CreatedAt.ToUnixTimeMilliseconds() - message)
+                    ).Build()
+                );
         }
     }
 }

@@ -1,7 +1,6 @@
-#nullable enable
 using CommandLine;
 
-namespace shinobu 
+namespace Shinobu 
 {
     class Options
     {

@@ -1,6 +1,6 @@
 using System;
 
-namespace shinobu.Attributes
+namespace Shinobu.Attributes
 {
     [System.AttributeUsage(System.AttributeTargets.Method)]
     sealed class ErrorMessageAttribute : System.Attribute

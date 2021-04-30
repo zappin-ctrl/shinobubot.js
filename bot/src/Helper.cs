@@ -1,10 +1,8 @@
 using System;
-using System.Threading.Tasks;
-using Discord;
+using Disqord;
 using CommandLine;
 
-#nullable enable
-namespace shinobu
+namespace Shinobu
 {
     class Helper
     {
@@ -13,18 +11,9 @@ namespace shinobu
             return Convert.ToInt64((DateTime.Now.ToUniversalTime() - new DateTime(1970, 1, 1)).TotalMilliseconds);
         }
 
-        public static Task<Discord.IUserMessage> SimpleMessage(Discord.Commands.ICommandContext context, string message)
+        public static LocalEmbedBuilder GetEmbed(string? description = null)
         {
-            return context.Channel.SendMessageAsync(
-                null,
-                false,
-                Helper.GetEmbed(message).Build()
-            );
-        }
-
-        public static EmbedBuilder GetEmbed(string? description = null)
-        {
-            var embed = (new EmbedBuilder())
+            var embed = (new LocalEmbedBuilder())
                 .WithColor((Color) System.Drawing.ColorTranslator.FromHtml(Env("EMBED_COLOR")));
 
             if (null != description) {

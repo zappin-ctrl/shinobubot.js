@@ -3,15 +3,14 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using System.Text.Json;
 using System.Collections.Generic;
-using Discord.Commands;
-using shinobu.Attributes;
-using Discord;
+using Disqord.Bot;
+using Disqord.Rest;
+using Shinobu.Attributes;
+using Qmmands;
 
-#nullable enable
-
-namespace shinobu.Commands
+namespace Shinobu.Commands
 {
-    public class Simple : ModuleBase<SocketCommandContext>
+    public class Simple : DiscordModuleBase
     {
         private readonly HttpClient _client;
         private readonly Random _random;
@@ -40,34 +39,31 @@ namespace shinobu.Commands
         }
 
         [Command("8ball")]
-        public async Task EightBall(string? message = null)
+        public async Task<DiscordCommandResult> EightBall(string? message = null)
         {
-            if (null == message || 0 == message.Length) {
-                await Helper.SimpleMessage(this.Context, "Please ask a **yes / no** question");
-                return;
+            if (string.IsNullOrEmpty(message))
+            {
+                return Response("Please ask a **yes / no** question");
             }
 
             var response = await _client.GetStreamAsync("https://8ball.delegator.com/magic/JSON/" + message);
             var data = await JsonSerializer.DeserializeAsync<Dictionary<string, Dictionary<string, string>>>(response);
 
-            await Helper.SimpleMessage(
-                this.Context, 
-                string.Format(
-                    "{0} asks: \n > {1} \n \n **`Answer:`** **{2} {3}**",
-                    "placeholder",
-                    message,
-                    data["magic"]["answer"],
-                    Helper.Env(EIGHTBALL_TYPE_DICTIONARY[data["magic"]["type"]])
-                )
-            );
+            return Response(string.Format(
+                "{0} asks: \n > {1} \n \n **`Answer:`** **{2} {3}**",
+                "placeholder",
+                message,
+                data["magic"]["answer"],
+                Helper.Env(EIGHTBALL_TYPE_DICTIONARY[data["magic"]["type"]])
+            ));
         }
 
         [Command("choose")]
-        public async Task Choose([Remainder]string? message = null)
+        public DiscordCommandResult Choose([Remainder]string? message = null)
         {
-            if (null == message || 0 == message.Length) {
-                await Helper.SimpleMessage(this.Context, "Please type your options separated with a comma.");
-                return;
+            if (string.IsNullOrEmpty(message))
+            {
+                return Response("Please type your options separated with a comma.");
             }
 
             var choices = message.Split(",");
@@ -76,12 +72,16 @@ namespace shinobu.Commands
                 choices[i] = choices[i].Trim();
             }
 
-            if (0 == choices.Length) {
-                await Helper.SimpleMessage(this.Context, "Please type your options separated with a comma.");
-                return;
+            if (0 == choices.Length)
+            {
+                return Response(
+                    "Please type your options separated with a comma."
+                );
             }
 
-            await Helper.SimpleMessage(this.Context, choices[_random.Next(choices.Length)]);
+            return Response(
+                choices[_random.Next(choices.Length)]
+            );
         }
 
         [Command("coinflip")]
@@ -90,28 +90,24 @@ namespace shinobu.Commands
             var embed = Helper.GetEmbed().WithDescription(
                 Helper.Env("EMOTE_COINFLIP") + " " + COINFLIP_START_QUOTE[_random.Next(COINFLIP_START_QUOTE.Length)] + " . . . "
             );
-            var post = await this.Context.Channel.SendMessageAsync(
-                null,
-                false,
-                embed.Build()
-            );
+            var response = await Response(embed);
             await Task.Delay(3000);
-            await post.ModifyAsync(m => m.Embed = embed.WithDescription(COINFLIP_END_QUOTE[_random.Next(COINFLIP_END_QUOTE.Length)]).Build());
+            await response.ModifyAsync(x => x.Embed = embed.WithDescription(
+                COINFLIP_END_QUOTE[_random.Next(COINFLIP_END_QUOTE.Length)]
+            ).Build());
         }
 
         [Command("roll")]
         [ErrorMessage("Please enter a number to roll with it as the max")]
-        public async Task Roll(int number)
+        public DiscordCommandResult Roll(int number)
         {
             // todo: add a failure jump via exception?
-            if (0 == number) {
-                await Helper.SimpleMessage(this.Context, "Please enter a number to roll with it as the max");
-                return;
+            if (0 == number)
+            {
+                return Response("Please enter a number to roll with it as the max");
             }
 
-            await Helper.SimpleMessage(
-                this.Context,
-                string.Format(
+            return Response(string.Format(
                     "**{0}** rolled a **{1}** / {2}",
                     "placeholder",
                     _random.Next((int) number - 1) + 1,
@@ -120,30 +116,24 @@ namespace shinobu.Commands
             );
         }
 
-        [Command("usertest")]
-        public async Task TestMember(IGuildUser? users)
-        {
-            string message = "found users: ";
-            // foreach (var u in users) {
-            //     if (u is null) {
-            //         message += "nulluser, ";
-            //         continue;
-            //     }
-            //     message += u.Nickname + ", ";
-            // }
-
-            if (users is null) {
-                message += "null!";
-            } else {
-                message += users.Id;
-            }
-
-            Console.WriteLine(users);
-
-            await Helper.SimpleMessage(
-                this.Context,
-                message
-            );
-        }
+        // [Command("usertest")]
+        // public async Task TestMember(IReadOnlyCollection<IGuildUser?> users)
+        // {
+        //     string message = "found users: ";
+        //     foreach (var u in users) {
+        //         if (u is null) {
+        //             message += "nulluser, ";
+        //             continue;
+        //         }
+        //         message += u.Id.ToString() + ", ";
+        //     }
+        //
+        //     Console.WriteLine(users);
+        //
+        //     await Helper.SimpleMessage(
+        //         this.Context,
+        //         message
+        //     );
+        // }
     }
 }
