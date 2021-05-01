@@ -14,7 +14,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Logging;
 using Qmmands;
-using Shinobu.Attributes;
 using Shinobu.TypeParsers;
 
 namespace Shinobu

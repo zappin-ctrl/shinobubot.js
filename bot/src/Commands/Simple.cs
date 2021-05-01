@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using Disqord;
 using Disqord.Bot;
 using Disqord.Rest;
-using Shinobu.Attributes;
 using Shinobu.Extensions;
 using Qmmands;
 
@@ -109,15 +108,8 @@ namespace Shinobu.Commands
         }
 
         [Command("roll")]
-        [ErrorMessage("Please enter a number to roll with it as the max")]
-        public DiscordCommandResult Roll(int number)
+        public DiscordCommandResult Roll([Minimum(1)] int number)
         {
-            // todo: add a failure jump via exception?
-            if (0 == number)
-            {
-                return Embed("Please enter a number to roll with it as the max");
-            }
-
             return Embed(string.Format(
                     "**{0}** rolled a **{1}** / {2}",
                     Context.Author.Mention,
