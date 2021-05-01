@@ -17,7 +17,7 @@ using Serilog.Sinks.SystemConsole.Themes;
 
 namespace Shinobu
 {
-    internal sealed class Bot
+    internal sealed class Program
     {
         static int Main(string[] args)
         {
@@ -47,10 +47,10 @@ namespace Shinobu
                     x.Services.AddSingleton(typeof(HttpClient));
                     x.Services.AddSingleton(typeof(Random));
                 })
-                .ConfigureDiscordBot((context, bot) => {
+                .ConfigureDiscordBotSharder<ShinobuBot>((context, bot) => {
                     bot.Token = token;
                     bot.UseMentionPrefix = true;
-                    bot.Prefixes = new[] { "?", "!" };
+                    bot.Prefixes = new[] { Helper.Env("PREFIX") };
                 })
                 .UseDefaultServiceProvider(x => x.ValidateOnBuild = true)
                 .Build();

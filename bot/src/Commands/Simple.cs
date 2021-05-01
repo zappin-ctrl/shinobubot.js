@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using System.Text.Json;
 using System.Collections.Generic;
+using Disqord;
 using Disqord.Bot;
 using Disqord.Rest;
 using Shinobu.Attributes;
@@ -116,24 +117,19 @@ namespace Shinobu.Commands
             );
         }
 
-        // [Command("usertest")]
-        // public async Task TestMember(IReadOnlyCollection<IGuildUser?> users)
-        // {
-        //     string message = "found users: ";
-        //     foreach (var u in users) {
-        //         if (u is null) {
-        //             message += "nulluser, ";
-        //             continue;
-        //         }
-        //         message += u.Id.ToString() + ", ";
-        //     }
-        //
-        //     Console.WriteLine(users);
-        //
-        //     await Helper.SimpleMessage(
-        //         this.Context,
-        //         message
-        //     );
-        // }
+        [Command("usertest")]
+        public DiscordCommandResult TestMember(IReadOnlyCollection<IMember?> users)
+        {
+            string message = "found users: ";
+            foreach (var u in users) {
+                if (u is null) {
+                    message += "nulluser, ";
+                    continue;
+                }
+                message += u.Id.ToString() + ", ";
+            }
+            
+            return Response(message);
+        }
     }
 }

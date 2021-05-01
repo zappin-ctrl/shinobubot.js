@@ -2,8 +2,14 @@ using System;
 using System.Threading.Tasks;
 using System.Reflection;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 using Disqord;
 using Disqord.Bot;
+using Disqord.Bot.Sharding;
+using Disqord.Gateway;
+using Disqord.Rest;
+using Disqord.Sharding;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Logging;
@@ -13,33 +19,25 @@ using Shinobu.TypeParsers;
 
 namespace Shinobu
 {
-    class BotBase : DiscordBotBase
+    public class ShinobuBot : DiscordBotSharder
     {
-        private readonly IServiceProvider _services;
-        private readonly CommandService _commands;
-        private readonly string _prefix;
-        
-        // private readonly HashSet<CommandError> ACCEPTABLE_COMMAND_FAILS = new HashSet<CommandError> {CommandError.BadArgCount, CommandError.ParseFailed};
-
-        public BotBase(
-            IOptions<DiscordBotBaseConfiguration> options,
-            ILogger logger,
+        public ShinobuBot(
+            IOptions<DiscordBotSharderConfiguration> options,
+            ILogger<DiscordBotSharder> logger,
             IPrefixProvider prefixes,
             ICommandQueue queue,
             CommandService commands,
             IServiceProvider services,
-            DiscordClientBase client): base(options, logger, prefixes, queue, commands, services, client)
-        {
-            _services = services;
-            _commands = commands;
-            _prefix = System.Environment.GetEnvironmentVariable("PREFIX");
-            _commands.AddTypeParser<IReadOnlyCollection<IMember?>>(new ReadOnlyCollectionIMemberTypeParser());
+            DiscordClientSharder client) : base(options, logger, prefixes, queue, commands, services, client)
+        {}
+        
+        protected override ValueTask AddTypeParsersAsync(
+            CancellationToken cancellationToken = new CancellationToken()
+        ) {
+            Commands.AddTypeParser(new ReadOnlyCollectionIMemberTypeParser());
+            return base.AddTypeParsersAsync(cancellationToken);
         }
 
-        public async Task ExecuteAsync()
-        {
-            // allow for fetching users
-        }
         //
         // public async Task MessageReceivedAsync(SocketMessage msg)
         // {

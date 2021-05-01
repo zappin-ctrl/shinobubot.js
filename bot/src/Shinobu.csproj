@@ -7,8 +7,8 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.8.0" />
-    <PackageReference Include="Disqord" Version="1.0.0-04252021-18" />
-    <PackageReference Include="Disqord.Bot" Version="1.0.0-04252021-18" />
+    <PackageReference Include="Disqord" Version="1.0.0-05012021-21" />
+    <PackageReference Include="Disqord.Bot" Version="1.0.0-05012021-21" />
     <PackageReference Include="DotNetEnv" Version="2.1.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
