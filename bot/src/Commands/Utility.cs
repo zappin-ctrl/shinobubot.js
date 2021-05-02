@@ -1,8 +1,10 @@
 using System;
 using System.Threading.Tasks;
+using Disqord;
 using Disqord.Bot;
 using Disqord.Rest;
 using Qmmands;
+using Shinobu.Extensions;
 
 namespace Shinobu.Commands
 {
@@ -34,6 +36,31 @@ namespace Shinobu.Commands
                     "Yes, {0} is a bot owner!",
                     Context.Author.Mention
                 )
+            );
+        }
+        
+        [Command("avatar", "pfp", "image", "profilepic", "pic")]
+        [RequireGuild]
+        public async Task<DiscordCommandResult> Avatar(IMember? member = null)
+        {
+            member ??= await Context.GetCurrentMember();
+
+            return Reply(
+                GetEmbed()
+                    .WithTitle(member.NickOrName() + "'s avatar")
+                    .WithImageUrl(member.GetAvatarUrl(ImageFormat.Default, 256))
+            );
+        }
+        
+        [Command("emote", "emoji", "enlarge", "steal")]
+        public DiscordCommandResult Emote(ICustomEmoji emoji)
+        {
+            return Reply(
+                GetEmbed()
+                    .WithImageUrl(emoji.GetUrl())
+                    .WithTitle(emoji.Name ?? "No emote name")
+                    .WithFooter("ID: " + emoji.Id.ToString() + string.Format(", {0}", emoji.IsAnimated ? "Animated (.gif)" : "Image (.png)"))
+                    .WithUrl(emoji.GetUrl())
             );
         }
     }
